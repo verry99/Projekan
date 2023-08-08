@@ -5,9 +5,12 @@ import androidx.paging.PagingState
 import com.test.test.data.remote.api.DashboardService
 import com.test.test.data.remote.dto.volunteer.VolunteerResponseItem
 
-class VolunteerPagingSource(
+
+class SearchVolunteerPagingSource(
     private val dashboardService: DashboardService,
-    private val token: String
+    private val token: String,
+    private val keyword: String,
+    private val role: String
 ) : PagingSource<Int, VolunteerResponseItem>() {
 
     override fun getRefreshKey(state: PagingState<Int, VolunteerResponseItem>): Int? {
@@ -19,19 +22,18 @@ class VolunteerPagingSource(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, VolunteerResponseItem> {
         return try {
-            val position = params.key ?: INITIAL_PAGE_INDEX
-            val responseData = dashboardService.getAllVolunteer(token, position).data!!.volunteers!!
+            val responseData =
+                dashboardService.getVolunteerByName(token, keyword, role).data!!.volunteers!!
+            val pageNumber = params.key ?: 0
+            val pageSize = params.loadSize
+            val startIndex = pageNumber * pageSize
             LoadResult.Page(
                 data = responseData,
-                prevKey = if (position == INITIAL_PAGE_INDEX) null else position - 1,
-                nextKey = if (responseData.isEmpty()) null else position + 1
+                prevKey = null,
+                nextKey = if (startIndex + pageSize < responseData.size) pageNumber + 1 else null
             )
         } catch (exception: Exception) {
             return LoadResult.Error(exception)
         }
-    }
-
-    private companion object {
-        const val INITIAL_PAGE_INDEX = 1
     }
 }

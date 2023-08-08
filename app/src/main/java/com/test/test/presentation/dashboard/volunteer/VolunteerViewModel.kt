@@ -12,6 +12,7 @@ import com.test.test.data.remote.dto.volunteer.VolunteerResponseItem
 import com.test.test.domain.models.UserPref
 import com.test.test.domain.use_case.user_pref.get_user.GetUserPreferenceUseCase
 import com.test.test.domain.use_case.volunteer.get_all_volunteer.GetVolunteerUseCase
+import com.test.test.domain.use_case.volunteer.get_volunteer_by_name.GetVolunteerByNameUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -19,6 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class VolunteerViewModel @Inject constructor(
     private val getVolunteerUseCase: GetVolunteerUseCase,
+    private val getVolunteerByNameUseCase: GetVolunteerByNameUseCase,
     private val getUserPreferenceUseCase: GetUserPreferenceUseCase,
     private val state: SavedStateHandle
 ) : ViewModel() {
@@ -37,6 +39,19 @@ class VolunteerViewModel @Inject constructor(
             getUserPreferenceUseCase().let {
                 _user.value = it
             }
+        }
+    }
+
+    fun searchVolunteer(name: String): LiveData<PagingData<VolunteerResponseItem>> {
+        val accessToken = state.get<String>("token")
+        val role = "volunteer"
+        return liveData {
+            val pagingData = getVolunteerByNameUseCase(
+                "Bearer $accessToken",
+                name,
+                role
+            ).cachedIn(viewModelScope)
+            emitSource(pagingData)
         }
     }
 }

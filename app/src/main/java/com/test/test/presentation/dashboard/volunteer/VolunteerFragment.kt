@@ -48,6 +48,11 @@ class VolunteerFragment : Fragment(), View.OnClickListener {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val volunteerName = s.toString()
+                viewModel.searchVolunteer(volunteerName).observe(viewLifecycleOwner) {
+                    val adapter = VolunteerAdapter()
+                    adapter.submitData(lifecycle, it)
+                    binding.rvVolunteer.adapter = adapter
+                }
             }
 
             override fun afterTextChanged(s: Editable?) {}
