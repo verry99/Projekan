@@ -1,0 +1,144 @@
+<resources>
+    <!--  General  -->
+    <string name="app_name">E-Susanto</string>
+    <string name="beranda">Beranda</string>
+    <string name="analisis">Analisis</string>
+    <string name="berita">Berita</string>
+    <string name="profile">Profile</string>
+
+    <!-- Dashboard -->
+    <string name="selamat_pagi">Selamat pagi,</string>
+    <string name="selamat_siang">Selamat siang,</string>
+    <string name="selamat_sore">Selamat sore,</string>
+    <string name="full_name">Ahmad Nur Halim</string>
+    <string name="icon_notification">icon notification</string>
+    <string name="image_banner">image banner</string>
+    <string name="notification">Notification</string>
+    <string name="relawan">Relawan</string>
+    <string name="icon_relawan">icon relawan</string>
+    <string name="pendukung">Pendukung</string>
+    <string name="real_count">Real Count</string>
+    <string name="icon_pendukung">icon pendukung</string>
+    <string name="icon_quick_count">icon quick count</string>
+
+    <!--  ProfileDTO  -->
+    <string name="admin">Admin</string>
+    <string name="edit_profile">Edit Profil</string>
+    <string name="volunteer">Volunteer</string>
+    <string name="supporter">Supporter</string>
+    <string name="cari_relawan">Cari Relawan</string>
+    <string name="menunggu_persetujuan">Menunggu\npersetujuan</string>
+    <string name="icon_back">icon back</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="image_login">image login</string>
+    <string name="masuk">Masuk</string>
+    <string name="masukkan_email_anda">Masukkan email anda</string>
+    <string name="masukkan_password_anda">Masukkan password anda</string>
+    <string name="btn_lupa_password">Lupa password?</string>
+    <string name="belum_punya_akun">Belum punya akun?</string>
+    <string name="daftar">Daftar</string>
+    <string name="tambah_relawan">Tambah Relawan</string>
+    <string name="back_to_dashboard">back to dashboard</string>
+    <string name="profil_sbr">Profil SBR</string>
+    <string name="jadwal">Jadwal</string>
+    <string name="aktifitas">Aktifitas</string>
+    <string name="interaksi">Interaksi</string>
+    <string name="galeri">Galeri</string>
+    <string name="kontak">Kontak</string>
+    <string name="icon_profil_sbr">icon profil sbr</string>
+    <string name="icon_jadwal">icon jadwal</string>
+    <string name="icon_aktifitas">icon aktifitas</string>
+    <string name="icon_interaksi">icon interaksi</string>
+    <string name="icon_galeri">icon galeri</string>
+    <string name="icon_kontak">icon kontak</string>
+    <string name="masukkan_nik">Masukkan NIK</string>
+    <string name="selengkapnya">Selengkapnya</string>
+    <string name="opini">Opini</string>
+    <string name="foto_profil">foto profil</string>
+    <string name="nik">NIK</string>
+    <string name="nama">Nama</string>
+    <string name="masukkan_nama_lengkap">Masukkan Nama Lengkap</string>
+    <string name="no_hp">No. HP</string>
+    <string name="masukkan_nomor_handphone">Masukkan Nomor Handphone</string>
+    <string name="masukkan_tempat_lahir">Masukkan Tempat Lahir</string>
+    <string name="masukkan_tanggal_lahir">Masukkan Tanggal Lahir</string>
+    <string name="tempat_lahir">Tempat Lahir</string>
+    <string name="tanggal_lahir">Tanggal Lahir</string>
+    <string name="jenis_kelamin">Jenis Kelamin</string>
+    <string name="alamat">Alamat</string>
+    <string name="rt">RT</string>
+    <string name="tps">TPS</string>
+    <string name="rw">RW</string>
+    <string name="provinsi">Provinsi</string>
+    <string name="kabupaten">Kabupaten</string>
+    <string name="kecamatan">Kecamatan</string>
+    <string name="desa_kelurahan">Desa/Kelurahan</string>
+    <string name="agama">Agama</string>
+    <string name="status_perkawinan">Status Perkawinan</string>
+    <string name="simpan">Simpan</string>
+    <string name="akun">Akun</string>
+    <string name="icon_lock">icon lock</string>
+    <string name="ubah_password">Ubah Password</string>
+    <string name="ubah_nomor_handphone">Ubah Nomor Handphone</string>
+    <string name="keluar"><u>Keluar</u></string>
+    <string name="web_is_down">Web is down</string>
+    <string name="cek_dpt">Cek DPT</string>
+    <string name="masukkan_alamat">Masukkan Alamat</string>
+    <string name="gambar_berita">gambar berita</string>
+    <string name="masukkan_nama_anda">Masukkan nama anda</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="konfirmasi_password">Konfirmasi Password</string>
+    <string name="lupa_password">Lupa Password</string>
+    <string name="kirim_email">Kirim Email</string>
+    <string name="gambar_opinion">gambar opinion</string>
+    <string name="dukungan">Dukungan</string>
+    <string name="kinerja_relawan">Kinerja Relawan</string>
+    <string name="total_rekrutan">Total Rekrutan</string>
+    <string name="icon_analysis">icon analysis</string>
+    <string name="lihat_profil">Lihat Profil</string>
+    <string name="lokasi_wilayah">Lokasi Wilayah</string>
+    <string name="sebaran_wilayah">Sebaran Wilayah</string>
+    <string name="demografi_rekrutan">Demografi Rekrutan</string>
+    <string name="gambar_susanto">Gambar Susanto</string>
+    <string name="nomor_handphone">Nomor Handphone</string>
+    <string name="cari_tps">Cari TPS</string>
+    <string name="total_suara">Total Suara</string>
+    <string name="tambahkan">Tambahkan</string>
+    <string name="kamera">Kamera</string>
+    <string name="gambar_post">Gambar Post</string>
+    <string name="coba_lagi">Coba Lagi</string>
+    <string name="interaksi_dengan_sbr">Interaksi dengan SBR</string>
+    <string name="baca_selengkapnya">Baca Selengkapnya</string>
+    <string name="detail_interaksi">Detail Interaksi</string>
+    <string name="komentar">Komentar</string>
+    <string name="tulis_komentar_di_sini">Tulis komentar di sini</string>
+
+    <string-array name="spinner_gender">
+        <item>Laki-laki</item>
+        <item>Perempuan</item>
+    </string-array>
+
+    <string-array name="religion_spinner_items">
+        <item>Islam</item>
+        <item>Kristen Protestan</item>
+        <item>Katolik</item>
+        <item>Hindu</item>
+        <item>Buddha</item>
+        <item>Konghucu</item>
+    </string-array>
+
+    <string-array name="spinner_marital_status">
+        <item>Kawin</item>
+        <item>Belum Kawin</item>
+        <item>Cerai Hidup</item>
+        <item>Cerai Mati</item>
+    </string-array>
+
+    <string-array name="spinner_picture">
+        <item>Kamera</item>
+        <item>Galeri</item>
+    </string-array>
+
+</resources>

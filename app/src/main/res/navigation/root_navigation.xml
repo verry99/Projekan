@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_navigation.xml"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.test.test.presentation.dashboard.DashboardFragment"
+        android:label="fragment_dashboard"
+        tools:layout="@layout/fragment_dashboard">
+        <action
+            android:id="@+id/action_dashboardFragment_to_notificationFragment"
+            app:destination="@id/notificationFragment"
+            app:enterAnim="@anim/slide_in_from_right"
+            app:exitAnim="@anim/slide_out_to_left" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_volunteerFragment"
+            app:destination="@id/volunteerFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_supporterFragment"
+            app:destination="@id/supporterFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_quickCountFragment"
+            app:destination="@id/quickCountFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_activityFragment"
+            app:destination="@id/activityFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_contactFragment"
+            app:destination="@id/contactFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_galleryFragment"
+            app:destination="@id/galleryFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_interactionFragment"
+            app:destination="@id/interactionFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_profileSBRFragment"
+            app:destination="@id/profileSBRFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_scheduleFragment"
+            app:destination="@id/scheduleFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_checkDPTFragment"
+            app:destination="@id/checkDPTFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_newsDashboardFragment"
+            app:destination="@id/newsDashboardFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_detailPostDashboardFragment"
+            app:destination="@id/detailPostDashboardFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_opinionDashboardFragment"
+            app:destination="@id/opinionDashboardFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/analysisFragment"
+        android:name="com.test.test.presentation.analysis.AnalysisFragment"
+        android:label="fragment_analysis"
+        tools:layout="@layout/fragment_analysis" />
+
+    <fragment
+        android:id="@+id/newsFragment"
+        android:name="com.test.test.presentation.news.NewsFragment"
+        android:label="fragment_news"
+        tools:layout="@layout/fragment_news" />
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.test.test.presentation.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_profileFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/profileFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_profileFragment_to_changePasswordFragment"
+            app:destination="@id/changePasswordFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_changePhoneNumberFragment"
+            app:destination="@id/changePhoneNumberFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="com.test.test.presentation.dashboard.notification.NotificationFragment"
+        android:label="fragment_notification"
+        tools:layout="@layout/fragment_notification">
+        <action
+            android:id="@+id/action_notificationFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment"
+            app:enterAnim="@anim/slide_in_from_left"
+            app:exitAnim="@anim/slide_out_to_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/volunteerFragment"
+        android:name="com.test.test.presentation.dashboard.volunteer.VolunteerFragment"
+        android:label="fragment_volunteer"
+        tools:layout="@layout/fragment_volunteer">
+        <action
+            android:id="@+id/action_volunteerFragment_to_addVolunteerFragment"
+            app:destination="@id/addVolunteerFragment" />
+        <action
+            android:id="@+id/action_volunteerFragment_to_detailVolunteerFragment"
+            app:destination="@id/detailVolunteerFragment" />
+        <argument android:name="token" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/supporterFragment"
+        android:name="com.test.test.presentation.dashboard.supporter.SupporterFragment"
+        android:label="fragment_supporter"
+        tools:layout="@layout/fragment_supporter" />
+
+    <fragment
+        android:id="@+id/quickCountFragment"
+        android:name="com.test.test.presentation.dashboard.real_count.RealCountFragment"
+        android:label="fragment_quick_count"
+        tools:layout="@layout/fragment_real_count" />
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.test.test.presentation.auth.login.LoginFragment"
+        android:label="LoginFragment">
+        <action
+            android:id="@+id/action_loginFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_forgotPasswordFragment"
+            app:destination="@id/forgotPasswordFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.test.test.presentation.auth.register.RegisterFragment"
+        android:label="RegisterFragment">
+        <action
+            android:id="@+id/action_registerFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_registerFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment"
+            app:popUpTo="@id/registerFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/addVolunteerFragment"
+        android:name="com.test.test.presentation.dashboard.volunteer.add_volunteer.AddVolunteerFragment"
+        android:label="fragment_add_volunteer"
+        tools:layout="@layout/fragment_add_volunteer" />
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.test.test.presentation.profile.edit_profile.EditProfileFragment"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile" />
+    <fragment
+        android:id="@+id/activityFragment"
+        android:name="com.test.test.presentation.dashboard.activity.ActivityFragment"
+        android:label="fragment_activity"
+        tools:layout="@layout/fragment_activity" />
+    <fragment
+        android:id="@+id/contactFragment"
+        android:name="com.test.test.presentation.dashboard.contact.ContactFragment"
+        android:label="fragment_contact"
+        tools:layout="@layout/fragment_contact" />
+    <fragment
+        android:id="@+id/galleryFragment"
+        android:name="com.test.test.presentation.dashboard.gallery.GalleryFragment"
+        android:label="fragment_gallery"
+        tools:layout="@layout/fragment_gallery" />
+    <fragment
+        android:id="@+id/interactionFragment"
+        android:name="com.test.test.presentation.dashboard.interaction.InteractionFragment"
+        android:label="fragment_interaction"
+        tools:layout="@layout/fragment_interaction" />
+    <fragment
+        android:id="@+id/profileSBRFragment"
+        android:name="com.test.test.presentation.dashboard.profile_sbr.ProfileSBRFragment"
+        android:label="fragment_profile_s_b_r"
+        tools:layout="@layout/fragment_profile_s_b_r">
+        <action
+            android:id="@+id/action_profileSBRFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/scheduleFragment"
+        android:name="com.test.test.presentation.dashboard.schedule.ScheduleFragment"
+        android:label="fragment_schedule"
+        tools:layout="@layout/fragment_schedule" />
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.test.test.presentation.profile.change_password.ChangePasswordFragment"
+        android:label="fragment_change_password"
+        tools:layout="@layout/fragment_change_password" />
+    <fragment
+        android:id="@+id/changePhoneNumberFragment"
+        android:name="com.test.test.presentation.profile.change_phone_number.ChangePhoneNumberFragment"
+        android:label="fragment_change_phone_number"
+        tools:layout="@layout/fragment_change_phone_number" />
+    <fragment
+        android:id="@+id/checkDPTFragment"
+        android:name="com.test.test.presentation.dashboard.check_dpt.CheckDPTFragment"
+        android:label="fragment_check_dpt"
+        tools:layout="@layout/fragment_check_dpt" />
+    <fragment
+        android:id="@+id/forgotPasswordFragment"
+        android:name="com.test.test.presentation.auth.forgot_password.ForgotPasswordFragment"
+        android:label="ForgotPasswordFragment">
+        <action
+            android:id="@+id/action_forgotPasswordFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_forgotPasswordFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailVolunteerFragment"
+        android:name="com.test.test.presentation.dashboard.volunteer.detail_volunteer.DetailVolunteerFragment"
+        android:label="DetailVolunteerFragment">
+        <argument android:name="id" />
+    </fragment>
+    <fragment
+        android:id="@+id/newsDashboardFragment"
+        android:name="com.test.test.presentation.dashboard.post.news.NewsDashboardFragment"
+        android:label="NewsDashboardFragment">
+        <action
+            android:id="@+id/action_newsDashboardFragment_to_detailPostDashboardFragment"
+            app:destination="@id/detailPostDashboardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.test.test.presentation.splash.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash">
+        <action
+            android:id="@+id/action_splashFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_splashFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailPostDashboardFragment"
+        android:name="com.test.test.presentation.dashboard.post.detail.DetailPostDashboardFragment"
+        android:label="fragment_detail_post_dashboard"
+        tools:layout="@layout/fragment_detail_post_dashboard">
+        <argument
+            android:name="slug"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/opinionDashboardFragment"
+        android:name="com.test.test.presentation.dashboard.post.opinion.OpinionDashboardFragment"
+        android:label="OpinionDashboardFragment">
+        <action
+            android:id="@+id/action_opinionDashboardFragment_to_detailPostDashboardFragment"
+            app:destination="@id/detailPostDashboardFragment" />
+    </fragment>
+
+</navigation>
