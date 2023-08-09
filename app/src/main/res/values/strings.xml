@@ -114,6 +114,7 @@
     <string name="detail_interaksi">Detail Interaksi</string>
     <string name="komentar">Komentar</string>
     <string name="tulis_komentar_di_sini">Tulis komentar di sini</string>
+    <string name="detail_relawan">Detail Relawan</string>
 
     <string-array name="spinner_gender">
         <item>Laki-laki</item>

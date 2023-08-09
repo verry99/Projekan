@@ -2,7 +2,6 @@ package com.test.test.domain.use_case.post.opinion.get_all_opinion
 
 import com.test.test.common.Resource
 import com.test.test.data.remote.dto.post.toModel
-import com.test.test.data.remote.dto.region.toModel
 import com.test.test.domain.models.Post
 import com.test.test.domain.repository.PostRepository
 import kotlinx.coroutines.flow.Flow

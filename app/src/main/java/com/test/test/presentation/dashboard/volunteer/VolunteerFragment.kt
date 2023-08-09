@@ -12,8 +12,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.test.test.R
 import com.test.test.databinding.FragmentVolunteerBinding
-import com.test.test.presentation.dashboard.adapter.LoadingStateAdapter
-import com.test.test.presentation.dashboard.adapter.VolunteerAdapter
+import com.test.test.presentation.adapter.LoadingStateAdapter
+import com.test.test.presentation.adapter.VolunteerAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -48,10 +48,21 @@ class VolunteerFragment : Fragment(), View.OnClickListener {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val volunteerName = s.toString()
-                viewModel.searchVolunteer(volunteerName).observe(viewLifecycleOwner) {
-                    val adapter = VolunteerAdapter()
-                    adapter.submitData(lifecycle, it)
-                    binding.rvVolunteer.adapter = adapter
+                if (volunteerName.isNotEmpty()) {
+                    viewModel.searchVolunteer(volunteerName).observe(viewLifecycleOwner) {
+                        val adapter = VolunteerAdapter()
+                        adapter.submitData(lifecycle, it)
+                        binding.rvVolunteer.adapter = adapter
+                    }
+                } else {
+                    viewModel.volunteer.observe(viewLifecycleOwner) {
+                        val adapter = VolunteerAdapter()
+                        binding.rvVolunteer.adapter = adapter.withLoadStateFooter(
+                            footer = LoadingStateAdapter {
+                                adapter.retry()
+                            })
+                        adapter.submitData(lifecycle, it)
+                    }
                 }
             }
 
@@ -65,12 +76,12 @@ class VolunteerFragment : Fragment(), View.OnClickListener {
     }
 
     private fun setUpLiveDataObserver() {
-        val adapter = VolunteerAdapter()
-        binding.rvVolunteer.adapter = adapter.withLoadStateFooter(
-            footer = LoadingStateAdapter {
-                adapter.retry()
-            })
         viewModel.volunteer.observe(viewLifecycleOwner) {
+            val adapter = VolunteerAdapter()
+            binding.rvVolunteer.adapter = adapter.withLoadStateFooter(
+                footer = LoadingStateAdapter {
+                    adapter.retry()
+                })
             adapter.submitData(lifecycle, it)
         }
     }

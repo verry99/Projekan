@@ -10,6 +10,6 @@ class GetVolunteerUseCase @Inject constructor(
     private val volunteerRepository: VolunteerRepository
 ) {
     operator fun invoke(token: String, page: Int): LiveData<PagingData<VolunteerResponseItem>> {
-        return volunteerRepository.getVolunteer(token, page)
+        return volunteerRepository.getAllVolunteer(token, page)
     }
 }

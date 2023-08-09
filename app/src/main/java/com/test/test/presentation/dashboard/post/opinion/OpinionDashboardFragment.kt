@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.test.test.R
 import com.test.test.databinding.FragmentPostDashboardBinding
-import com.test.test.presentation.dashboard.adapter.AllOpinionAdapter
+import com.test.test.presentation.adapter.AllOpinionAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -1,4 +1,4 @@
-package com.test.test.presentation.dashboard.adapter
+package com.test.test.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -23,9 +23,11 @@ class VolunteerAdapter() :
         return ItemViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val volunteer = getItem(position)
-        holder.bind(volunteer!!)
+    override fun onBindViewHolder(viewHolder: ItemViewHolder, position: Int) {
+        val data = getItem(position)
+        if (data != null) {
+            viewHolder.bind(data)
+        }
     }
 
     inner class ItemViewHolder(private val binding: ItemVolunteerBinding) :

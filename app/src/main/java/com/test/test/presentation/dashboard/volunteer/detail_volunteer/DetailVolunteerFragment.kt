@@ -35,7 +35,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.test.test.R
 import com.test.test.databinding.FragmentDetailVolunteerBinding
-import com.test.test.presentation.dashboard.adapter.SupporterNumberAdapter
+import com.test.test.presentation.adapter.SupporterNumberAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -84,69 +84,14 @@ class DetailVolunteerFragment : Fragment(), View.OnClickListener {
         }
     }
 
-//    @Composable
-//    private fun MyTable() {
-//        LazyColumn(
-//            content = {
-//                item {
-//                    Row(modifier = Modifier.height(IntrinsicSize.Min)) {
-//                        Column(
-//                            modifier = Modifier
-//                                .weight(1f)
-//                                .fillMaxHeight()
-//                                .background(Color(0, 105, 228, 0x52)),
-//                            verticalArrangement = Arrangement.Center,
-//                            horizontalAlignment = Alignment.CenterHorizontally
-//                        ) {
-//                            Text(
-//                                text = "Nama Wilayah",
-//                                textAlign = TextAlign.Center,
-//                            )
-//                        }
-//                        Column(modifier = Modifier.weight(2f)) {
-//                            Text(
-//                                text = "Dukungan",
-//                                modifier = Modifier
-//                                    .fillMaxWidth()
-//                                    .background(Color(0, 105, 228, 0x52)),
-//                                textAlign = TextAlign.Center,
-//                            )
-//                            Row(modifier = Modifier.background(Color(0, 105, 228, 0x77))) {
-//                                Text(
-//                                    text = "L",
-//                                    textAlign = TextAlign.Center,
-//                                    modifier = Modifier.weight(1f)
-//                                )
-//                                Text(
-//                                    text = "P",
-//                                    textAlign = TextAlign.Center,
-//                                    modifier = Modifier.weight(1f)
-//                                )
-//                                Text(
-//                                    text = "Total",
-//                                    textAlign = TextAlign.Center,
-//                                    modifier = Modifier.weight(1f)
-//                                )
-//                            }
-//                        }
-//                    }
-//                }
-//            }, modifier = Modifier
-//                .fillMaxWidth()
-//                .height(200.dp)
-//                .background(color = Color.White)
-//        )
-//    }
-//
-//    @Preview()
-//    @Composable
-//    private fun Chiki() {
-//        MyTable()
-//    }
-
     private fun setUpLiveDataObserver() {
         viewModel.provinceSupporterNumber.observe(viewLifecycleOwner) {
             binding.rvTableSupporter.adapter = SupporterNumberAdapter(it)
+        }
+        viewModel.volunteer.observe(viewLifecycleOwner) {
+            binding.apply {
+                tvFullName.text = it.name
+            }
         }
     }
 

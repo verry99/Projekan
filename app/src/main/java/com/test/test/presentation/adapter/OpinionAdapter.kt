@@ -1,21 +1,20 @@
-package com.test.test.presentation.dashboard.adapter
+package com.test.test.presentation.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.test.test.databinding.ItemNewsBinding
+import com.test.test.databinding.ItemOpinionBinding
 import com.test.test.domain.models.Post
 import com.test.test.presentation.dashboard.DashboardFragmentDirections
 
-class NewsAdapter(private val data: List<Post>) :
-    RecyclerView.Adapter<NewsAdapter.ItemViewHolder>() {
+class OpinionAdapter(private val data: List<Post>) :
+    RecyclerView.Adapter<OpinionAdapter.ItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        val binding = ItemNewsBinding.inflate(
+        val binding = ItemOpinionBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
@@ -24,25 +23,28 @@ class NewsAdapter(private val data: List<Post>) :
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val news = data[position]
-        holder.bind(news)
+        val opinion = data[position]
+        holder.bind(opinion)
     }
 
     override fun getItemCount(): Int {
         return data.size
     }
 
-    inner class ItemViewHolder(private val binding: ItemNewsBinding) :
+    inner class ItemViewHolder(private val binding: ItemOpinionBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(news: Post) {
+        fun bind(opinion: Post) {
             Glide.with(binding.root)
-                .load(news.urlToImage)
+                .load(opinion.urlToImage)
                 .transition(DrawableTransitionOptions.withCrossFade())
-                .into(binding.imgNews)
+                .into(binding.imgOpinion)
 
-            binding.tvTitle.text = news.title
-            setUpActionListener(news)
+            binding.apply {
+                tvTitle.text = opinion.title
+                tvDate.text = opinion.date
+            }
+            setUpActionListener(opinion)
         }
 
         private fun setUpActionListener(news: Post) {

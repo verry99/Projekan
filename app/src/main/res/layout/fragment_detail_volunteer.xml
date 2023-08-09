@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:fontFamily="@font/inter_semibold"
-            android:text="@string/relawan"
+            android:text="@string/detail_relawan"
             android:textColor="@color/white"
             android:textSize="20sp" />
 
@@ -54,7 +54,7 @@
             android:ellipsize="end"
             android:fontFamily="@font/inter_semibold"
             android:maxLines="1"
-            android:text="@string/full_name"
+            tools:text="@string/full_name"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

@@ -15,8 +15,8 @@ import com.denzcoskun.imageslider.models.SlideModel
 import com.test.test.R
 import com.test.test.common.Constants.IMAGE_URL
 import com.test.test.databinding.FragmentDashboardBinding
-import com.test.test.presentation.dashboard.adapter.NewsAdapter
-import com.test.test.presentation.dashboard.adapter.OpinionAdapter
+import com.test.test.presentation.adapter.NewsAdapter
+import com.test.test.presentation.adapter.OpinionAdapter
 import com.test.test.presentation.utils.getGreetingText
 import dagger.hilt.android.AndroidEntryPoint
 

@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
@@ -28,11 +27,9 @@ class VolunteerViewModel @Inject constructor(
     private val _user = MutableLiveData<UserPref>()
     val user: LiveData<UserPref> = _user
 
-    val volunteer: LiveData<PagingData<VolunteerResponseItem>> = liveData {
-        val accessToken = state.get<String>("token")
-        val pagingData = getVolunteerUseCase("Bearer $accessToken", 10).cachedIn(viewModelScope)
-        emitSource(pagingData)
-    }
+    val token = "Bearer " + state.get<String>("token")!!
+
+    val volunteer = getVolunteerUseCase(token, 10).cachedIn(viewModelScope)
 
     init {
         viewModelScope.launch {
@@ -43,15 +40,6 @@ class VolunteerViewModel @Inject constructor(
     }
 
     fun searchVolunteer(name: String): LiveData<PagingData<VolunteerResponseItem>> {
-        val accessToken = state.get<String>("token")
-        val role = "volunteer"
-        return liveData {
-            val pagingData = getVolunteerByNameUseCase(
-                "Bearer $accessToken",
-                name,
-                role
-            ).cachedIn(viewModelScope)
-            emitSource(pagingData)
-        }
+        return getVolunteerByNameUseCase(token, name, "volunteer").cachedIn(viewModelScope)
     }
 }

@@ -1,8 +1,8 @@
 package com.test.test.data.repository
 
 import com.test.test.data.remote.api.DashboardService
-import com.test.test.data.remote.dto.post.PostResponse
 import com.test.test.data.remote.dto.detail.DetailPostResponse
+import com.test.test.data.remote.dto.post.PostResponse
 import com.test.test.domain.repository.PostRepository
 import javax.inject.Inject
 

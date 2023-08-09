@@ -1,4 +1,4 @@
-package com.test.test.presentation.dashboard.adapter
+package com.test.test.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
