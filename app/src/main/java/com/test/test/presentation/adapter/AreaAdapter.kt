@@ -3,11 +3,11 @@ package com.test.test.presentation.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.test.test.data.remote.dto.volunteer.detail_volunteer.Area
 import com.test.test.databinding.ItemTableSupporterBinding
-import com.test.test.domain.models.SupporterNumber
 
-class SupporterNumberAdapter(private val data: List<SupporterNumber>) :
-    RecyclerView.Adapter<SupporterNumberAdapter.ItemViewHolder>() {
+class AreaAdapter(private val data: List<Area?>?) :
+    RecyclerView.Adapter<AreaAdapter.ItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val binding = ItemTableSupporterBinding.inflate(
@@ -19,22 +19,24 @@ class SupporterNumberAdapter(private val data: List<SupporterNumber>) :
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val totalSupporter = data[position]
-        holder.bind(totalSupporter)
+        val area = data?.get(position)
+        holder.bind(area)
     }
 
     override fun getItemCount(): Int {
-        return data.size
+        return data!!.size
     }
 
     inner class ItemViewHolder(private val binding: ItemTableSupporterBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(supporterNumber: SupporterNumber) {
-            binding.tvRegion.text = supporterNumber.region
-            binding.tvSupporterNumberMale.text = supporterNumber.supporterNumberMale
-            binding.tvSupporterNumberFemale.text = supporterNumber.supporterNumberFemale
-            binding.tvSupporterNumberTotal.text = supporterNumber.supporterNumberTotal
+        fun bind(area: Area?) {
+            binding.apply {
+                tvRegion.text = area?.name
+                tvSupporterNumberFemale.text = area?.gender?.l?.toString() ?: "0"
+                tvSupporterNumberMale.text = area?.gender?.p?.toString() ?: "0"
+                tvSupporterNumberTotal.text = area?.total.toString()
+            }
 
 //            // setUpActionListener(supporterNumber)
         }

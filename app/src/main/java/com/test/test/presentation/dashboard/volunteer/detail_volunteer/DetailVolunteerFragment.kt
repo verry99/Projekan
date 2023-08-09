@@ -33,10 +33,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.test.test.R
+import com.test.test.common.Constants
 import com.test.test.databinding.FragmentDetailVolunteerBinding
-import com.test.test.presentation.adapter.SupporterNumberAdapter
+import com.test.test.presentation.adapter.AreaAdapter
+import com.test.test.presentation.adapter.SupporterAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.math.round
 
 @AndroidEntryPoint
 class DetailVolunteerFragment : Fragment(), View.OnClickListener {
@@ -58,39 +62,46 @@ class DetailVolunteerFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        showDemographyChart(0, 0, 0)
         setUpRecyclerView()
         setUpActionListeners()
         setUpLiveDataObserver()
-        setUpGradientView(.35f)
     }
 
     private fun setUpRecyclerView() {
-        binding.rvTableSupporter.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-    }
-
-    private fun setUpGradientView(secondColorStart: Float) {
-        binding.myComposable.apply {
-            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
-            setContent {
-                MaterialTheme {
-                    Surface {
-                        Column(modifier = Modifier.background(Color.White)) {
-                            DemographyChart(secondColorStart = secondColorStart)
-                        }
-                    }
-                }
-            }
+        binding.apply {
+            rvSupporterNumber.layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            rvSupporter.layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         }
     }
 
     private fun setUpLiveDataObserver() {
-        viewModel.provinceSupporterNumber.observe(viewLifecycleOwner) {
-            binding.rvTableSupporter.adapter = SupporterNumberAdapter(it)
-        }
         viewModel.volunteer.observe(viewLifecycleOwner) {
             binding.apply {
                 tvFullName.text = it.name
+                tvTotalRecruits.text = it.supporterCount.toString()
+
+                it.profile?.photo?.let {
+                    Glide.with(binding.root).load(Constants.IMAGE_URL + it)
+                        .into(binding.imgProfile)
+                }
+
+                if (it.area.isNullOrEmpty()) {
+                    showDemographyChart(0, 0, 0)
+                } else {
+                    val supporterMaleTotal: Int =
+                        it.area.fold(0) { acc, area -> acc + (area?.gender?.l ?: 0) }
+                    val supporterFemaleTotal: Int = it.supporterCount?.minus(supporterMaleTotal)!!
+                    showDemographyChart(supporterMaleTotal, supporterFemaleTotal, it.supporterCount)
+
+                    rvSupporterNumber.adapter = AreaAdapter(it.area)
+                }
+
+                if (!it.supporter.isNullOrEmpty()) {
+                    binding.rvSupporter.adapter = SupporterAdapter(it.supporter)
+                }
             }
         }
     }
@@ -105,8 +116,52 @@ class DetailVolunteerFragment : Fragment(), View.OnClickListener {
         }
     }
 
+
+    private fun showDemographyChart(
+        supporterMaleTotal: Int,
+        supporterFemaleTotal: Int,
+        supporterTotal: Int
+    ) {
+        binding.myComposable.apply {
+            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+            setContent {
+                MaterialTheme {
+                    Surface {
+                        Column(modifier = Modifier.background(Color.White)) {
+                            DemographyChart(
+                                supporterMaleTotal,
+                                supporterFemaleTotal,
+                                supporterTotal
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     @Composable
-    fun DemographyChart(secondColorStart: Float) {
+    fun DemographyChart(
+        supporterMaleTotal: Int,
+        supporterFemaleTotal: Int,
+        supporterTotal: Int
+    ) {
+        fun Double.roundTo(decimals: Int): Double {
+            var multiplier = 1.0
+            repeat(decimals) { multiplier *= 10 }
+            return round(this * multiplier) / multiplier
+        }
+
+        var supporterMalePercentage = 0.0
+        var supporterFemalePercentage = 0.0
+
+        if (supporterTotal != 0) {
+            supporterMalePercentage =
+                (supporterMaleTotal.toDouble() / supporterTotal.toDouble()).roundTo(4)
+            supporterFemalePercentage =
+                (supporterFemaleTotal.toDouble() / supporterTotal.toDouble()).roundTo(4)
+        }
+
         Card(
             modifier = Modifier
                 .fillMaxWidth()
@@ -119,7 +174,9 @@ class DetailVolunteerFragment : Fragment(), View.OnClickListener {
                     .background(
                         brush = Brush.horizontalGradient(
                             0F to Color(0x990092e4),
-                            secondColorStart to Color(0x520069e4)
+                            supporterMalePercentage.toFloat() to Color(
+                                0x520069e4
+                            )
                         )
                     )
                     .padding(8.dp)
@@ -133,14 +190,24 @@ class DetailVolunteerFragment : Fragment(), View.OnClickListener {
                             .width(50.dp)
                     )
                     Column {
-                        Text(text = "35%")
-                        Text(text = "2030", fontWeight = FontWeight.Bold, fontSize = 20.sp)
+                        Text(text = supporterMalePercentage.times(100).toString() + "%")
+                        Text(
+                            text = supporterMaleTotal.toString(),
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 20.sp
+                        )
                     }
                 }
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Column {
-                        Text(text = "65%")
-                        Text(text = "3770", fontWeight = FontWeight.Bold, fontSize = 20.sp)
+                        Text(
+                            text = supporterFemalePercentage.times(100).toString() + "%"
+                        )
+                        Text(
+                            text = supporterFemaleTotal.toString(),
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 20.sp
+                        )
                     }
                     Image(
                         painterResource(R.drawable.img_demography_female),
