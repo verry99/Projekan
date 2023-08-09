@@ -6,7 +6,7 @@ import com.test.test.data.remote.dto.volunteer.VolunteerResponseItem
 import com.test.test.domain.repository.VolunteerRepository
 import javax.inject.Inject
 
-class GetVolunteerUseCase @Inject constructor(
+class GetAllVolunteerUseCase @Inject constructor(
     private val volunteerRepository: VolunteerRepository
 ) {
     operator fun invoke(token: String, page: Int): LiveData<PagingData<VolunteerResponseItem>> {

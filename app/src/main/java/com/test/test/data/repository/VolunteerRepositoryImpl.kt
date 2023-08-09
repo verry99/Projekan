@@ -10,6 +10,7 @@ import com.test.test.data.remote.api.paging_source.SearchVolunteerPagingSource
 import com.test.test.data.remote.api.paging_source.VolunteerPagingSource
 import com.test.test.data.remote.dto.volunteer.VolunteerResponseItem
 import com.test.test.data.remote.dto.volunteer.detail_volunteer.DetailVolunteerResponse
+import com.test.test.data.remote.dto.volunteer.summary_volunteer.VolunteerSummaryResponse
 import com.test.test.domain.repository.VolunteerRepository
 import javax.inject.Inject
 
@@ -32,11 +33,16 @@ class VolunteerRepositoryImpl @Inject constructor(
         ).liveData
     }
 
+    override suspend fun getAllVolunteerSummary(token: String): VolunteerSummaryResponse {
+        return dashboardService.getAllVolunteerSummary(token)
+    }
+
     override fun getVolunteerByName(
         token: String,
         keyword: String,
         role: String
     ): LiveData<PagingData<VolunteerResponseItem>> {
+
         return Pager(
             config = PagingConfig(
                 pageSize = 10

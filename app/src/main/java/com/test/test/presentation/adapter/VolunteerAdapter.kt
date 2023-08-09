@@ -7,15 +7,16 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.test.test.common.Constants.IMAGE_URL
 import com.test.test.data.remote.dto.volunteer.VolunteerResponseItem
-import com.test.test.databinding.ItemVolunteerBinding
+import com.test.test.databinding.ItemVolunteerSupporterBinding
 import com.test.test.presentation.dashboard.volunteer.VolunteerFragmentDirections
 
 class VolunteerAdapter() :
     PagingDataAdapter<VolunteerResponseItem, VolunteerAdapter.ItemViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        val binding = ItemVolunteerBinding.inflate(
+        val binding = ItemVolunteerSupporterBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
@@ -30,7 +31,7 @@ class VolunteerAdapter() :
         }
     }
 
-    inner class ItemViewHolder(private val binding: ItemVolunteerBinding) :
+    inner class ItemViewHolder(private val binding: ItemVolunteerSupporterBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(volunteer: VolunteerResponseItem) {
@@ -38,10 +39,10 @@ class VolunteerAdapter() :
                 tvNama.text = volunteer.name
                 volunteer.profile?.let {
                     tvLocation.text =
-                        "${volunteer.profile.subdistrict}, ${volunteer.profile.regency}, ${volunteer.profile.province} "
+                        "${volunteer.profile.village}, ${volunteer.profile.subdistrict}, ${volunteer.profile.regency}"
 
                     it.photo?.let {
-                        Glide.with(binding.root).load(volunteer.profile.photo)
+                        Glide.with(binding.root).load(IMAGE_URL + volunteer.profile.photo)
                             .into(binding.imgVolunteer)
                     }
                 }

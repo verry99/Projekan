@@ -5,6 +5,7 @@ import com.test.test.data.remote.dto.detail.DetailPostResponse
 import com.test.test.data.remote.dto.post.PostResponse
 import com.test.test.data.remote.dto.volunteer.VolunteerResponse
 import com.test.test.data.remote.dto.volunteer.detail_volunteer.DetailVolunteerResponse
+import com.test.test.data.remote.dto.volunteer.summary_volunteer.VolunteerSummaryResponse
 import okhttp3.MultipartBody
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -38,6 +39,11 @@ interface DashboardService {
         @Header("Authorization") token: String,
         @Query("page") page: Int
     ): VolunteerResponse
+
+    @GET("volunteer")
+    suspend fun getAllVolunteerSummary(
+        @Header("Authorization") token: String
+    ): VolunteerSummaryResponse
 
     @GET("volunteer/{id}")
     suspend fun getVolunteer(

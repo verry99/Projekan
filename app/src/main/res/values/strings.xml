@@ -115,6 +115,13 @@
     <string name="komentar">Komentar</string>
     <string name="tulis_komentar_di_sini">Tulis komentar di sini</string>
     <string name="detail_relawan">Detail Relawan</string>
+    <string name="thn">-- thn</string>
+    <string name="l">L</string>
+    <string name="p">P</string>
+    <string name="total">Total</string>
+    <string name="daftar_rekrutan">Daftar Rekrutan</string>
+    <string name="demografi_usia">Demografi Usia</string>
+    <string name="_0">0</string>
 
     <string-array name="spinner_gender">
         <item>Laki-laki</item>

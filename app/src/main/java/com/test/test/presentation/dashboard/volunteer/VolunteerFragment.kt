@@ -76,6 +76,12 @@ class VolunteerFragment : Fragment(), View.OnClickListener {
     }
 
     private fun setUpLiveDataObserver() {
+        viewModel.volunteerSummary.observe(viewLifecycleOwner) {
+            binding.apply {
+                tvVolunteerNumber.text = it.totalVolunteer.toString()
+                tvApprovalNumber.text = it.requestUpgradeCount.toString()
+            }
+        }
         viewModel.volunteer.observe(viewLifecycleOwner) {
             val adapter = VolunteerAdapter()
             binding.rvVolunteer.adapter = adapter.withLoadStateFooter(
