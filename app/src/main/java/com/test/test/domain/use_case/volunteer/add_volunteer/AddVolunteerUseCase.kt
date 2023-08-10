@@ -1,6 +1,5 @@
 package com.test.test.domain.use_case.volunteer.add_volunteer
 
-import android.util.Log
 import com.test.test.common.Resource
 import com.test.test.data.remote.dto.volunteer.add_volunteer.AddVolunteerResponse
 import com.test.test.domain.repository.VolunteerRepository
@@ -21,6 +20,7 @@ class AddVolunteerUseCase @Inject constructor(
         nik: RequestBody,
         name: RequestBody,
         phone: RequestBody,
+        email: RequestBody,
         birthPlace: RequestBody,
         birthDate: RequestBody,
         gender: RequestBody,
@@ -39,17 +39,13 @@ class AddVolunteerUseCase @Inject constructor(
         emit(Resource.Loading())
         try {
 
-            Log.e(
-                "#add vol uc tryy",
-                "$token $photo $nik $name $phone $birthPlace $birthDate $gender $address $rt $rw $tps $province $regency $subDistrict $village $religion $maritalStatus"
-            )
-
             val response = volunteerRepository.addVolunteer(
                 token,
                 photo,
                 nik,
                 name,
                 phone,
+                email,
                 birthPlace,
                 birthDate,
                 gender,

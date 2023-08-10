@@ -1,6 +1,5 @@
 package com.test.test.data.repository
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -67,6 +66,7 @@ class VolunteerRepositoryImpl @Inject constructor(
         nik: RequestBody,
         name: RequestBody,
         phone: RequestBody,
+        email: RequestBody,
         birthPlace: RequestBody,
         birthDate: RequestBody,
         gender: RequestBody,
@@ -82,17 +82,13 @@ class VolunteerRepositoryImpl @Inject constructor(
         maritalStatus: RequestBody
     ): AddVolunteerResponse {
 
-        Log.e(
-            "#volrepimpl",
-            "$token $photo $nik $name $phone $birthPlace $birthDate $gender $address $rt $rw $tps $province $regency $subDistrict $village $religion $maritalStatus"
-        )
-
         return dashboardService.addVolunteer(
             token,
             photo,
             nik,
             name,
             phone,
+            email,
             birthPlace,
             birthDate,
             gender,

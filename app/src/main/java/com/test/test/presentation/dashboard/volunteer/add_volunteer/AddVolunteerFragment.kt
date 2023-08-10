@@ -95,6 +95,7 @@ class AddVolunteerFragment : Fragment(), View.OnClickListener, AdapterView.OnIte
         val outputStream: OutputStream = FileOutputStream(myFile)
         val buf = ByteArray(1024)
         var len: Int
+
         while (inputStream.read(buf).also { len = it } > 0) outputStream.write(buf, 0, len)
         outputStream.close()
         inputStream.close()
@@ -201,8 +202,33 @@ class AddVolunteerFragment : Fragment(), View.OnClickListener, AdapterView.OnIte
             }
 
             isLoading.observe(viewLifecycleOwner) {
-                if (it) binding.progressBar.visibility = View.VISIBLE
-                else binding.progressBar.visibility = View.GONE
+                if (it) {
+                    binding.apply {
+                        progressBar.visibility = View.VISIBLE
+                        btnSimpan.isEnabled = false
+                    }
+                } else {
+                    binding.apply {
+                        btnSimpan.isEnabled = true
+                        progressBar.visibility = View.GONE
+                    }
+                }
+            }
+
+            success.observe(viewLifecycleOwner) {
+                if (it) {
+                    findNavController().navigateUp()
+                    Toast.makeText(
+                        requireActivity(),
+                        "Berhasil menambahkan volunteeer.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    viewModel.success.value = false
+                }
+            }
+
+            errorMessage.observe(viewLifecycleOwner) {
+                if (it.isNotEmpty()) Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -212,7 +238,6 @@ class AddVolunteerFragment : Fragment(), View.OnClickListener, AdapterView.OnIte
             R.id.btn_back -> findNavController().navigateUp()
 
             R.id.ib_tanggal_lahir -> {
-
 
                 val constraintsBuilder = CalendarConstraints.Builder()
 
@@ -287,38 +312,67 @@ class AddVolunteerFragment : Fragment(), View.OnClickListener, AdapterView.OnIte
         }
 
         val nik = binding.edtNik.text.toString().toRequestBody("text/plain".toMediaType())
+
         val name = binding.edtNama.text.toString().toRequestBody("text/plain".toMediaType())
+
         val phone =
             binding.edtNoHp.text.toString().toRequestBody("text/plain".toMediaType())
+
+        val email = binding.edtEmail.text.toString().toRequestBody("text/plain".toMediaType())
+
         val birthPlace =
             binding.edtTempatLahir.text.toString().toRequestBody("text/plain".toMediaType())
+
         val birthDate =
             binding.tvTanggalLahir.text.toString().toRequestBody("text/plain".toMediaType())
+
         val address =
             binding.edtAlamat.text.toString().toRequestBody("text/plain".toMediaType())
-        val gender = binding.spinnerJenisKelamin.selectedItem.toString()
-            .toRequestBody("text/plain".toMediaType())
+
+        val gender = if (binding.spinnerJenisKelamin.selectedItem.toString() == "Laki-laki") {
+            "L".toRequestBody("text/plain".toMediaType())
+        } else {
+            "P".toRequestBody("text/plain".toMediaType())
+        }
+
         val rt = binding.edtRt.text.toString().toRequestBody("text/plain".toMediaType())
+
         val rw = binding.edtRw.text.toString().toRequestBody("text/plain".toMediaType())
+
         val tps = binding.edtTps.text.toString().toRequestBody("text/plain".toMediaType())
+
         val province = binding.spinnerProvinsi.selectedItem.toString()
             .toRequestBody("text/plain".toMediaType())
+
         val regency = binding.spinnerKabupaten.selectedItem.toString()
             .toRequestBody("text/plain".toMediaType())
+
         val subDistrict = binding.spinnerKecamatan.selectedItem.toString()
             .toRequestBody("text/plain".toMediaType())
+
         val village = binding.spinnerDesa.selectedItem.toString()
             .toRequestBody("text/plain".toMediaType())
-        val religion = binding.spinnerAgama.selectedItem.toString()
-            .toRequestBody("text/plain".toMediaType())
-        val maritalStatus = binding.spinnerStatusPerkawinan.selectedItem.toString()
-            .toRequestBody("text/plain".toMediaType())
+
+        val religion = if (binding.spinnerAgama.selectedItem == "Pilih Agama") {
+            "".toRequestBody("text/plain".toMediaType())
+        } else {
+            binding.spinnerAgama.selectedItem.toString()
+                .toRequestBody("text/plain".toMediaType())
+        }
+
+        val maritalStatus = if (binding.spinnerStatusPerkawinan.selectedItem == "Pilih Status") {
+            "".toRequestBody("text/plain".toMediaType())
+        } else {
+            binding.spinnerStatusPerkawinan.selectedItem.toString()
+                .toRequestBody("text/plain".toMediaType())
+        }
 
         viewModel.addVolunteer(
             photo,
             nik,
             name,
             phone,
+            email,
             birthPlace,
             birthDate,
             gender,

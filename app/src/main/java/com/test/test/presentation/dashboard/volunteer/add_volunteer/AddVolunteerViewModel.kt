@@ -51,6 +51,8 @@ class AddVolunteerViewModel @Inject constructor(
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
 
+    val success = MutableLiveData(false)
+
     private val _isLoading = MutableLiveData<Boolean>(false)
     val isLoading: LiveData<Boolean> = _isLoading
 
@@ -131,6 +133,7 @@ class AddVolunteerViewModel @Inject constructor(
         nik: RequestBody,
         name: RequestBody,
         phone: RequestBody,
+        email: RequestBody,
         birthPlace: RequestBody,
         birthDate: RequestBody,
         gender: RequestBody,
@@ -146,10 +149,6 @@ class AddVolunteerViewModel @Inject constructor(
         maritalStatus: RequestBody
     ) {
         val token = "Bearer " + _user.value?.accessToken
-        Log.e(
-            "#viewmodle addvol",
-            "$token $photo $nik $name $phone $birthPlace $birthDate $gender $address $rt $rw $tps $province $regency $subDistrict $village $religion $maritalStatus"
-        )
         viewModelScope.launch {
             addVolunteerUseCase(
                 token,
@@ -157,6 +156,7 @@ class AddVolunteerViewModel @Inject constructor(
                 nik,
                 name,
                 phone,
+                email,
                 birthPlace,
                 birthDate,
                 gender,
@@ -172,6 +172,11 @@ class AddVolunteerViewModel @Inject constructor(
                 maritalStatus
             ).onEach {
                 when (it) {
+                    is Resource.Success -> {
+                        _isLoading.value = false
+                        success.value = true
+                    }
+
                     is Resource.Error -> {
                         _isLoading.value = false
                         _errorMessage.value = it.message!!
@@ -181,9 +186,6 @@ class AddVolunteerViewModel @Inject constructor(
                         _isLoading.value = true
                     }
 
-                    is Resource.Success -> {
-                        _isLoading.value = false
-                    }
                 }
             }.launchIn(viewModelScope)
         }

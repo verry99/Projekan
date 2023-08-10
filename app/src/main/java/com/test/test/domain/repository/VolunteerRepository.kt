@@ -29,6 +29,7 @@ interface VolunteerRepository {
         nik: RequestBody,
         name: RequestBody,
         phone: RequestBody,
+        email: RequestBody,
         birthPlace: RequestBody,
         birthDate: RequestBody,
         gender: RequestBody,

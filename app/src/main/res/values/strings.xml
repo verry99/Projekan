@@ -125,6 +125,21 @@
     <string name="laki_laki">Laki-laki</string>
     <string name="perempuan">Perempuan</string>
     <string name="cari_pendukung">Cari Pendukung</string>
+    <string name="masukkan_email">Masukkan Email</string>
+    <string name="nama_required">Nama*</string>
+    <string name="no_hp_required">No. HP*</string>
+    <string name="tempat_lahir_required">Tempat Lahir*</string>
+    <string name="tanggal_lahir_required">Tanggal Lahir*</string>
+    <string name="jenis_kelamin_required">Jenis Kelamin*</string>
+    <string name="alamat_required">Alamat*</string>
+    <string name="rt_required">RT*</string>
+    <string name="rw_required">RW*</string>
+    <string name="tps_required">TPS*</string>
+    <string name="provinsi_required">Provinsi*</string>
+    <string name="kabupaten_required">Kabupaten*</string>
+    <string name="kecamatan_required">Kecamatan*</string>
+    <string name="desa_kelurahan_required">Desa/Kelurahan*</string>
+    <string name="agama_required">Agama*</string>
 
     <string-array name="spinner_gender">
         <item>Laki-laki</item>
@@ -132,6 +147,7 @@
     </string-array>
 
     <string-array name="religion_spinner_items">
+        <item>Pilih Agama</item>
         <item>Islam</item>
         <item>Kristen Protestan</item>
         <item>Katolik</item>
@@ -141,6 +157,7 @@
     </string-array>
 
     <string-array name="spinner_marital_status">
+        <item>Pilih Status</item>
         <item>Kawin</item>
         <item>Belum Kawin</item>
         <item>Cerai Hidup</item>

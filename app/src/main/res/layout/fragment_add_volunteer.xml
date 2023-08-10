@@ -94,7 +94,7 @@
             <TextView
                 android:id="@+id/tv_nama"
                 style="@style/MyEditTextLabelStyle"
-                android:text="@string/nama" />
+                android:text="@string/nama_required" />
 
             <EditText
                 android:id="@+id/edt_nama"
@@ -107,7 +107,7 @@
             <TextView
                 android:id="@+id/tv_no_hp"
                 style="@style/MyEditTextLabelStyle"
-                android:text="@string/no_hp" />
+                android:text="@string/no_hp_required" />
 
             <EditText
                 android:id="@+id/edt_no_hp"
@@ -118,9 +118,21 @@
                 android:maxLines="1" />
 
             <TextView
+                style="@style/MyEditTextLabelStyle"
+                android:text="@string/email" />
+
+            <EditText
+                android:id="@+id/edt_email"
+                style="@style/PurpleEditTextStyle"
+                android:autofillHints="name"
+                android:hint="@string/masukkan_email"
+                android:inputType="textEmailAddress"
+                android:maxLines="1" />
+
+            <TextView
                 android:id="@+id/tv_tempat_lahir"
                 style="@style/MyEditTextLabelStyle"
-                android:text="@string/tempat_lahir" />
+                android:text="@string/tempat_lahir_required" />
 
             <EditText
                 android:id="@+id/edt_tempat_lahir"
@@ -132,7 +144,7 @@
 
             <TextView
                 style="@style/MyEditTextLabelStyle"
-                android:text="@string/tanggal_lahir" />
+                android:text="@string/tanggal_lahir_required" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -162,7 +174,7 @@
             <TextView
                 android:id="@+id/tv_jenis_kelamin"
                 style="@style/MyEditTextLabelStyle"
-                android:text="@string/jenis_kelamin" />
+                android:text="@string/jenis_kelamin_required" />
 
             <Spinner
                 android:id="@+id/spinner_jenis_kelamin"
@@ -174,7 +186,7 @@
             <TextView
                 android:id="@+id/tv_alamat"
                 style="@style/MyEditTextLabelStyle"
-                android:text="@string/alamat" />
+                android:text="@string/alamat_required" />
 
             <EditText
                 android:id="@+id/edt_alamat"
@@ -202,7 +214,7 @@
                         style="@style/MyEditTextLabelStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/rt" />
+                        android:text="@string/rt_required" />
 
                     <EditText
                         android:id="@+id/edt_rt"
@@ -226,7 +238,7 @@
                         style="@style/MyEditTextLabelStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/rw" />
+                        android:text="@string/rw_required" />
 
                     <EditText
                         android:id="@+id/edt_rw"
@@ -251,7 +263,7 @@
                         style="@style/MyEditTextLabelStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/tps" />
+                        android:text="@string/tps_required" />
 
                     <EditText
                         android:id="@+id/edt_tps"
@@ -270,7 +282,7 @@
                 style="@style/MyEditTextLabelStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/provinsi" />
+                android:text="@string/provinsi_required" />
 
             <Spinner
                 android:id="@+id/spinner_provinsi"
@@ -283,7 +295,7 @@
                 style="@style/MyEditTextLabelStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/kabupaten" />
+                android:text="@string/kabupaten_required" />
 
             <Spinner
                 android:id="@+id/spinner_kabupaten"
@@ -296,7 +308,7 @@
                 style="@style/MyEditTextLabelStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/kecamatan" />
+                android:text="@string/kecamatan_required" />
 
             <Spinner
                 android:id="@+id/spinner_kecamatan"
@@ -309,7 +321,7 @@
                 style="@style/MyEditTextLabelStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/desa_kelurahan" />
+                android:text="@string/desa_kelurahan_required" />
 
             <Spinner
                 android:id="@+id/spinner_desa"
@@ -334,7 +346,7 @@
                         style="@style/MyEditTextLabelStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/agama" />
+                        android:text="@string/agama_required" />
 
                     <Spinner
                         android:id="@+id/spinner_agama"

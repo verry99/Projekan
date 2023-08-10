@@ -72,6 +72,7 @@ interface DashboardService {
         @Part("nik") nik: RequestBody,
         @Part("name") name: RequestBody,
         @Part("phone") phone: RequestBody,
+        @Part("email") email: RequestBody,
         @Part("place_of_birth") birthPlace: RequestBody,
         @Part("date_of_birth") birthDate: RequestBody,
         @Part("gender") gender: RequestBody,
