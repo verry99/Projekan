@@ -52,11 +52,11 @@ class AnalysisFragment : Fragment() {
         lineEntry.add(Entry(6000f, 6))
 
         val lineDataSet = LineDataSet(lineEntry, "Vote")
-        lineDataSet.color = resources.getColor(R.color.red)
+        lineDataSet.color = resources.getColor(R.color.blue_demography_male)
 
         lineDataSet.circleRadius = 0f
         lineDataSet.setDrawFilled(true)
-        lineDataSet.fillColor = resources.getColor(R.color.light_red)
+        lineDataSet.fillColor = resources.getColor(R.color.blue_demography_female)
 
         val lineChart = binding.lineChart
         val data = LineData(xValue, lineDataSet)

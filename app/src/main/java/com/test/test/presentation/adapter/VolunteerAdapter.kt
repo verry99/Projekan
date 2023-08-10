@@ -43,7 +43,7 @@ class VolunteerAdapter() :
 
                     it.photo?.let {
                         Glide.with(binding.root).load(IMAGE_URL + volunteer.profile.photo)
-                            .into(binding.imgVolunteer)
+                            .into(binding.imgProfile)
                     }
                 }
                 tvSupporterNumber.text = volunteer.supporterCount.toString()

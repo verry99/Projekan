@@ -1,36 +1,395 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingHorizontal="16dp"
-    android:paddingTop="24dp"
-    tools:context=".presentation.dashboard.volunteer.add_volunteer.AddVolunteerFragment">
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/btn_back_container"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        tools:context=".presentation.dashboard.volunteer.add_volunteer.AddVolunteerFragment">
 
-        <ImageView
-            android:id="@+id/btn_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/icon_back"
-            android:src="@drawable/ic_back" />
 
-        <TextView
-            android:id="@+id/tv_tambah_relawan"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/inter_bold"
-            android:paddingEnd="24dp"
-            android:text="@string/tambah_relawan"
-            android:textAlignment="center"
-            tools:ignore="RtlSymmetry" />
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="24dp">
 
-    </LinearLayout>
+            <LinearLayout
+                android:id="@+id/btn_back_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                tools:ignore="UseCompoundDrawables">
 
-</LinearLayout>
+                <ImageView
+                    android:id="@+id/btn_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/icon_back"
+                    android:src="@drawable/ic_back" />
+
+                <TextView
+                    android:id="@+id/tv_tambah_relawan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_bold"
+                    android:paddingEnd="24dp"
+                    android:text="@string/tambah_relawan"
+                    android:textAlignment="center"
+                    tools:ignore="RtlSymmetry" />
+
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/img_profile"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="16dp"
+                    android:contentDescription="@string/foto_profil"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/img_placeholder_profile"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_add_picture"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:background="@drawable/button_gray_background_rounded"
+                    android:fontFamily="@font/inter_medium"
+                    android:paddingHorizontal="16dp"
+                    android:text="@string/tambahkan"
+                    android:textAllCaps="false"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@id/img_profile"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/img_profile" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tv_nik"
+                style="@style/MyEditTextLabelStyle"
+                android:text="@string/nik" />
+
+            <EditText
+                android:id="@+id/edt_nik"
+                style="@style/PurpleEditTextStyle"
+                android:hint="@string/masukkan_nik"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:maxLines="1" />
+
+            <TextView
+                android:id="@+id/tv_nama"
+                style="@style/MyEditTextLabelStyle"
+                android:text="@string/nama" />
+
+            <EditText
+                android:id="@+id/edt_nama"
+                style="@style/PurpleEditTextStyle"
+                android:autofillHints="name"
+                android:hint="@string/masukkan_nama_lengkap"
+                android:inputType="text"
+                android:maxLines="1" />
+
+            <TextView
+                android:id="@+id/tv_no_hp"
+                style="@style/MyEditTextLabelStyle"
+                android:text="@string/no_hp" />
+
+            <EditText
+                android:id="@+id/edt_no_hp"
+                style="@style/PurpleEditTextStyle"
+                android:autofillHints="phone"
+                android:hint="@string/masukkan_nomor_handphone"
+                android:inputType="number"
+                android:maxLines="1" />
+
+            <TextView
+                android:id="@+id/tv_tempat_lahir"
+                style="@style/MyEditTextLabelStyle"
+                android:text="@string/tempat_lahir" />
+
+            <EditText
+                android:id="@+id/edt_tempat_lahir"
+                style="@style/PurpleEditTextStyle"
+                android:hint="@string/masukkan_tempat_lahir"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:maxLines="1" />
+
+            <TextView
+                style="@style/MyEditTextLabelStyle"
+                android:text="@string/tanggal_lahir" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/ib_tanggal_lahir"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/edit_text_background_purple"
+                    android:src="@drawable/ic_calendar" />
+
+                <TextView
+                    android:id="@+id/tv_tanggal_lahir"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="8dp"
+                    android:text="dd/mm/yyyy"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_jenis_kelamin"
+                style="@style/MyEditTextLabelStyle"
+                android:text="@string/jenis_kelamin" />
+
+            <Spinner
+                android:id="@+id/spinner_jenis_kelamin"
+                style="@style/PurpleEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="12dp" />
+
+            <TextView
+                android:id="@+id/tv_alamat"
+                style="@style/MyEditTextLabelStyle"
+                android:text="@string/alamat" />
+
+            <EditText
+                android:id="@+id/edt_alamat"
+                style="@style/PurpleEditTextStyle"
+                android:gravity="top|start"
+                android:hint="@string/masukkan_alamat"
+                android:importantForAutofill="no"
+                android:inputType="textMultiLine"
+                android:lines="4" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/MyEditTextLabelStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/rt" />
+
+                    <EditText
+                        android:id="@+id/edt_rt"
+                        style="@style/PurpleEditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/_0"
+                        android:importantForAutofill="no"
+                        android:inputType="number" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/MyEditTextLabelStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/rw" />
+
+                    <EditText
+                        android:id="@+id/edt_rw"
+                        style="@style/PurpleEditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/_0"
+
+                        android:importantForAutofill="no"
+                        android:inputType="number" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/MyEditTextLabelStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tps" />
+
+                    <EditText
+                        android:id="@+id/edt_tps"
+                        style="@style/PurpleEditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/_0"
+                        android:importantForAutofill="no"
+                        android:inputType="number" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                style="@style/MyEditTextLabelStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/provinsi" />
+
+            <Spinner
+                android:id="@+id/spinner_provinsi"
+                style="@style/PurpleEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="12dp" />
+
+            <TextView
+                style="@style/MyEditTextLabelStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/kabupaten" />
+
+            <Spinner
+                android:id="@+id/spinner_kabupaten"
+                style="@style/PurpleEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="12dp" />
+
+            <TextView
+                style="@style/MyEditTextLabelStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/kecamatan" />
+
+            <Spinner
+                android:id="@+id/spinner_kecamatan"
+                style="@style/PurpleEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="12dp" />
+
+            <TextView
+                style="@style/MyEditTextLabelStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/desa_kelurahan" />
+
+            <Spinner
+                android:id="@+id/spinner_desa"
+                style="@style/PurpleEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="12dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/MyEditTextLabelStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/agama" />
+
+                    <Spinner
+                        android:id="@+id/spinner_agama"
+                        style="@style/PurpleEditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="12dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/MyEditTextLabelStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/status_perkawinan" />
+
+                    <Spinner
+                        android:id="@+id/spinner_status_perkawinan"
+                        style="@style/PurpleEditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="12dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_simpan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/button_red_background"
+                android:fontFamily="@font/inter_semibold"
+                android:text="@string/simpan"
+                android:textAllCaps="true"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:indeterminateTint="@color/red"
+        android:indeterminateTintMode="src_atop"
+        android:visibility="gone" />
+
+</RelativeLayout>

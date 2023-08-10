@@ -107,14 +107,20 @@ class DashboardFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.btn_notification -> findNavController().navigate(R.id.action_dashboardFragment_to_notificationFragment)
+
             R.id.btn_relawan -> {
                 val action =
                     DashboardFragmentDirections.actionDashboardFragmentToVolunteerFragment(viewModel.user.value!!.accessToken)
                 findNavController().navigate(action)
             }
 
-            R.id.btn_pendukung -> findNavController().navigate(R.id.action_dashboardFragment_to_supporterFragment)
+            R.id.btn_pendukung -> {
+                val action =
+                    DashboardFragmentDirections.actionDashboardFragmentToSupporterFragment(viewModel.user.value!!.accessToken)
+                findNavController().navigate(action)
+            }
+
+            R.id.btn_notification -> findNavController().navigate(R.id.action_dashboardFragment_to_notificationFragment)
             R.id.btn_quick_count -> findNavController().navigate(R.id.action_dashboardFragment_to_quickCountFragment)
             R.id.btn_profil_sbr -> findNavController().navigate(R.id.action_dashboardFragment_to_profileSBRFragment)
             R.id.btn_jadwal -> findNavController().navigate(R.id.action_dashboardFragment_to_scheduleFragment)

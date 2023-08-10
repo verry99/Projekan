@@ -122,6 +122,9 @@
     <string name="daftar_rekrutan">Daftar Rekrutan</string>
     <string name="demografi_usia">Demografi Usia</string>
     <string name="_0">0</string>
+    <string name="laki_laki">Laki-laki</string>
+    <string name="perempuan">Perempuan</string>
+    <string name="cari_pendukung">Cari Pendukung</string>
 
     <string-array name="spinner_gender">
         <item>Laki-laki</item>

@@ -1,4 +1,4 @@
-package com.test.test.presentation.profile.edit_profile
+package com.test.test.presentation.dashboard.volunteer.add_volunteer
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -7,32 +7,34 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
-import com.google.gson.JsonParseException
+import com.test.test.common.Resource
 import com.test.test.domain.models.Division.District
 import com.test.test.domain.models.Division.Province
 import com.test.test.domain.models.Division.Regency
 import com.test.test.domain.models.Division.Village
+import com.test.test.domain.models.UserPref
 import com.test.test.domain.use_case.division.get_all_district.GetAllDistrictUseCase
 import com.test.test.domain.use_case.division.get_all_province.GetAllProvinceUseCase
 import com.test.test.domain.use_case.division.get_all_regency.GetAllRegencyUseCase
 import com.test.test.domain.use_case.division.get_all_village.GetAllVillageUseCase
-import com.test.test.domain.use_case.profile.GetProfileUseCase
+import com.test.test.domain.use_case.user_pref.get_user.GetUserPreferenceUseCase
+import com.test.test.domain.use_case.volunteer.add_volunteer.AddVolunteerUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.json.JSONException
-import java.io.File
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import java.io.IOException
-import java.net.ConnectException
-import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import javax.inject.Inject
-import javax.net.ssl.SSLException
 
 @HiltViewModel
-class EditProfileViewModel @Inject constructor(
-    private val getProfileUseCase: GetProfileUseCase,
+class AddVolunteerViewModel @Inject constructor(
+    private val getUserPreferenceUseCase: GetUserPreferenceUseCase,
+    private val addVolunteerUseCase: AddVolunteerUseCase,
     private val getAllProvinceUseCase: GetAllProvinceUseCase,
     private val getAllRegencyUseCase: GetAllRegencyUseCase,
     private val getAllDistrictUseCase: GetAllDistrictUseCase,
@@ -45,6 +47,24 @@ class EditProfileViewModel @Inject constructor(
     private val _selectedProvince = MutableLiveData<String>()
     private val _selectedRegency = MutableLiveData<String>()
     private val _selectedDistrict = MutableLiveData<String>()
+
+    private val _errorMessage = MutableLiveData<String>()
+    val errorMessage: LiveData<String> = _errorMessage
+
+    private val _isLoading = MutableLiveData<Boolean>(false)
+    val isLoading: LiveData<Boolean> = _isLoading
+
+    fun setSelectedProvince(provinceName: String) {
+        _selectedProvince.value = provinceName
+    }
+
+    fun setSelectedRegency(regencyName: String) {
+        _selectedRegency.value = regencyName
+    }
+
+    fun setSelectedDistrict(districtName: String) {
+        _selectedDistrict.value = districtName
+    }
 
     val regency: LiveData<List<Regency>> = _selectedProvince.switchMap {
         liveData {
@@ -80,6 +100,8 @@ class EditProfileViewModel @Inject constructor(
         }
     }
 
+    private val _user = MutableLiveData<UserPref>()
+
     init {
         viewModelScope.launch {
             try {
@@ -92,59 +114,79 @@ class EditProfileViewModel @Inject constructor(
                         }
                     }
                 _province.value = listOf(Province(id = "0", "Pilih Provinsi")) + province
-            } catch (e: UnknownHostException) {
-                Log.e("#edtee", "UnknownHostException: ${e.message}")
+
+                getUserPreferenceUseCase().let {
+                    _user.value = it
+                }
             } catch (e: IOException) {
                 Log.e("#edtee", "IOException: ${e.message}")
-            } catch (e: SocketTimeoutException) {
-                Log.e("#edtee", "SocketTimeoutException: ${e.message}")
-            } catch (e: ConnectException) {
-                Log.e("#edtee", "ConnectException: ${e.message}")
-            } catch (e: SSLException) {
-                Log.e("#edtee", "SSLException: ${e.message}")
-            } catch (e: JSONException) {
-                Log.e("#edtee", "JSONException: ${e.message}")
-            } catch (e: JsonParseException) {
-                Log.e("#edtee", "JsonParseException: ${e.message}")
             } catch (e: Exception) {
-                // Catch other types of exceptions if needed
                 Log.e("#edtee", "An unexpected error occurred: ${e.message}")
             }
         }
     }
 
-    fun setSelectedProvince(provinceName: String) {
-        _selectedProvince.value = provinceName
-    }
-
-    fun setSelectedRegency(regencyName: String) {
-        _selectedRegency.value = regencyName
-    }
-
-    fun setSelectedDistrict(districtName: String) {
-        _selectedDistrict.value = districtName
-    }
-
-    fun postProfile(
-        nik: Int,
-        name: String,
-        phone: String,
-        birthPlace: String,
-        birthDate: String,
-        gender: Char,
-        address: String,
-        rt: Int,
-        rw: Int,
-        tps: Int,
-        province: String,
-        regency: String,
-        subDistrict: String,
-        village: String,
-        religion: String,
-        photo: File,
-        maritalStatus: String
+    fun addVolunteer(
+        photo: MultipartBody.Part?,
+        nik: RequestBody,
+        name: RequestBody,
+        phone: RequestBody,
+        birthPlace: RequestBody,
+        birthDate: RequestBody,
+        gender: RequestBody,
+        address: RequestBody,
+        rt: RequestBody,
+        rw: RequestBody,
+        tps: RequestBody,
+        province: RequestBody,
+        regency: RequestBody,
+        subDistrict: RequestBody,
+        village: RequestBody,
+        religion: RequestBody,
+        maritalStatus: RequestBody
     ) {
+        val token = "Bearer " + _user.value?.accessToken
+        Log.e(
+            "#viewmodle addvol",
+            "$token $photo $nik $name $phone $birthPlace $birthDate $gender $address $rt $rw $tps $province $regency $subDistrict $village $religion $maritalStatus"
+        )
+        viewModelScope.launch {
+            addVolunteerUseCase(
+                token,
+                photo,
+                nik,
+                name,
+                phone,
+                birthPlace,
+                birthDate,
+                gender,
+                address,
+                rt,
+                rw,
+                tps,
+                province,
+                regency,
+                subDistrict,
+                village,
+                religion,
+                maritalStatus
+            ).onEach {
+                when (it) {
+                    is Resource.Error -> {
+                        _isLoading.value = false
+                        _errorMessage.value = it.message!!
+                    }
 
+                    is Resource.Loading -> {
+                        _isLoading.value = true
+                    }
+
+                    is Resource.Success -> {
+                        _isLoading.value = false
+                    }
+                }
+            }.launchIn(viewModelScope)
+        }
     }
 }
 

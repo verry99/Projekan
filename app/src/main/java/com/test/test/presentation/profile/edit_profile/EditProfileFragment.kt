@@ -16,6 +16,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.test.test.R
 import com.test.test.databinding.FragmentEditProfileBinding
 import com.test.test.presentation.utils.createTempFile
@@ -24,6 +26,9 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
 import java.io.OutputStream
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 @AndroidEntryPoint
 class EditProfileFragment : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedListener {
@@ -32,6 +37,7 @@ class EditProfileFragment : Fragment(), View.OnClickListener, AdapterView.OnItem
     private val binding get() = _binding!!
     private val viewModel: EditProfileViewModel by viewModels()
     private var getFile: File? = null
+    private var birthDate: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,7 +60,78 @@ class EditProfileFragment : Fragment(), View.OnClickListener, AdapterView.OnItem
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.btn_back -> findNavController().navigateUp()
-            R.id.btn_simpan -> Log.e("#halo", binding.edtAlamat.text.toString().split("\n").toString().split(",").toString())
+
+            R.id.ib_tanggal_lahir -> {
+
+                val constraintsBuilder = CalendarConstraints.Builder()
+
+                val startTimestamp =
+                    SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                        .parse("1950-01-01")?.time
+                        ?: 0
+                val endTimestamp = System.currentTimeMillis()
+
+                constraintsBuilder.setStart(startTimestamp)
+                constraintsBuilder.setEnd(endTimestamp)
+
+
+                val datePicker =
+                    MaterialDatePicker.Builder.datePicker()
+                        .setTitleText("Select date")
+                        .setCalendarConstraints(constraintsBuilder.build())
+                        .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                        .build()
+
+                datePicker.addOnPositiveButtonClickListener { selectedDate ->
+                    val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US)
+                    val formattedDate = dateFormat.format(Date(selectedDate))
+                    birthDate = formattedDate
+
+                    binding.tvTanggalLahir.text =
+                        SimpleDateFormat("dd/MM/yyyy", Locale.US).format(Date(selectedDate))
+                }
+
+                datePicker.show(parentFragmentManager, "Edit Profile");
+            }
+
+            R.id.btn_simpan -> {
+                val nik = binding.edtNik.text
+                val nama = binding.edtNama.text
+                val phone = binding.edtNoHp.text
+                val birthPlace = binding.edtTempatLahir.text
+                val birthDate = binding.tvTanggalLahir.text
+                val address = binding.edtAlamat.text
+                val gender = binding.spinnerJenisKelamin.selectedItem
+                val rt = binding.edtRt.text
+                val rw = binding.edtRw.text
+                val tps = binding.edtTps.text
+                val province = binding.spinnerProvinsi.selectedItem
+                val regency = binding.spinnerKabupaten.selectedItem
+                val subDistrict = binding.spinnerKecamatan.selectedItem
+                val village = binding.spinnerDesa.selectedItem
+                val religion = binding.spinnerAgama.selectedItem
+                val maritalStatus = binding.spinnerStatusPerkawinan.selectedItem
+
+                Log.e(
+                    "#editproffrag",
+                    "$nik\n" +
+                            "$nama\n" +
+                            "$phone\n" +
+                            "$birthPlace\n" +
+                            "$birthDate\n" +
+                            "$address\n" +
+                            "$gender\n" +
+                            "$rt\n" +
+                            "$rw\n" +
+                            "$tps\n" +
+                            "$province\n" +
+                            "$regency\n" +
+                            "$subDistrict\n" +
+                            "$village\n" +
+                            "$religion\n" +
+                            "$maritalStatus"
+                )
+            }
         }
     }
 
@@ -148,6 +225,7 @@ class EditProfileFragment : Fragment(), View.OnClickListener, AdapterView.OnItem
     private fun setUpActionListeners() {
         binding.apply {
             btnBack.setOnClickListener(this@EditProfileFragment)
+            ibTanggalLahir.setOnClickListener(this@EditProfileFragment)
             btnSimpan.setOnClickListener(this@EditProfileFragment)
             btnAddPicture.setOnClickListener { startGallery() }
             spinnerProvinsi.onItemSelectedListener = this@EditProfileFragment

@@ -1,4 +1,4 @@
-package com.test.test.data.remote.api.paging_source
+package com.test.test.data.remote.paging_source
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
@@ -22,7 +22,7 @@ class SearchVolunteerPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, VolunteerResponseItem> {
         return try {
             val responseData =
-                dashboardService.getVolunteerByName(token, keyword, role).data!!.volunteers!!
+                dashboardService.searchVolunteer(token, keyword, role).data!!.volunteers!!
             val pageNumber = params.key ?: 0
             val pageSize = params.loadSize
             val startIndex = pageNumber * pageSize

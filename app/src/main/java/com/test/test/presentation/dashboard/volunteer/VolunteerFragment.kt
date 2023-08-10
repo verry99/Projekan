@@ -93,7 +93,11 @@ class VolunteerFragment : Fragment(), View.OnClickListener {
     }
 
     private fun setUpActionListeners() {
-        binding.btnBack.setOnClickListener(this)
+        binding.apply {
+            btnBack.setOnClickListener(this@VolunteerFragment)
+            fabAddVolunteer.setOnClickListener(this@VolunteerFragment)
+        }
+
     }
 
     override fun onDestroyView() {
@@ -104,6 +108,7 @@ class VolunteerFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.btn_back -> findNavController().navigateUp()
+            R.id.fab_add_volunteer -> findNavController().navigate(R.id.action_volunteerFragment_to_addVolunteerFragment)
         }
     }
 }

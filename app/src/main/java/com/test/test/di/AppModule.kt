@@ -8,14 +8,16 @@ import com.test.test.data.repository.AuthRepositoryImpl
 import com.test.test.data.repository.DashboardRepositoryImpl
 import com.test.test.data.repository.DivisionRepositoryImpl
 import com.test.test.data.repository.PostRepositoryImpl
-import com.test.test.data.repository.SupporterNumberRepositoryImpl
+import com.test.test.data.repository.ProfileRepositoryImpl
+import com.test.test.data.repository.SupporterRepositoryImpl
 import com.test.test.data.repository.UserPreferenceRepositoryImpl
 import com.test.test.data.repository.VolunteerRepositoryImpl
 import com.test.test.domain.repository.AuthRepository
 import com.test.test.domain.repository.DashboardRepository
 import com.test.test.domain.repository.DivisionRepository
 import com.test.test.domain.repository.PostRepository
-import com.test.test.domain.repository.SupporterNumberRepository
+import com.test.test.domain.repository.ProfileRepository
+import com.test.test.domain.repository.SupporterRepository
 import com.test.test.domain.repository.UserPreferenceRepository
 import com.test.test.domain.repository.VolunteerRepository
 import dagger.Module
@@ -48,8 +50,8 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideSupporterNumberRepository(): SupporterNumberRepository {
-        return SupporterNumberRepositoryImpl()
+    fun provideSupporterRepository(dashboardService: DashboardService): SupporterRepository {
+        return SupporterRepositoryImpl(dashboardService)
     }
 
     @Provides
@@ -70,5 +72,11 @@ object AppModule {
     @Singleton
     fun provideDashboardRepository(dashboardService: DashboardService): DashboardRepository {
         return DashboardRepositoryImpl(dashboardService)
+    }
+
+    @Provides
+    @Singleton
+    fun provideProfileRepository(dashboardService: DashboardService): ProfileRepository {
+        return ProfileRepositoryImpl(dashboardService)
     }
 }

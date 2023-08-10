@@ -1,4 +1,4 @@
-package com.test.test.data.remote.api.paging_source
+package com.test.test.data.remote.paging_source
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState

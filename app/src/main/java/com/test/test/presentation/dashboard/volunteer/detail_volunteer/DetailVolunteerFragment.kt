@@ -38,7 +38,7 @@ import com.test.test.R
 import com.test.test.common.Constants
 import com.test.test.databinding.FragmentDetailVolunteerBinding
 import com.test.test.presentation.adapter.AreaAdapter
-import com.test.test.presentation.adapter.SupporterAdapter
+import com.test.test.presentation.adapter.VolunteerDetailSupporterAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.round
 
@@ -62,10 +62,15 @@ class DetailVolunteerFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        showDemographyChart(0, 0, 0)
+        setUpChart()
         setUpRecyclerView()
         setUpActionListeners()
         setUpLiveDataObserver()
+    }
+
+    private fun setUpChart() {
+        showDemographyChart(0, 0, 0)
+
     }
 
     private fun setUpRecyclerView() {
@@ -100,7 +105,7 @@ class DetailVolunteerFragment : Fragment(), View.OnClickListener {
                 }
 
                 if (!it.supporter.isNullOrEmpty()) {
-                    binding.rvSupporter.adapter = SupporterAdapter(it.supporter)
+                    binding.rvSupporter.adapter = VolunteerDetailSupporterAdapter(it.supporter)
                 }
             }
         }
