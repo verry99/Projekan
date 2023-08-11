@@ -38,15 +38,29 @@ class ProfileFragment : Fragment(), View.OnClickListener {
     }
 
     private fun setUpLiveDataObserver() {
-        viewModel.user.observe(viewLifecycleOwner) {
-            binding.apply {
-                tvFullName.text = it.name
-                tvRole.text = it.role
+        viewModel.apply {
+            user.observe(viewLifecycleOwner) {
+                binding.apply {
+                    tvFullName.text = it.name
+                    tvRole.text = it.role
 
-                if (it.urlToImage.isNotEmpty()) {
-                    Glide.with(requireContext())
-                        .load(IMAGE_URL + it.urlToImage)
-                        .into(binding.imgProfile)
+                    if (it.urlToImage.isNotEmpty()) {
+                        Glide.with(requireContext())
+                            .load(IMAGE_URL + it.urlToImage)
+                            .into(binding.imgProfile)
+                    }
+                }
+            }
+
+            isLoading.observe(viewLifecycleOwner) {
+                if (it) {
+                    binding.apply {
+                        progressBar.visibility = View.VISIBLE
+                    }
+                } else {
+                    binding.apply {
+                        progressBar.visibility = View.GONE
+                    }
                 }
             }
 

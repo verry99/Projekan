@@ -9,8 +9,8 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.test.test.data.remote.dto.volunteer.VolunteerResponseItem
 import com.test.test.data.remote.dto.volunteer.summary_volunteer.VolunteerSummaryResponse
-import com.test.test.domain.use_case.supporter.get_all_volunteer.GetAllSupporterUseCase
-import com.test.test.domain.use_case.volunteer.get_all_volunteer.GetAllVolunteerSummaryUseCase
+import com.test.test.domain.use_case.supporter.get_all_supporter.GetAllSupporterUseCase
+import com.test.test.domain.use_case.volunteer.get_summary.GetVolunteerSummaryUseCase
 import com.test.test.domain.use_case.volunteer.get_volunteer_by_name.GetVolunteerByNameUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -19,7 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SupporterViewModel @Inject constructor(
     private val getVolunteerByNameUseCase: GetVolunteerByNameUseCase,
-    private val getAllVolunteerSummaryUseCase: GetAllVolunteerSummaryUseCase,
+    private val getVolunteerSummaryUseCase: GetVolunteerSummaryUseCase,
     private val getAllSupporterUseCase: GetAllSupporterUseCase,
     private val state: SavedStateHandle
 ) : ViewModel() {
@@ -33,7 +33,7 @@ class SupporterViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            getAllVolunteerSummaryUseCase(token).let {
+            getVolunteerSummaryUseCase(token).let {
                 _volunteerSummary.value = it
             }
         }

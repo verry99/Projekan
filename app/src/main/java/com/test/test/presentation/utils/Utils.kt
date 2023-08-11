@@ -5,6 +5,8 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Environment
 import com.test.test.R
+import org.threeten.bp.LocalDate
+import org.threeten.bp.format.DateTimeFormatter
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -55,4 +57,20 @@ fun reduceFileImage(file: File): File {
     } while (streamLength > MAXIMAL_SIZE)
     bitmap.compress(Bitmap.CompressFormat.JPEG, compressQuality, FileOutputStream(file))
     return file
+}
+
+fun convertToDayFirst(inputDate: String): String {
+    val inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+    val outputFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy")
+
+    val date = LocalDate.parse(inputDate, inputFormat)
+    return date.format(outputFormat)
+}
+
+fun convertToYearFirst(inputDate: String): String {
+    val inputFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy")
+    val outputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+
+    val date = LocalDate.parse(inputDate, inputFormat)
+    return date.format(outputFormat)
 }

@@ -8,7 +8,7 @@ import androidx.lifecycle.liveData
 import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
 import com.test.test.common.Resource
-import com.test.test.domain.models.Division.District
+import com.test.test.domain.models.Division.SubDistrict
 import com.test.test.domain.models.Division.Province
 import com.test.test.domain.models.Division.Regency
 import com.test.test.domain.models.Division.Village
@@ -82,13 +82,13 @@ class AddVolunteerViewModel @Inject constructor(
         }
     }
 
-    val district: LiveData<List<District>> = _selectedRegency.switchMap {
+    val subDistrict: LiveData<List<SubDistrict>> = _selectedRegency.switchMap {
         liveData {
-            var district: List<District> = listOf()
-            if (it != "Pilih Kabupaten") district =
+            var subDistrict: List<SubDistrict> = listOf()
+            if (it != "Pilih Kabupaten") subDistrict =
                 getAllDistrictUseCase(regency.value?.find { regency -> regency.name == it }?.id.toString())
-            district = listOf(District(id = "0", name = "Pilih Kecamatan")) + district
-            emit(district)
+            subDistrict = listOf(SubDistrict(id = "0", name = "Pilih Kecamatan")) + subDistrict
+            emit(subDistrict)
         }
     }
 
@@ -96,7 +96,7 @@ class AddVolunteerViewModel @Inject constructor(
         liveData {
             var village: List<Village> = listOf()
             if (it != "Pilih Kecamatan") village =
-                getAllVillageUseCase(district.value?.find { district -> district.name == it }?.id.toString())
+                getAllVillageUseCase(subDistrict.value?.find { district -> district.name == it }?.id.toString())
             village = listOf(Village(id = "0", name = "Pilih Desa")) + village
             emit(village)
         }

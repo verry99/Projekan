@@ -22,7 +22,7 @@ class LoginUseCase @Inject constructor(
         try {
             val response = authRepository.login(email, password, deviceToken)
             val userPref = UserPref(
-                response.user.name,
+                response.user.profile.name!!,
                 response.user.role,
                 response.user.profile.photo ?: "",
                 response.accessToken

@@ -11,13 +11,14 @@ import javax.inject.Inject
 class ProfileRepositoryImpl @Inject constructor(
     private val dashboardService: DashboardService
 ) : ProfileRepository {
+
     override suspend fun getProfile(token: String): ProfileResponse {
         return dashboardService.getProfile(token)
     }
 
-    override suspend fun postProfile(
+    override suspend fun updateProfile(
         token: String,
-        photo: MultipartBody.Part,
+        photo: MultipartBody.Part?,
         nik: RequestBody,
         name: RequestBody,
         phone: RequestBody,

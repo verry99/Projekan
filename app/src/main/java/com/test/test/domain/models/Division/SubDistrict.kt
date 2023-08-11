@@ -1,6 +1,6 @@
 package com.test.test.domain.models.Division
 
-data class District(
+data class SubDistrict(
     val id: String,
     val name: String,
 )

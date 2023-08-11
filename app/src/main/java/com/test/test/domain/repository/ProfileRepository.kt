@@ -6,10 +6,12 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
 interface ProfileRepository {
+
     suspend fun getProfile(token: String): ProfileResponse
-    suspend fun postProfile(
+
+    suspend fun updateProfile(
         token: String,
-        photo: MultipartBody.Part,
+        photo: MultipartBody.Part?,
         nik: RequestBody,
         name: RequestBody,
         phone: RequestBody,

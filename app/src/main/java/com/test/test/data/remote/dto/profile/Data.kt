@@ -3,7 +3,7 @@ package com.test.test.data.remote.dto.profile
 
 import com.google.gson.annotations.SerializedName
 
-data class Profile(
+data class Data(
     @SerializedName("address")
     val address: String,
     @SerializedName("created_at")
@@ -17,11 +17,11 @@ data class Profile(
     @SerializedName("isCompleted")
     val isCompleted: String,
     @SerializedName("marial_state")
-    val maritalState: String?,
+    val marialState: Any,
     @SerializedName("name")
     val name: String,
     @SerializedName("nik")
-    val nik: String?,
+    val nik: String,
     @SerializedName("photo")
     val photo: String,
     @SerializedName("place_of_birth")

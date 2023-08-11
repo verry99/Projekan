@@ -14,7 +14,6 @@ import com.test.test.R
 import com.test.test.databinding.FragmentSupporterBinding
 import com.test.test.presentation.adapter.LoadingStateAdapter
 import com.test.test.presentation.adapter.SupporterAdapter
-import com.test.test.presentation.adapter.VolunteerDetailSupporterAdapter
 import com.test.test.presentation.adapter.VolunteerAdapter
 import dagger.hilt.android.AndroidEntryPoint
 

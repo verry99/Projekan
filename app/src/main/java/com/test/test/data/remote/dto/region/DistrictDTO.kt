@@ -1,7 +1,7 @@
 package com.test.test.data.remote.dto.region
 
 import com.google.gson.annotations.SerializedName
-import com.test.test.domain.models.Division.District
+import com.test.test.domain.models.Division.SubDistrict
 
 data class DistrictDTO(
     @field:SerializedName("regency_id")
@@ -10,8 +10,8 @@ data class DistrictDTO(
     val id: String
 )
 
-fun DistrictDTO.toModel(): District {
-    return District(
+fun DistrictDTO.toModel(): SubDistrict {
+    return SubDistrict(
         id = id,
         name = name
     )

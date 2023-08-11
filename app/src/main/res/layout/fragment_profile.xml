@@ -30,13 +30,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/inter_semibold"
-            android:text="@string/full_name" />
+            android:text="@string/empty_placeholder" />
 
         <TextView
             android:id="@+id/tv_role"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/admin" />
+            android:text="@string/empty_placeholder" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_edit_profile"
@@ -153,5 +153,18 @@
             android:textSize="16sp" />
 
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:indeterminateTint="@color/red"
+        android:indeterminateTintMode="src_atop"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -140,13 +140,15 @@
     <string name="kecamatan_required">Kecamatan*</string>
     <string name="desa_kelurahan_required">Desa/Kelurahan*</string>
     <string name="agama_required">Agama*</string>
+    <string name="empty_placeholder">--</string>
+    <string name="dd_mm_yyyy">dd-mm-yyyy</string>
 
     <string-array name="spinner_gender">
         <item>Laki-laki</item>
         <item>Perempuan</item>
     </string-array>
 
-    <string-array name="religion_spinner_items">
+    <string-array name="spinner_religion">
         <item>Pilih Agama</item>
         <item>Islam</item>
         <item>Kristen Protestan</item>

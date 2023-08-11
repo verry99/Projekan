@@ -119,7 +119,7 @@
         android:id="@+id/supporterFragment"
         android:name="com.test.test.presentation.dashboard.supporter.SupporterFragment"
         android:label="fragment_supporter"
-        tools:layout="@layout/fragment_supporter" >
+        tools:layout="@layout/fragment_supporter">
         <argument android:name="token" />
     </fragment>
 
@@ -170,7 +170,13 @@
         android:id="@+id/editProfileFragment"
         android:name="com.test.test.presentation.profile.edit_profile.EditProfileFragment"
         android:label="fragment_edit_profile"
-        tools:layout="@layout/fragment_edit_profile" />
+        tools:layout="@layout/fragment_edit_profile">
+        <action
+            android:id="@+id/action_editProfileFragment_to_profileFragment"
+            app:destination="@id/profileFragment"
+            app:popUpTo="@id/editProfileFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/activityFragment"
         android:name="com.test.test.presentation.dashboard.activity.ActivityFragment"

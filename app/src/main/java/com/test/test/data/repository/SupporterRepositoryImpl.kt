@@ -7,6 +7,7 @@ import androidx.paging.PagingData
 import androidx.paging.liveData
 import com.test.test.data.remote.api.DashboardService
 import com.test.test.data.remote.dto.supporter.SupporterResponseItem
+import com.test.test.data.remote.dto.supporter.summary_supporter.SupporterSummaryResponse
 import com.test.test.data.remote.paging_source.SupporterPagingSource
 import com.test.test.domain.repository.SupporterRepository
 
@@ -27,5 +28,9 @@ class SupporterRepositoryImpl(
                 SupporterPagingSource(dashboardService, token)
             }
         ).liveData
+    }
+
+    override suspend fun getSupporterSummary(token: String): SupporterSummaryResponse {
+        return dashboardService.getSupporterSummary(token)
     }
 }

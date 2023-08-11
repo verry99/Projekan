@@ -1,4 +1,4 @@
-package com.test.test.domain.use_case.supporter.get_all_volunteer
+package com.test.test.domain.use_case.supporter.get_all_supporter
 
 import androidx.lifecycle.LiveData
 import androidx.paging.PagingData

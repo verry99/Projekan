@@ -118,7 +118,7 @@ class AddVolunteerFragment : Fragment(), View.OnClickListener, AdapterView.OnIte
 
     private fun setUpSpinners() {
         val spinnerDataGenderItems = resources.getStringArray(R.array.spinner_gender)
-        val spinnerDataReligionItems = resources.getStringArray(R.array.religion_spinner_items)
+        val spinnerDataReligionItems = resources.getStringArray(R.array.spinner_religion)
         val spinnerDataStatusItems = resources.getStringArray(R.array.spinner_marital_status)
 
         val adapterGender = ArrayAdapter(
@@ -166,6 +166,48 @@ class AddVolunteerFragment : Fragment(), View.OnClickListener, AdapterView.OnIte
         }
     }
 
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.btn_back -> findNavController().navigateUp()
+
+            R.id.ib_tanggal_lahir -> {
+
+                val constraintsBuilder = CalendarConstraints.Builder()
+
+                val startTimestamp =
+                    SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                        .parse("1950-01-01")?.time
+                        ?: 0
+                val endTimestamp = System.currentTimeMillis()
+
+                constraintsBuilder.setStart(startTimestamp)
+                constraintsBuilder.setEnd(endTimestamp)
+
+                val datePicker =
+                    MaterialDatePicker.Builder.datePicker()
+                        .setTitleText("Select date")
+                        .setCalendarConstraints(constraintsBuilder.build())
+                        .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                        .build()
+
+                datePicker.addOnPositiveButtonClickListener { selectedDate ->
+                    val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US)
+                    val formattedDate = dateFormat.format(Date(selectedDate))
+                    birthDate = formattedDate
+
+                    binding.tvTanggalLahir.text =
+                        SimpleDateFormat("dd-MM-yyyy", Locale.US).format(Date(selectedDate))
+                }
+
+                datePicker.show(parentFragmentManager, "Edit Profile");
+            }
+
+            R.id.btn_simpan -> {
+                addVolunteer()
+            }
+        }
+    }
+
     private fun setUpLiveDataObservers() {
 
         viewModel.apply {
@@ -185,7 +227,7 @@ class AddVolunteerFragment : Fragment(), View.OnClickListener, AdapterView.OnIte
                 binding.spinnerKabupaten.adapter = adapter
             }
 
-            district.observe(viewLifecycleOwner) {
+            subDistrict.observe(viewLifecycleOwner) {
                 val itemList: List<String> = it.map { district -> district.name }
                 val adapter =
                     ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, itemList)
@@ -233,49 +275,6 @@ class AddVolunteerFragment : Fragment(), View.OnClickListener, AdapterView.OnIte
         }
     }
 
-    override fun onClick(v: View?) {
-        when (v?.id) {
-            R.id.btn_back -> findNavController().navigateUp()
-
-            R.id.ib_tanggal_lahir -> {
-
-                val constraintsBuilder = CalendarConstraints.Builder()
-
-                val startTimestamp =
-                    SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-                        .parse("1950-01-01")?.time
-                        ?: 0
-                val endTimestamp = System.currentTimeMillis()
-
-                constraintsBuilder.setStart(startTimestamp)
-                constraintsBuilder.setEnd(endTimestamp)
-
-
-                val datePicker =
-                    MaterialDatePicker.Builder.datePicker()
-                        .setTitleText("Select date")
-                        .setCalendarConstraints(constraintsBuilder.build())
-                        .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
-                        .build()
-
-                datePicker.addOnPositiveButtonClickListener { selectedDate ->
-                    val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US)
-                    val formattedDate = dateFormat.format(Date(selectedDate))
-                    birthDate = formattedDate
-
-                    binding.tvTanggalLahir.text =
-                        SimpleDateFormat("dd/MM/yyyy", Locale.US).format(Date(selectedDate))
-                }
-
-                datePicker.show(parentFragmentManager, "Edit Profile");
-            }
-
-            R.id.btn_simpan -> {
-                addVolunteer()
-            }
-        }
-    }
-
     private fun addVolunteer() {
         if (binding.spinnerProvinsi.selectedItem == "Pilih Provinsi") {
             Toast.makeText(requireContext(), "Pilih provinsi terlebih dahulu.", Toast.LENGTH_SHORT)
@@ -297,6 +296,12 @@ class AddVolunteerFragment : Fragment(), View.OnClickListener, AdapterView.OnIte
 
         if (binding.spinnerDesa.selectedItem == "Pilih Desa") {
             Toast.makeText(requireContext(), "Pilih desa terlebih dahulu.", Toast.LENGTH_SHORT)
+                .show()
+            return
+        }
+
+        if (binding.spinnerAgama.selectedItem == "Pilih Agama") {
+            Toast.makeText(requireContext(), "Pilih agama terlebih dahulu.", Toast.LENGTH_SHORT)
                 .show()
             return
         }
