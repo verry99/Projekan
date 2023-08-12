@@ -148,6 +148,17 @@
     <string name="usia">Usia</string>
     <string name="no_handphone">No. Handphone</string>
     <string name="detail_pendukung">Detail Pendukung</string>
+    <string name="tambah_interaksi">Tambah Interaksi</string>
+    <string name="buat_topik">Buat Topik</string>
+    <string name="judul_required">Judul*</string>
+    <string name="tulis_judul_di_sini">Tulis judul di sini</string>
+    <string name="pesan_required">Pesan*</string>
+    <string name="tulis_sesuatu_di_sini">Tulis sesuatu di sini</string>
+    <string name="kirim">Kirim</string>
+    <string name="lampiran">Lampiran*</string>
+    <string name="foto_maks_5_mb">*Foto maks 5 Mb</string>
+    <string name="interaksi_lebih_dekat_nbersama_sama">Interaksi lebih dekat,\nbersama-sama!</string>
+    <string name="dot_separator">•</string>
 
     <string-array name="spinner_gender">
         <item>Laki-laki</item>

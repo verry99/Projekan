@@ -8,9 +8,9 @@ import androidx.lifecycle.liveData
 import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
 import com.test.test.common.Resource
-import com.test.test.domain.models.Division.SubDistrict
 import com.test.test.domain.models.Division.Province
 import com.test.test.domain.models.Division.Regency
+import com.test.test.domain.models.Division.SubDistrict
 import com.test.test.domain.models.Division.Village
 import com.test.test.domain.models.UserPref
 import com.test.test.domain.use_case.division.get_all_district.GetAllDistrictUseCase

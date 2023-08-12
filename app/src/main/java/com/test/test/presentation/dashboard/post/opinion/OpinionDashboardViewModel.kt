@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.test.test.domain.use_case.post.opinion.get_all_opinion.GetAllOpinionUseCase
-import com.test.test.domain.use_case.user_pref.get_user.GetUserPreferenceUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

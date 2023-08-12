@@ -56,6 +56,8 @@ class AddSupporterViewModel @Inject constructor(
     private val _isLoading = MutableLiveData<Boolean>(false)
     val isLoading: LiveData<Boolean> = _isLoading
 
+    private val _user = MutableLiveData<UserPref>()
+
     fun setSelectedProvince(provinceName: String) {
         _selectedProvince.value = provinceName
     }
@@ -101,8 +103,6 @@ class AddSupporterViewModel @Inject constructor(
             emit(village)
         }
     }
-
-    private val _user = MutableLiveData<UserPref>()
 
     init {
         viewModelScope.launch {

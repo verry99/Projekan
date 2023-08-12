@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/inter_bold"
             android:maxLines="1"
-            android:textSize="20sp"
+            android:textSize="16sp"
             tools:text="Judul Interaksi" />
 
         <LinearLayout
@@ -33,9 +33,10 @@
             android:orientation="horizontal">
 
             <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/img_profile"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                tools:src="@tools:sample/backgrounds/scenic" />
+                android:src="@drawable/ic_profile_placeholder" />
 
             <TextView
                 android:id="@+id/tv_full_name"
@@ -46,10 +47,16 @@
                 tools:text="Nama Lengkap" />
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="4dp"
+                android:text="@string/dot_separator"
+                android:textColor="@color/text_gray" />
+
+            <TextView
                 android:id="@+id/tv_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
                 tools:text="Date" />
 
         </LinearLayout>
@@ -78,6 +85,7 @@
             app:cardCornerRadius="12dp">
 
             <ImageView
+                android:id="@+id/img_interaction"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:scaleType="centerCrop"

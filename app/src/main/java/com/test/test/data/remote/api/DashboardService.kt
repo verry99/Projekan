@@ -2,6 +2,9 @@ package com.test.test.data.remote.api
 
 import com.test.test.data.remote.dto.dashboard.DashboardResponse
 import com.test.test.data.remote.dto.detail.DetailPostResponse
+import com.test.test.data.remote.dto.interaction.InteractionResponse
+import com.test.test.data.remote.dto.interaction.add_interaction.AddInteractionResponse
+import com.test.test.data.remote.dto.interaction.detail_interaction.DetailInteractionResponse
 import com.test.test.data.remote.dto.post.PostResponse
 import com.test.test.data.remote.dto.profile.ProfileResponse
 import com.test.test.data.remote.dto.profile.UpdateProfileResponse
@@ -136,6 +139,34 @@ interface DashboardService {
         @Part("religion") religion: RequestBody,
         @Part("marial_state") maritalStatus: RequestBody
     ): AddVolunteerResponse
+
+    @GET("interaction")
+    suspend fun getAllInteraction(
+        @Header("Authorization") token: String,
+        @Query("page") page: Int
+    ): InteractionResponse
+
+    @GET("interaction/{id}")
+    suspend fun getInteraction(
+        @Header("Authorization") token: String,
+        @Path("id") id: Int
+    ): DetailInteractionResponse
+
+    @GET("interaction/{id}")
+    suspend fun getInteractionComment(
+        @Header("Authorization") token: String,
+        @Path("id") id: Int,
+        @Query("page") page: Int
+    ): DetailInteractionResponse
+
+    @Multipart
+    @POST("interaction")
+    suspend fun addInteraction(
+        @Header("Authorization") token: String,
+        @Part photo: MultipartBody.Part,
+        @Part("title") title: RequestBody,
+        @Part("description") description: RequestBody,
+    ): AddInteractionResponse
 
     @GET("user-profile")
     suspend fun getProfile(

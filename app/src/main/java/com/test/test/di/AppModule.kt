@@ -7,6 +7,7 @@ import com.test.test.data.remote.api.RegionService
 import com.test.test.data.repository.AuthRepositoryImpl
 import com.test.test.data.repository.DashboardRepositoryImpl
 import com.test.test.data.repository.DivisionRepositoryImpl
+import com.test.test.data.repository.InteractionRepositoryImpl
 import com.test.test.data.repository.PostRepositoryImpl
 import com.test.test.data.repository.ProfileRepositoryImpl
 import com.test.test.data.repository.SupporterRepositoryImpl
@@ -15,6 +16,7 @@ import com.test.test.data.repository.VolunteerRepositoryImpl
 import com.test.test.domain.repository.AuthRepository
 import com.test.test.domain.repository.DashboardRepository
 import com.test.test.domain.repository.DivisionRepository
+import com.test.test.domain.repository.InteractionRepository
 import com.test.test.domain.repository.PostRepository
 import com.test.test.domain.repository.ProfileRepository
 import com.test.test.domain.repository.SupporterRepository
@@ -52,6 +54,12 @@ object AppModule {
     @Singleton
     fun provideSupporterRepository(dashboardService: DashboardService): SupporterRepository {
         return SupporterRepositoryImpl(dashboardService)
+    }
+
+    @Provides
+    @Singleton
+    fun provideInteractionRepository(dashboardService: DashboardService): InteractionRepository {
+        return InteractionRepositoryImpl(dashboardService)
     }
 
     @Provides

@@ -202,7 +202,15 @@
         android:id="@+id/interactionFragment"
         android:name="com.test.test.presentation.dashboard.interaction.InteractionFragment"
         android:label="fragment_interaction"
-        tools:layout="@layout/fragment_interaction" />
+        tools:layout="@layout/fragment_interaction">
+        <argument android:name="token" />
+        <action
+            android:id="@+id/action_interactionFragment_to_addInteractionFragment"
+            app:destination="@id/addInteractionFragment" />
+        <action
+            android:id="@+id/action_interactionFragment_to_detailInteractionFragment"
+            app:destination="@id/detailInteractionFragment" />
+    </fragment>
     <fragment
         android:id="@+id/profileSBRFragment"
         android:name="com.test.test.presentation.dashboard.profile_sbr.ProfileSBRFragment"
@@ -305,6 +313,17 @@
         android:label="fragment_detail_supporter"
         tools:layout="@layout/fragment_detail_supporter">
         <argument android:name="id" />
+    </fragment>
+    <fragment
+        android:id="@+id/addInteractionFragment"
+        android:name="com.test.test.presentation.dashboard.interaction.add_interaction.AddInteractionFragment"
+        android:label="AddInteractionFragment" />
+    <fragment
+        android:id="@+id/detailInteractionFragment"
+        android:name="com.test.test.presentation.dashboard.interaction.detail_interaction.DetailInteractionFragment"
+        android:label="DetailInteractionFragment">
+        <argument android:name="id" />
+        <argument android:name="token" />
     </fragment>
 
 </navigation>

@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Environment
+import android.text.format.DateUtils
 import com.test.test.R
 import org.threeten.bp.LocalDate
 import org.threeten.bp.format.DateTimeFormatter
@@ -73,4 +74,14 @@ fun convertToYearFirst(inputDate: String): String {
 
     val date = LocalDate.parse(inputDate, inputFormat)
     return date.format(outputFormat)
+}
+
+fun convertToHumanReadableDate(inputDate: String): String {
+    val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+    val date = inputFormat.parse(inputDate)!!
+    return DateUtils.getRelativeTimeSpanString(
+        date.time,
+        Calendar.getInstance().timeInMillis,
+        DateUtils.MINUTE_IN_MILLIS
+    ).toString()
 }

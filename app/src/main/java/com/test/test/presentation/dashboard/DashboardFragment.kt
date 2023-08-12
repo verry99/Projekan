@@ -132,7 +132,14 @@ class DashboardFragment : Fragment(), View.OnClickListener {
             R.id.btn_profil_sbr -> findNavController().navigate(R.id.action_dashboardFragment_to_profileSBRFragment)
             R.id.btn_jadwal -> findNavController().navigate(R.id.action_dashboardFragment_to_scheduleFragment)
             R.id.btn_aktifitas -> findNavController().navigate(R.id.action_dashboardFragment_to_activityFragment)
-            R.id.btn_interaksi -> findNavController().navigate(R.id.action_dashboardFragment_to_interactionFragment)
+            R.id.btn_interaksi -> {
+                val action =
+                    DashboardFragmentDirections.actionDashboardFragmentToInteractionFragment(
+                        viewModel.user.value!!.accessToken
+                    )
+                findNavController().navigate(action)
+            }
+
             R.id.btn_galeri -> findNavController().navigate(R.id.action_dashboardFragment_to_galleryFragment)
             R.id.btn_kontak -> findNavController().navigate(R.id.action_dashboardFragment_to_contactFragment)
             R.id.btn_cek_dpt -> openInChrome()
