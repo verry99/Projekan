@@ -88,6 +88,10 @@ class DetailVolunteerFragment : Fragment(), View.OnClickListener {
                 tvFullName.text = it.name
                 tvTotalRecruits.text = it.supporterCount.toString()
 
+                it.profile?.age?.let {
+                    tvAge.text = it
+                }
+
                 it.profile?.photo?.let {
                     Glide.with(binding.root).load(Constants.IMAGE_URL + it)
                         .into(binding.imgProfile)

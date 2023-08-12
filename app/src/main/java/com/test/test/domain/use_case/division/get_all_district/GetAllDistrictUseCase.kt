@@ -11,8 +11,8 @@ class GetAllDistrictUseCase @Inject constructor(
     //    operator fun invoke(regencyId: String): Flow<Result<List<SubDistrict>>> = flow {
 //        try {
 //            emit(Result.Loading())
-//            val data = divisionRepository.getAllDistrict(regencyId).map { it.toModel() }
-//            emit(Result.Success(data))
+//            val supporter = divisionRepository.getAllDistrict(regencyId).map { it.toModel() }
+//            emit(Result.Success(supporter))
 //        } catch (e: HttpException) {
 //            emit(Result.Error(e.localizedMessage ?: "Unexpected Error"))
 //        } catch (e: IOException) {

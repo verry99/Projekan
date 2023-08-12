@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.test.test.R
 import com.test.test.databinding.FragmentPostDashboardBinding
 import com.test.test.presentation.adapter.AllNewsAdapter
+import com.test.test.presentation.adapter.LoadingStateAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -48,7 +49,12 @@ class NewsDashboardFragment : Fragment(), View.OnClickListener {
     private fun setUpLiveDataObserver() {
         viewModel.apply {
             news.observe(viewLifecycleOwner) {
-                binding.rvPost.adapter = AllNewsAdapter(it)
+                val adapter = AllNewsAdapter()
+                binding.rvPost.adapter = adapter.withLoadStateFooter(
+                    footer = LoadingStateAdapter {
+                        adapter.retry()
+                    })
+                adapter.submitData(lifecycle, it)
             }
         }
     }

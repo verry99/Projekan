@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -37,16 +38,22 @@ class DetailPostDashboardFragment : Fragment(), View.OnClickListener {
     }
 
     private fun setUpLiveDataObserver() {
-        viewModel.post.observe(viewLifecycleOwner) {
-            Glide.with(requireContext())
-                .load(it.bannerUrl)
-                .into(binding.imagePost)
+        viewModel.apply {
+            post.observe(viewLifecycleOwner) {
+                Glide.with(requireContext())
+                    .load(it.bannerUrl)
+                    .into(binding.imagePost)
 
-            binding.apply {
-                tvDate.text = it.humanReadableDate
-                tvTitle.text = it.title
+                binding.apply {
+                    tvDate.text = it.humanReadableDate
+                    tvTitle.text = it.title
 
-                webView.loadData(it.content!!, "text/html", "UTF-8")
+                    webView.loadData(it.content!!, "text/html", "UTF-8")
+                }
+            }
+
+            errorMessage.observe(viewLifecycleOwner) {
+                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
             }
         }
     }

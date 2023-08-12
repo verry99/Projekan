@@ -29,6 +29,9 @@ class DetailVolunteerViewModel @Inject constructor(
     private val _volunteer = MutableLiveData<Volunteer>()
     val volunteer: LiveData<Volunteer> = _volunteer
 
+    private val _errorMessage = MutableLiveData<String>()
+    val errorMessage: LiveData<String> = _errorMessage
+
     init {
         viewModelScope.launch {
             getUserPreferenceUseCase().let { _user.value = it }
@@ -44,7 +47,9 @@ class DetailVolunteerViewModel @Inject constructor(
                         }
                     }
 
-                    is Resource.Error -> {}
+                    is Resource.Error -> {
+                        _errorMessage.value = it.message!!
+                    }
 
                     is Resource.Loading -> {}
                 }

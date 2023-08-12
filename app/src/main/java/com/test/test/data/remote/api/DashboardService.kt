@@ -6,6 +6,7 @@ import com.test.test.data.remote.dto.post.PostResponse
 import com.test.test.data.remote.dto.profile.ProfileResponse
 import com.test.test.data.remote.dto.profile.UpdateProfileResponse
 import com.test.test.data.remote.dto.supporter.SupporterResponse
+import com.test.test.data.remote.dto.supporter.detail_supporter.DetailSupporterResponse
 import com.test.test.data.remote.dto.supporter.summary_supporter.SupporterSummaryResponse
 import com.test.test.data.remote.dto.volunteer.VolunteerResponse
 import com.test.test.data.remote.dto.volunteer.add_volunteer.AddVolunteerResponse
@@ -31,7 +32,8 @@ interface DashboardService {
     @GET("post")
     suspend fun getAllPost(
         @Header("Authorization") token: String,
-        @Query("category") category: String
+        @Query("category") category: String,
+        @Query("page") page: Int
     ): PostResponse
 
     @GET("post/{slug}")
@@ -64,7 +66,6 @@ interface DashboardService {
         @Path("id") id: Int
     ): DetailVolunteerResponse
 
-
     @Multipart
     @POST("volunteer")
     suspend fun addVolunteer(
@@ -95,7 +96,7 @@ interface DashboardService {
         @Query("page") page: Int
     ): SupporterResponse
 
-    @GET("volunteer")
+    @GET("suporter")
     suspend fun getSupporterSummary(
         @Header("Authorization") token: String
     ): SupporterSummaryResponse
@@ -107,11 +108,34 @@ interface DashboardService {
         @Query("role") role: String
     ): SupporterResponse
 
-    @GET("volunteer/{id}")
+    @GET("suporter/{id}")
     suspend fun getSupporter(
         @Header("Authorization") token: String,
         @Path("id") id: Int
-    ): DetailVolunteerResponse
+    ): DetailSupporterResponse
+
+    @Multipart
+    @POST("suporter")
+    suspend fun addSupporter(
+        @Header("Authorization") token: String,
+        @Part photo: MultipartBody.Part?,
+        @Part("nik") nik: RequestBody,
+        @Part("name") name: RequestBody,
+        @Part("phone") phone: RequestBody,
+        @Part("place_of_birth") birthPlace: RequestBody,
+        @Part("date_of_birth") birthDate: RequestBody,
+        @Part("gender") gender: RequestBody,
+        @Part("address") address: RequestBody,
+        @Part("rt") rt: RequestBody,
+        @Part("rw") rw: RequestBody,
+        @Part("tps") tps: RequestBody,
+        @Part("province") province: RequestBody,
+        @Part("regency") regency: RequestBody,
+        @Part("subdistrict") subDistrict: RequestBody,
+        @Part("village") village: RequestBody,
+        @Part("religion") religion: RequestBody,
+        @Part("marial_state") maritalStatus: RequestBody
+    ): AddVolunteerResponse
 
     @GET("user-profile")
     suspend fun getProfile(

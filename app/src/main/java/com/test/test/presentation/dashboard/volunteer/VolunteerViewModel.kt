@@ -9,11 +9,13 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.test.test.data.remote.dto.volunteer.VolunteerResponseItem
 import com.test.test.data.remote.dto.volunteer.summary_volunteer.VolunteerSummaryResponse
-import com.test.test.domain.use_case.volunteer.get_summary.GetVolunteerSummaryUseCase
 import com.test.test.domain.use_case.volunteer.get_all_volunteer.GetAllVolunteerUseCase
+import com.test.test.domain.use_case.volunteer.get_summary.GetVolunteerSummaryUseCase
 import com.test.test.domain.use_case.volunteer.get_volunteer_by_name.GetVolunteerByNameUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
+import java.io.IOException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -31,10 +33,19 @@ class VolunteerViewModel @Inject constructor(
 
     val volunteer = getAllVolunteerUseCase(token, 10).cachedIn(viewModelScope)
 
+    private val _errorMessage = MutableLiveData<String>()
+    val errorMessage: LiveData<String> = _errorMessage
+
     init {
         viewModelScope.launch {
-            getVolunteerSummaryUseCase(token).let {
-                _volunteerSummary.value = it
+            try {
+                getVolunteerSummaryUseCase(token).let {
+                    _volunteerSummary.value = it
+                }
+            } catch (e: HttpException) {
+                _errorMessage.value = "Server Error."
+            } catch (e: IOException) {
+                _errorMessage.value = "Couldn't reach the server. Check your internet connection!"
             }
         }
     }

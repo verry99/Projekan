@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -102,6 +103,12 @@ class DashboardFragment : Fragment(), View.OnClickListener {
             opinion.observe(viewLifecycleOwner) {
                 binding.rvOpini.adapter = OpinionAdapter(it)
             }
+
+            errorMessage.observe(viewLifecycleOwner) {
+                if (it.isNotEmpty()) {
+                    Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 
@@ -129,8 +136,21 @@ class DashboardFragment : Fragment(), View.OnClickListener {
             R.id.btn_galeri -> findNavController().navigate(R.id.action_dashboardFragment_to_galleryFragment)
             R.id.btn_kontak -> findNavController().navigate(R.id.action_dashboardFragment_to_contactFragment)
             R.id.btn_cek_dpt -> openInChrome()
-            R.id.tv_berita_selengkapnya -> findNavController().navigate(R.id.action_dashboardFragment_to_newsDashboardFragment)
-            R.id.btn_opini_selengkapnya -> findNavController().navigate(R.id.action_dashboardFragment_to_opinionDashboardFragment)
+            R.id.tv_berita_selengkapnya -> {
+                val action =
+                    DashboardFragmentDirections.actionDashboardFragmentToNewsDashboardFragment(
+                        viewModel.user.value!!.accessToken
+                    )
+                findNavController().navigate(action)
+            }
+
+            R.id.btn_opini_selengkapnya -> {
+                val action =
+                    DashboardFragmentDirections.actionDashboardFragmentToOpinionDashboardFragment(
+                        viewModel.user.value!!.accessToken
+                    )
+                findNavController().navigate(action)
+            }
         }
     }
 

@@ -39,7 +39,7 @@ class VolunteerAdapter() :
                 tvNama.text = volunteer.name
                 volunteer.profile?.let {
                     tvLocation.text =
-                        "${volunteer.profile.village}, ${volunteer.profile.subdistrict}, ${volunteer.profile.regency}"
+                        "${volunteer.profile.village?.uppercase()}, ${volunteer.profile.subdistrict?.uppercase()}, ${volunteer.profile.regency?.uppercase()}"
 
                     it.photo?.let {
                         Glide.with(binding.root).load(IMAGE_URL + volunteer.profile.photo)

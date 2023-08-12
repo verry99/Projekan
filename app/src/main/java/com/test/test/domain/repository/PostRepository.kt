@@ -1,10 +1,12 @@
 package com.test.test.domain.repository
 
+import androidx.lifecycle.LiveData
+import androidx.paging.PagingData
 import com.test.test.data.remote.dto.detail.DetailPostResponse
-import com.test.test.data.remote.dto.post.PostResponse
+import com.test.test.data.remote.dto.post.PostResponseItem
 
 interface PostRepository {
-    suspend fun getAllNews(token: String): PostResponse
-    suspend fun getAllOpinion(token: String): PostResponse
+    fun getAllNews(token: String): LiveData<PagingData<PostResponseItem>>
+    fun getAllOpinion(token: String): LiveData<PagingData<PostResponseItem>>
     suspend fun getDetailPost(token: String, slug: String): DetailPostResponse
 }

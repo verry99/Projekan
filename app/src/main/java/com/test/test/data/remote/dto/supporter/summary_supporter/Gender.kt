@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 data class Gender(
     @SerializedName("L")
-    val l: Int?,
+    val l: Int,
     @SerializedName("P")
-    val p: Int?
+    val p: Int
 )

@@ -6,6 +6,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -76,19 +77,29 @@ class VolunteerFragment : Fragment(), View.OnClickListener {
     }
 
     private fun setUpLiveDataObserver() {
-        viewModel.volunteerSummary.observe(viewLifecycleOwner) {
-            binding.apply {
-                tvVolunteerNumber.text = it.totalVolunteer.toString()
-                tvApprovalNumber.text = it.requestUpgradeCount.toString()
+        viewModel.apply {
+
+            volunteerSummary.observe(viewLifecycleOwner) {
+                binding.apply {
+                    tvVolunteerNumber.text = it.totalVolunteer.toString()
+                    tvApprovalNumber.text = it.requestUpgradeCount.toString()
+                }
             }
-        }
-        viewModel.volunteer.observe(viewLifecycleOwner) {
-            val adapter = VolunteerAdapter()
-            binding.rvVolunteer.adapter = adapter.withLoadStateFooter(
-                footer = LoadingStateAdapter {
-                    adapter.retry()
-                })
-            adapter.submitData(lifecycle, it)
+
+            volunteer.observe(viewLifecycleOwner) {
+                val adapter = VolunteerAdapter()
+                binding.rvVolunteer.adapter = adapter.withLoadStateFooter(
+                    footer = LoadingStateAdapter {
+                        adapter.retry()
+                    })
+                adapter.submitData(lifecycle, it)
+            }
+
+            errorMessage.observe(viewLifecycleOwner) {
+                if (it.isNotEmpty()) {
+                    Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 

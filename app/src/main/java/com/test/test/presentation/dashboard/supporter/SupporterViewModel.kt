@@ -7,25 +7,30 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.test.test.data.remote.dto.volunteer.VolunteerResponseItem
-import com.test.test.data.remote.dto.volunteer.summary_volunteer.VolunteerSummaryResponse
+import com.test.test.data.remote.dto.supporter.SupporterResponseItem
+import com.test.test.data.remote.dto.supporter.summary_supporter.SupporterSummaryResponse
 import com.test.test.domain.use_case.supporter.get_all_supporter.GetAllSupporterUseCase
-import com.test.test.domain.use_case.volunteer.get_summary.GetVolunteerSummaryUseCase
-import com.test.test.domain.use_case.volunteer.get_volunteer_by_name.GetVolunteerByNameUseCase
+import com.test.test.domain.use_case.supporter.get_summary.GetSupporterSummaryUseCase
+import com.test.test.domain.use_case.supporter.get_supporter_by_name.GetSupporterByNameUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
+import java.io.IOException
 import javax.inject.Inject
 
 @HiltViewModel
 class SupporterViewModel @Inject constructor(
-    private val getVolunteerByNameUseCase: GetVolunteerByNameUseCase,
-    private val getVolunteerSummaryUseCase: GetVolunteerSummaryUseCase,
+    private val getSupporterSummaryUseCase: GetSupporterSummaryUseCase,
     private val getAllSupporterUseCase: GetAllSupporterUseCase,
+    private val getSupporterByNameUseCase: GetSupporterByNameUseCase,
     private val state: SavedStateHandle
 ) : ViewModel() {
 
-    private val _volunteerSummary = MutableLiveData<VolunteerSummaryResponse>()
-    val volunteerSummary: LiveData<VolunteerSummaryResponse> = _volunteerSummary
+    private val _supporterSummary = MutableLiveData<SupporterSummaryResponse>()
+    val supporterSummary: LiveData<SupporterSummaryResponse> = _supporterSummary
+
+    private val _errorMessage = MutableLiveData<String>()
+    val errorMessage: LiveData<String> = _errorMessage
 
     val token = "Bearer " + state.get<String>("token")!!
 
@@ -33,13 +38,19 @@ class SupporterViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            getVolunteerSummaryUseCase(token).let {
-                _volunteerSummary.value = it
+            try {
+                getSupporterSummaryUseCase(token).let {
+                    _supporterSummary.value = it
+                }
+            } catch (e: HttpException) {
+                _errorMessage.value = "Server Error."
+            } catch (e: IOException) {
+                _errorMessage.value = "Couldn't reach the server. Check your internet connection!"
             }
         }
     }
 
-    fun searchVolunteer(name: String): LiveData<PagingData<VolunteerResponseItem>> {
-        return getVolunteerByNameUseCase(token, name, "volunteer").cachedIn(viewModelScope)
+    fun searchSupporter(name: String): LiveData<PagingData<SupporterResponseItem>> {
+        return getSupporterByNameUseCase(token, name, "supporter").cachedIn(viewModelScope)
     }
 }

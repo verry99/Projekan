@@ -1,6 +1,5 @@
 package com.test.test.data.remote.dto.supporter
 
-
 import com.google.gson.annotations.SerializedName
 
 data class SupporterResponse(

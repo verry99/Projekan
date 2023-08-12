@@ -142,6 +142,12 @@
     <string name="agama_required">Agama*</string>
     <string name="empty_placeholder">--</string>
     <string name="dd_mm_yyyy">dd-mm-yyyy</string>
+    <string name="tambah_pendukung">Tambah Pendukung</string>
+    <string name="nama_lengkap">Nama Lengkap</string>
+    <string name="tempat_amp_tanggal_lahir"><![CDATA[Tempat & Tanggal Lahir]]></string>
+    <string name="usia">Usia</string>
+    <string name="no_handphone">No. Handphone</string>
+    <string name="detail_pendukung">Detail Pendukung</string>
 
     <string-array name="spinner_gender">
         <item>Laki-laki</item>

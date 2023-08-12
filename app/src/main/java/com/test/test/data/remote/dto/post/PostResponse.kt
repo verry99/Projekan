@@ -5,30 +5,29 @@ import com.google.gson.annotations.SerializedName
 
 data class PostResponse(
     @SerializedName("current_page")
-    val currentPage: Int,
+    val currentPage: Int?,
     @SerializedName("data")
-    val `data`: List<PostDTO>,
+    val data: List<PostResponseItem>,
     @SerializedName("first_page_url")
-    val firstPageUrl: String,
+    val firstPageUrl: String?,
     @SerializedName("from")
-    val from: Int,
+    val from: Int?,
     @SerializedName("last_page")
-    val lastPage: Int,
+    val lastPage: Int?,
     @SerializedName("last_page_url")
-    val lastPageUrl: String,
+    val lastPageUrl: String?,
+    @SerializedName("links")
+    val links: List<Link?>?,
     @SerializedName("next_page_url")
-    val nextPageUrl: Any,
+    val nextPageUrl: Any?,
     @SerializedName("path")
-    val path: String,
+    val path: String?,
     @SerializedName("per_page")
-    val perPage: Int,
+    val perPage: Int?,
     @SerializedName("prev_page_url")
-    val prevPageUrl: Any,
+    val prevPageUrl: Any?,
     @SerializedName("to")
-    val to: Int,
+    val to: Int?,
     @SerializedName("total")
-    val total: Int
+    val total: Int?
 )
-
-
-

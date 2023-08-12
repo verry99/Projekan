@@ -121,6 +121,12 @@
         android:label="fragment_supporter"
         tools:layout="@layout/fragment_supporter">
         <argument android:name="token" />
+        <action
+            android:id="@+id/action_supporterFragment_to_addSupporterFragment"
+            app:destination="@id/addSupporterFragment" />
+        <action
+            android:id="@+id/action_supporterFragment_to_detailSupporterFragment"
+            app:destination="@id/detailSupporterFragment" />
     </fragment>
 
     <fragment
@@ -252,6 +258,7 @@
         <action
             android:id="@+id/action_newsDashboardFragment_to_detailPostDashboardFragment"
             app:destination="@id/detailPostDashboardFragment" />
+        <argument android:name="token" />
     </fragment>
     <fragment
         android:id="@+id/splashFragment"
@@ -285,6 +292,19 @@
         <action
             android:id="@+id/action_opinionDashboardFragment_to_detailPostDashboardFragment"
             app:destination="@id/detailPostDashboardFragment" />
+        <argument android:name="token" />
+    </fragment>
+    <fragment
+        android:id="@+id/addSupporterFragment"
+        android:name="com.test.test.presentation.dashboard.supporter.add_supporter.AddSupporterFragment"
+        android:label="fragment_add_supporter"
+        tools:layout="@layout/fragment_add_supporter" />
+    <fragment
+        android:id="@+id/detailSupporterFragment"
+        android:name="com.test.test.presentation.dashboard.supporter.detail_supporter.DetailSupporterFragment"
+        android:label="fragment_detail_supporter"
+        tools:layout="@layout/fragment_detail_supporter">
+        <argument android:name="id" />
     </fragment>
 
 </navigation>

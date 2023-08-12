@@ -2,19 +2,21 @@ package com.test.test.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.test.test.common.Constants.IMAGE_URL
 import com.test.test.data.remote.dto.supporter.SupporterResponseItem
-import com.test.test.databinding.ItemVolunteerSupporterBinding
+import com.test.test.databinding.ItemSupporterBinding
+import com.test.test.presentation.dashboard.supporter.SupporterFragmentDirections
 
-class SupporterAdapter() :
+class SupporterAdapter :
     PagingDataAdapter<SupporterResponseItem, SupporterAdapter.ItemViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        val binding = ItemVolunteerSupporterBinding.inflate(
+        val binding = ItemSupporterBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
@@ -29,21 +31,22 @@ class SupporterAdapter() :
         }
     }
 
-    inner class ItemViewHolder(private val binding: ItemVolunteerSupporterBinding) :
+    inner class ItemViewHolder(private val binding: ItemSupporterBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(supporter: SupporterResponseItem) {
+
             binding.apply {
                 supporter.let {
                     tvNama.text = supporter.name
                     tvLocation.text =
-                        "${it.village}, ${it.subdistrict}, ${it.regency}"
+                        "${it.village?.uppercase()}, ${it.subdistrict?.uppercase()}, ${it.regency?.uppercase()}"
 
-                    it.photo?.let {
-                        Glide.with(binding.root).load(IMAGE_URL + it)
+                    it.photo?.let { photo ->
+                        Glide.with(binding.root).load(IMAGE_URL + photo)
                             .into(binding.imgProfile)
                     }
-                    tvSupporterNumber.text = "ditambahkan oleh ${it.addedBy}"
+                    tvAddedBy.text = "Ditambahkan oleh ${it.addedBy}"
                 }
             }
             setUpActionListener(supporter)
@@ -51,12 +54,12 @@ class SupporterAdapter() :
 
         private fun setUpActionListener(supporter: SupporterResponseItem) {
             itemView.setOnClickListener {
-//                val action =
-//                    SupporterFragmentDirections.actionSupporterFragmentToDetailSupporterFragment(
-//                        supporter.id.toString()
-//                    )
-//
-//                itemView.findNavController().navigate(action)
+                val action =
+                    SupporterFragmentDirections.actionSupporterFragmentToDetailSupporterFragment(
+                        supporter.id.toString()
+                    )
+
+                itemView.findNavController().navigate(action)
             }
         }
     }

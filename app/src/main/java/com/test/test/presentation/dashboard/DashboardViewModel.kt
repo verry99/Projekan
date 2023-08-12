@@ -35,6 +35,9 @@ class DashboardViewModel @Inject constructor(
     private val _banners = MutableLiveData<List<Banner>>()
     val banners: LiveData<List<Banner>> = _banners
 
+    private val _errorMessage = MutableLiveData<String>()
+    val errorMessage: LiveData<String> = _errorMessage
+
     init {
         viewModelScope.launch {
             getUserPreferenceUseCase().let { _user.value = it }
@@ -42,13 +45,18 @@ class DashboardViewModel @Inject constructor(
                 when (it) {
                     is Resource.Success -> {
                         it.data?.let { response ->
-                            _banners.value = response.data!!.banners!!.map { it.toModel() }
-                            _news.value = response.data.posts!!.berita!!.map { it.toModel() }
-                            _opinion.value = response.data.posts.opini!!.map { it.toModel() }
+                            _banners.value =
+                                response.data!!.banners?.map { banner -> banner.toModel() }
+                            _news.value =
+                                response.data.posts?.berita?.map { news -> news.toModel() }
+                            _opinion.value =
+                                response.data.posts?.opini?.map { opinion -> opinion.toModel() }
                         }
                     }
 
-                    is Resource.Error -> {}
+                    is Resource.Error -> {
+                        _errorMessage.value = it.message!!
+                    }
 
                     is Resource.Loading -> {}
                 }

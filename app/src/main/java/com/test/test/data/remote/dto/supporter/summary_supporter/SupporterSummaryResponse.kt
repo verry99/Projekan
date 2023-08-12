@@ -9,5 +9,5 @@ data class SupporterSummaryResponse(
     @SerializedName("status")
     val status: String,
     @SerializedName("total_suporter")
-    val totalSuporter: Int
+    val totalSupporter: Int
 )

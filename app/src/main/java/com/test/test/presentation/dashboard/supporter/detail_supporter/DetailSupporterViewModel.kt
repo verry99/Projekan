@@ -1,4 +1,4 @@
-package com.test.test.presentation.dashboard.post.detail
+package com.test.test.presentation.dashboard.supporter.detail_supporter
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -6,9 +6,9 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.test.test.common.Resource
-import com.test.test.data.remote.dto.detail.DetailPostResponse
+import com.test.test.data.remote.dto.supporter.detail_supporter.Supporter
 import com.test.test.domain.models.UserPref
-import com.test.test.domain.use_case.post.detail.GetDetailPostUseCase
+import com.test.test.domain.use_case.supporter.get_detail_supporter.GetDetailSupporterUseCase
 import com.test.test.domain.use_case.user_pref.get_user.GetUserPreferenceUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
@@ -17,8 +17,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class DetailPostDashboardViewModel @Inject constructor(
-    private val getDetailPostUseCase: GetDetailPostUseCase,
+class DetailSupporterViewModel @Inject constructor(
+    private val getDetailSupporterUseCase: GetDetailSupporterUseCase,
     private val getUserPreferenceUseCase: GetUserPreferenceUseCase,
     private val state: SavedStateHandle
 ) : ViewModel() {
@@ -26,8 +26,8 @@ class DetailPostDashboardViewModel @Inject constructor(
     private val _user = MutableLiveData<UserPref>()
     val user: LiveData<UserPref> = _user
 
-    private val _post = MutableLiveData<DetailPostResponse>()
-    val post: LiveData<DetailPostResponse> = _post
+    private val _supporter = MutableLiveData<Supporter>()
+    val supporter: LiveData<Supporter> = _supporter
 
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
@@ -37,11 +37,13 @@ class DetailPostDashboardViewModel @Inject constructor(
             getUserPreferenceUseCase().let { _user.value = it }
 
             val token = "Bearer " + _user.value!!.accessToken
-            getDetailPostUseCase(token, state["slug"]!!).onEach {
+            val id: String = state["id"]!!
+
+            getDetailSupporterUseCase(token, id.toInt()).onEach {
                 when (it) {
                     is Resource.Success -> {
                         it.data?.let { response ->
-                            _post.value = response
+                            _supporter.value = response.data
                         }
                     }
 

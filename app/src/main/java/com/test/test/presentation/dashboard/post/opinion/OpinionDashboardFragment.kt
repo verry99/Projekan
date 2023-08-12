@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.test.test.R
 import com.test.test.databinding.FragmentPostDashboardBinding
 import com.test.test.presentation.adapter.AllOpinionAdapter
+import com.test.test.presentation.adapter.LoadingStateAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -49,7 +50,12 @@ class OpinionDashboardFragment : Fragment(), View.OnClickListener {
     private fun setUpLiveDataObserver() {
         viewModel.apply {
             opinion.observe(viewLifecycleOwner) {
-                binding.rvPost.adapter = AllOpinionAdapter(it)
+                val adapter = AllOpinionAdapter()
+                binding.rvPost.adapter = adapter.withLoadStateFooter(
+                    footer = LoadingStateAdapter {
+                        adapter.retry()
+                    })
+                adapter.submitData(lifecycle, it)
             }
         }
     }

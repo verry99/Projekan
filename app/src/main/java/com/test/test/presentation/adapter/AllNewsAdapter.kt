@@ -3,15 +3,16 @@ package com.test.test.presentation.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.test.test.data.remote.dto.post.PostResponseItem
 import com.test.test.databinding.ItemOpinionBinding
-import com.test.test.domain.models.Post
 import com.test.test.presentation.dashboard.post.news.NewsDashboardFragmentDirections
 
-class AllNewsAdapter(private val data: List<Post>) :
-    RecyclerView.Adapter<AllNewsAdapter.ItemViewHolder>() {
+class AllNewsAdapter :
+    PagingDataAdapter<PostResponseItem, AllNewsAdapter.ItemViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val binding = ItemOpinionBinding.inflate(
@@ -22,39 +23,55 @@ class AllNewsAdapter(private val data: List<Post>) :
         return ItemViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val opinion = data[position]
-        holder.bind(opinion)
-    }
-
-    override fun getItemCount(): Int {
-        return data.size
+    override fun onBindViewHolder(viewHolder: ItemViewHolder, position: Int) {
+        val data = getItem(position)
+        if (data != null) {
+            viewHolder.bind(data)
+        }
     }
 
     inner class ItemViewHolder(private val binding: ItemOpinionBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(opinion: Post) {
-            Glide.with(binding.root)
-                .load(opinion.urlToImage)
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .into(binding.imgOpinion)
-
+        fun bind(post: PostResponseItem) {
             binding.apply {
-                tvTitle.text = opinion.title
-                tvDate.text = opinion.date
+                Glide
+                    .with(itemView)
+                    .load(post.bannerUrl)
+                    .into(imgOpinion)
+                tvTitle.text = post.title
+                tvDate.text = post.humanReadableDate
             }
-            setUpActionListener(opinion)
+
+            setUpActionListener(post)
         }
 
-        private fun setUpActionListener(news: Post) {
+        private fun setUpActionListener(post: PostResponseItem) {
             itemView.setOnClickListener {
                 val action =
                     NewsDashboardFragmentDirections.actionNewsDashboardFragmentToDetailPostDashboardFragment(
-                        news.slug
+                        post.slug.toString()
                     )
 
                 itemView.findNavController().navigate(action)
+            }
+        }
+    }
+
+    companion object {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<PostResponseItem>() {
+            override fun areItemsTheSame(
+                oldItem: PostResponseItem,
+                newItem: PostResponseItem
+            ): Boolean {
+                return oldItem == newItem
+            }
+
+            override fun areContentsTheSame(
+                oldItem: PostResponseItem,
+                newItem: PostResponseItem
+            ): Boolean {
+                return oldItem.id == newItem.id
             }
         }
     }

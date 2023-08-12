@@ -11,8 +11,8 @@ class GetAllRegencyUseCase @Inject constructor(
     //    operator fun invoke(provinceId: String): Flow<Result<List<Regency>>> = flow {
 //        try {
 //            emit(Result.Loading())
-//            val data = divisionRepository.getAllRegency(provinceId).map { it.toModel() }
-//            emit(Result.Success(data))
+//            val supporter = divisionRepository.getAllRegency(provinceId).map { it.toModel() }
+//            emit(Result.Success(supporter))
 //        } catch (e: HttpException) {
 //            emit(Result.Error(e.localizedMessage ?: "Unexpected Error"))
 //        } catch (e: IOException) {
