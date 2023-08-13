@@ -54,6 +54,9 @@
         <action
             android:id="@+id/action_dashboardFragment_to_opinionDashboardFragment"
             app:destination="@id/opinionDashboardFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_userVolunteerFragment"
+            app:destination="@id/userVolunteerFragment" />
     </fragment>
 
     <fragment
@@ -325,5 +328,9 @@
         <argument android:name="id" />
         <argument android:name="token" />
     </fragment>
+    <fragment
+        android:id="@+id/userVolunteerFragment"
+        android:name="com.test.test.presentation.dashboard.other_user.user.volunteer.UserVolunteerFragment"
+        android:label="UserVolunteerFragment" />
 
 </navigation>

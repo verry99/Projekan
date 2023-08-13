@@ -16,11 +16,12 @@ class AreaAdapter(private val data: List<Area?>?) :
             false
         )
         return ItemViewHolder(binding)
+
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val area = data?.get(position)
-        holder.bind(area)
+        holder.bind(area!!)
     }
 
     override fun getItemCount(): Int {
@@ -30,12 +31,13 @@ class AreaAdapter(private val data: List<Area?>?) :
     inner class ItemViewHolder(private val binding: ItemTableSupporterBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(area: Area?) {
+        fun bind(area: Area) {
             binding.apply {
-                tvRegion.text = area?.name
-                tvSupporterNumberFemale.text = area?.gender?.l?.toString() ?: "0"
-                tvSupporterNumberMale.text = area?.gender?.p?.toString() ?: "0"
-                tvSupporterNumberTotal.text = area?.total.toString()
+                tvRegion.text =
+                    area.name?.lowercase()!!.split(" ").joinToString(" ") { it.capitalize() }
+                tvSupporterNumberFemale.text = area.gender!!.l?.toString() ?: "0"
+                tvSupporterNumberMale.text = area.gender.p?.toString() ?: "0"
+                tvSupporterNumberTotal.text = area.total.toString()
             }
 
 //            // setUpActionListener(supporterNumber)

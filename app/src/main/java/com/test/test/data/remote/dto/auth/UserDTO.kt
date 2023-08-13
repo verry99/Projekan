@@ -21,7 +21,7 @@ data class UserDTO(
     @SerializedName("created_at")
     val createdAt: String?,
     @SerializedName("profile")
-    val profile: ProfileDTO,
+    val profile: ProfileDTO?,
     @SerializedName("updated_at")
     val updatedAt: String?
 )

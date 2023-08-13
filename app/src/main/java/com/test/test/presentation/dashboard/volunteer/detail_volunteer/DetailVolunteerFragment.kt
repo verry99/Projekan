@@ -1,6 +1,7 @@
 package com.test.test.presentation.dashboard.volunteer.detail_volunteer
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,8 +40,9 @@ import com.test.test.common.Constants
 import com.test.test.databinding.FragmentDetailVolunteerBinding
 import com.test.test.presentation.adapter.AreaAdapter
 import com.test.test.presentation.adapter.VolunteerDetailSupporterAdapter
+import com.test.test.presentation.utils.getStringPercentage
+import com.test.test.presentation.utils.roundTo
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.math.round
 
 @AndroidEntryPoint
 class DetailVolunteerFragment : Fragment(), View.OnClickListener {
@@ -70,7 +72,6 @@ class DetailVolunteerFragment : Fragment(), View.OnClickListener {
 
     private fun setUpChart() {
         showDemographyChart(0, 0, 0)
-
     }
 
     private fun setUpRecyclerView() {
@@ -83,6 +84,7 @@ class DetailVolunteerFragment : Fragment(), View.OnClickListener {
     }
 
     private fun setUpLiveDataObserver() {
+
         viewModel.volunteer.observe(viewLifecycleOwner) {
             binding.apply {
                 tvFullName.text = it.name
@@ -106,6 +108,7 @@ class DetailVolunteerFragment : Fragment(), View.OnClickListener {
                     showDemographyChart(supporterMaleTotal, supporterFemaleTotal, it.supporterCount)
 
                     rvSupporterNumber.adapter = AreaAdapter(it.area)
+                    Log.e("#detvolfrag", "${it.area}")
                 }
 
                 if (!it.supporter.isNullOrEmpty()) {
@@ -155,12 +158,6 @@ class DetailVolunteerFragment : Fragment(), View.OnClickListener {
         supporterFemaleTotal: Int,
         supporterTotal: Int
     ) {
-        fun Double.roundTo(decimals: Int): Double {
-            var multiplier = 1.0
-            repeat(decimals) { multiplier *= 10 }
-            return round(this * multiplier) / multiplier
-        }
-
         var supporterMalePercentage = 0.0
         var supporterFemalePercentage = 0.0
 
@@ -199,7 +196,7 @@ class DetailVolunteerFragment : Fragment(), View.OnClickListener {
                             .width(50.dp)
                     )
                     Column {
-                        Text(text = supporterMalePercentage.times(100).toString() + "%")
+                        Text(getStringPercentage(supporterMalePercentage))
                         Text(
                             text = supporterMaleTotal.toString(),
                             fontWeight = FontWeight.Bold,
@@ -210,7 +207,7 @@ class DetailVolunteerFragment : Fragment(), View.OnClickListener {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Column {
                         Text(
-                            text = supporterFemalePercentage.times(100).toString() + "%"
+                            text = supporterFemalePercentage.times(100).toString()
                         )
                         Text(
                             text = supporterFemaleTotal.toString(),

@@ -26,7 +26,7 @@ class RegisterUseCase @Inject constructor(
             val response = authRepository
                 .register(name, email, phone, password, passwordConfirmation, deviceToken)
             val userPref = UserPref(
-                response.user.profile.name!!,
+                response.user.profile?.name!!,
                 response.user.role,
                 response.user.profile.photo ?: "",
                 response.accessToken

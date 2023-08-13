@@ -43,7 +43,19 @@ class VolunteerViewModel @Inject constructor(
                     _volunteerSummary.value = it
                 }
             } catch (e: HttpException) {
-                _errorMessage.value = "Server Error."
+                when (e.code()) {
+                    in 400..499 -> {
+                        _errorMessage.value = "Token expired. Silahkan login kembali!"
+                    }
+
+                    in 500..599 -> {
+                        _errorMessage.value = "Server Error."
+                    }
+
+                    else -> {
+                        _errorMessage.value = e.localizedMessage ?: "Unexpected Error"
+                    }
+                }
             } catch (e: IOException) {
                 _errorMessage.value = "Couldn't reach the server. Check your internet connection!"
             }

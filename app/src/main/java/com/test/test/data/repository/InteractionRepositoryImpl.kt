@@ -10,6 +10,7 @@ import com.test.test.data.remote.dto.interaction.InteractionResponseItem
 import com.test.test.data.remote.dto.interaction.add_interaction.AddInteractionResponse
 import com.test.test.data.remote.dto.interaction.detail_interaction.DetailInteractionResponse
 import com.test.test.data.remote.dto.interaction.detail_interaction.InteractionCommentResponseItem
+import com.test.test.data.remote.dto.interaction.detail_interaction.add_comment.AddCommentResponse
 import com.test.test.data.remote.paging_source.InteractionCommentPagingSource
 import com.test.test.data.remote.paging_source.InteractionPagingSource
 import com.test.test.domain.repository.InteractionRepository
@@ -20,6 +21,7 @@ import javax.inject.Inject
 class InteractionRepositoryImpl @Inject constructor(
     private val dashboardService: DashboardService
 ) : InteractionRepository {
+
     override fun getAllInteraction(
         token: String,
         page: Int
@@ -62,4 +64,10 @@ class InteractionRepositoryImpl @Inject constructor(
         ).liveData
     }
 
+    override suspend fun addComment(
+        token: String, id: Int,
+        body: String
+    ): AddCommentResponse {
+        return dashboardService.addInteractionComment(token, id, body)
+    }
 }

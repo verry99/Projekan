@@ -18,4 +18,6 @@
     <color name="dark_gray">#5A5A5A</color>
     <color name="blue_demography_male">#990092e4</color>
     <color name="blue_demography_female">#520069e4</color>
+    <color name="light_blue">#331f77b4</color>
+    <color name="green">#04F038</color>
 </resources>

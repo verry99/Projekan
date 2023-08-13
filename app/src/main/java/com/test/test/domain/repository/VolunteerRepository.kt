@@ -44,4 +44,5 @@ interface VolunteerRepository {
         religion: RequestBody,
         maritalStatus: RequestBody
     ): AddVolunteerResponse
+
 }

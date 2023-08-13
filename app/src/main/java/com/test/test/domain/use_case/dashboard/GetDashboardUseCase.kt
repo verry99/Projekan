@@ -18,7 +18,19 @@ class GetDashboardUseCase @Inject constructor(
             val data = dashboardRepository.getDashboard(token)
             emit(Resource.Success(data))
         } catch (e: HttpException) {
-            emit(Resource.Error(e.localizedMessage ?: "Unexpected Error"))
+            when (e.code()) {
+                in 400..499 -> {
+                    emit(Resource.Error("Token expired. Silahkan login kembali!"))
+                }
+
+                in 500..599 -> {
+                    emit(Resource.Error("Server Error."))
+                }
+
+                else -> {
+                    emit(Resource.Error(e.localizedMessage ?: "Unexpected Error"))
+                }
+            }
         } catch (e: IOException) {
             emit(Resource.Error("Couldn't reach the server. Check your internet connection!"))
         }

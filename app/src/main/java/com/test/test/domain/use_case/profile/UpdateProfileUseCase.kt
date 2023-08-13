@@ -1,5 +1,6 @@
 package com.test.test.domain.use_case.profile
 
+import android.util.Log
 import com.test.test.common.Resource
 import com.test.test.data.remote.dto.profile.UpdateProfileResponse
 import com.test.test.domain.repository.ProfileRepository
@@ -61,6 +62,7 @@ class UpdateProfileUseCase @Inject constructor(
 
             emit(Resource.Success(response))
         } catch (e: HttpException) {
+            Log.e("#upprof", "${e.response()}")
             when (e.code()) {
                 in 400..499 -> {
                     emit(Resource.Error("Input salah. Mohon periksa kembali inputan Anda."))

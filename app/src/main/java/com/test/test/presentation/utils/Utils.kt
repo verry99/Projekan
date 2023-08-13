@@ -1,5 +1,6 @@
 package com.test.test.presentation.utils
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -11,10 +12,13 @@ import org.threeten.bp.format.DateTimeFormatter
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
+import java.math.BigDecimal
+import java.math.RoundingMode
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+import kotlin.math.round
 
 private const val FILENAME_FORMAT = "dd-MMM-yyyy"
 private const val MAXIMAL_SIZE = 1000000
@@ -76,12 +80,26 @@ fun convertToYearFirst(inputDate: String): String {
     return date.format(outputFormat)
 }
 
+@SuppressLint("SimpleDateFormat")
 fun convertToHumanReadableDate(inputDate: String): String {
     val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
     val date = inputFormat.parse(inputDate)!!
+
     return DateUtils.getRelativeTimeSpanString(
         date.time,
         Calendar.getInstance().timeInMillis,
         DateUtils.MINUTE_IN_MILLIS
     ).toString()
+}
+
+fun Double.roundTo(decimals: Int): Double {
+    var multiplier = 1.0
+    repeat(decimals) { multiplier *= 10 }
+    return round(this * multiplier) / multiplier
+}
+
+fun getStringPercentage(inputNumber: Double): String {
+    val number = BigDecimal(inputNumber)
+    val multiplied = number.multiply(BigDecimal(100)).setScale(2, RoundingMode.HALF_EVEN)
+    return "$multiplied%"
 }

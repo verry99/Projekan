@@ -84,7 +84,7 @@ dependencies {
     implementation "de.hdodenhof:circleimageview:3.1.0"
 
     // Chart
-    implementation "com.github.PhilJay:MPAndroidChart:2.2.4"
+    implementation "com.github.PhilJay:MPAndroidChart:3.1.0"
 
     // WebView
     implementation 'androidx.webkit:webkit:1.7.0'

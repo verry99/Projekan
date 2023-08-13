@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.dashboard.volunteer.add_volunteer.AddVolunteerFragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="24dp">
+
+            <!-- Button Back -->
+            <LinearLayout
+                android:id="@+id/btn_back_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                tools:ignore="UseCompoundDrawables">
+
+                <ImageView
+                    android:id="@+id/btn_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/icon_back"
+                    android:src="@drawable/ic_back" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_bold"
+                    android:paddingEnd="24dp"
+                    android:text="@string/relawan"
+                    android:textAlignment="center"
+                    tools:ignore="RtlSymmetry" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="80dp"
+                android:fontFamily="@font/inter_semibold"
+                android:text="@string/gabung_sebagai"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_extra_bold"
+                android:text="@string/relawan_sbr"
+                android:textAllCaps="true"
+                android:textSize="36sp" />
+
+            <!-- Form -->
+            <TextView
+                style="@style/MyEditTextLabelStyle"
+                android:text="@string/alasan" />
+
+            <EditText
+                android:id="@+id/edt_alasan"
+                style="@style/PurpleEditTextStyle"
+                android:gravity="top|start"
+                android:hint="@string/tulis_alasan_kamu_di_sini"
+                android:importantForAutofill="no"
+                android:inputType="textMultiLine"
+                android:lines="4" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/berikan_alasan_mengapa_anda_layak_menjadi_relawan_sehingga_kami_yakin"
+                android:textColor="@color/dark_gray"
+                android:textSize="12sp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_kirim"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/button_red_background"
+                android:fontFamily="@font/inter_semibold"
+                android:text="@string/daftar"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:indeterminateTint="@color/red"
+        android:indeterminateTintMode="src_atop"
+        android:visibility="gone" />
+
+</RelativeLayout>

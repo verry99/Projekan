@@ -21,7 +21,7 @@ class InteractionFragment : Fragment(), View.OnClickListener {
     private var _binding: FragmentInteractionBinding? = null
     private val binding get() = _binding!!
     private val viewModel: InteractionViewModel by viewModels()
-    private val sharedViewModel: InteractionSharedViewModel by viewModels()
+    private lateinit var adapter: InteractionAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,6 +44,12 @@ class InteractionFragment : Fragment(), View.OnClickListener {
     private fun setUpRecyclerView() {
         binding.rvInteraction.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
+        adapter = InteractionAdapter(viewModel.token)
+        binding.rvInteraction.adapter = adapter.withLoadStateFooter(
+            footer = LoadingStateAdapter {
+                adapter.retry()
+            })
     }
 
     private fun setUpActionListeners() {
@@ -66,11 +72,6 @@ class InteractionFragment : Fragment(), View.OnClickListener {
         viewModel.apply {
 
             interaction.observe(viewLifecycleOwner) {
-                val adapter = InteractionAdapter(viewModel.token)
-                binding.rvInteraction.adapter = adapter.withLoadStateFooter(
-                    footer = LoadingStateAdapter {
-                        adapter.retry()
-                    })
                 adapter.submitData(lifecycle, it)
             }
 
@@ -78,6 +79,16 @@ class InteractionFragment : Fragment(), View.OnClickListener {
                 if (it.isNotEmpty()) {
                     Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
                 }
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.apply {
+            fetchInteraction()
+            viewModel.interaction.observe(viewLifecycleOwner) {
+                adapter.submitData(lifecycle, it)
             }
         }
     }

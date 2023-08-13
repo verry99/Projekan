@@ -116,9 +116,21 @@ class DashboardFragment : Fragment(), View.OnClickListener {
         when (v?.id) {
 
             R.id.btn_relawan -> {
-                val action =
-                    DashboardFragmentDirections.actionDashboardFragmentToVolunteerFragment(viewModel.user.value!!.accessToken)
-                findNavController().navigate(action)
+                when (viewModel.user.value?.role) {
+                    "admin" -> {
+                        val action =
+                            DashboardFragmentDirections.actionDashboardFragmentToVolunteerFragment(
+                                viewModel.user.value!!.accessToken
+                            )
+                        findNavController().navigate(action)
+                    }
+
+                    "volunteer" -> {}
+                    "user" -> {
+                        findNavController().navigate(R.id.action_dashboardFragment_to_userVolunteerFragment)
+                    }
+                }
+
             }
 
             R.id.btn_pendukung -> {

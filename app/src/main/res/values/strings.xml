@@ -159,6 +159,18 @@
     <string name="foto_maks_5_mb">*Foto maks 5 Mb</string>
     <string name="interaksi_lebih_dekat_nbersama_sama">Interaksi lebih dekat,\nbersama-sama!</string>
     <string name="dot_separator">•</string>
+    <string name="statistik">Statistik</string>
+    <string name="pertumbuhan_pendukung">Pertumbuhan Pendukung</string>
+    <string name="pertumbuhan_relawan">Pertumbuhan Relawan</string>
+    <string name="demografi_gender">Demografi Gender</string>
+    <string name="total_dukungan">Total Dukungan</string>
+    <string name="_30_hari_terakhir">30 hari terakhir</string>
+    <string name="gabung_sebagai">Gabung Sebagai</string>
+    <string name="relawan_sbr">Relawan SBR</string>
+    <string name="alasan">Alasan*</string>
+    <string name="tulis_alasan_kamu_di_sini">Tulis alasan kamu di sini</string>
+    <string name="berikan_alasan_mengapa_anda_layak_menjadi_relawan_sehingga_kami_yakin">*Berikan alasan mengapa anda layak menjadi relawan sehingga kami yakin.</string>
+    <string name="gambar_pertumbuhan_pendukung">gambar pertumbuhan pendukung</string>
 
     <string-array name="spinner_gender">
         <item>Laki-laki</item>

@@ -39,8 +39,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:fontFamily="@font/inter_extra_bold"
+        android:fontFamily="@font/inter_bold"
         android:maxLines="1"
+        android:textColor="@color/black"
         android:textSize="16sp"
         tools:text="Judul Interaksi" />
 
@@ -62,6 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:fontFamily="@font/inter_semibold"
+            android:textColor="@color/dark_gray"
             tools:text="Nama Lengkap" />
 
         <TextView
@@ -84,8 +86,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:ellipsize="end"
-        android:maxLines="3"
         tools:text="Lorem ipsum dolor sit amet" />
 
     <androidx.cardview.widget.CardView
@@ -128,7 +128,7 @@
             android:src="@drawable/ic_profile_placeholder" />
 
         <EditText
-            android:id="@+id/edt_nama"
+            android:id="@+id/edt_comment"
             style="@style/PurpleEditTextStyle"
             android:layout_width="0dp"
             android:layout_height="36dp"
@@ -141,12 +141,25 @@
             android:paddingVertical="0dp"
             android:textSize="14sp" />
 
-        <ImageView
+        <FrameLayout
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:layout_gravity="center"
-            android:layout_marginStart="8dp"
-            android:src="@drawable/ic_send" />
+            android:layout_marginStart="8dp">
+
+            <ImageView
+                android:id="@+id/btn_send_comment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_send" />
+
+            <ProgressBar
+                android:id="@+id/progress_bar_add_comment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone" />
+
+        </FrameLayout>
 
     </LinearLayout>
 
