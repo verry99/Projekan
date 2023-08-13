@@ -159,6 +159,12 @@
     <string name="foto_maks_5_mb">*Foto maks 5 Mb</string>
     <string name="interaksi_lebih_dekat_nbersama_sama">Interaksi lebih dekat,\nbersama-sama!</string>
     <string name="dot_separator">•</string>
+    <string name="statistik">Statistik</string>
+    <string name="pertumbuhan_pendukung">Pertumbuhan Pendukung</string>
+    <string name="pertumbuhan_relawan">Pertumbuhan Relawan</string>
+    <string name="demografi_gender">Demografi Gender</string>
+    <string name="total_dukungan">Total Dukungan</string>
+    <string name="_30_hari_terakhir">30 hari terakhir</string>
 
     <string-array name="spinner_gender">
         <item>Laki-laki</item>

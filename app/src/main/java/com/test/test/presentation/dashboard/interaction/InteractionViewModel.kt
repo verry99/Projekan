@@ -21,6 +21,10 @@ class InteractionViewModel @Inject constructor(
 
     val token = "Bearer " + state.get<String>("token")!!
 
-    val interaction = getAllInteractionUseCase(token, 10).cachedIn(viewModelScope)
+    var interaction = getAllInteractionUseCase(token, 10).cachedIn(viewModelScope)
+
+    fun fetchInteraction() {
+        interaction = getAllInteractionUseCase(token, 10).cachedIn(viewModelScope)
+    }
 
 }

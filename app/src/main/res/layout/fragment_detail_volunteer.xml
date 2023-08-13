@@ -157,6 +157,7 @@
                     android:text="@string/sebaran_wilayah"
                     android:textAllCaps="true" />
 
+                <!-- Tabel Sebaran Wilayah -->
                 <LinearLayout
                     android:id="@+id/table_header"
                     android:layout_width="match_parent"

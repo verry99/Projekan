@@ -5,6 +5,7 @@ import com.test.test.data.remote.dto.detail.DetailPostResponse
 import com.test.test.data.remote.dto.interaction.InteractionResponse
 import com.test.test.data.remote.dto.interaction.add_interaction.AddInteractionResponse
 import com.test.test.data.remote.dto.interaction.detail_interaction.DetailInteractionResponse
+import com.test.test.data.remote.dto.interaction.detail_interaction.add_comment.AddCommentResponse
 import com.test.test.data.remote.dto.post.PostResponse
 import com.test.test.data.remote.dto.profile.ProfileResponse
 import com.test.test.data.remote.dto.profile.UpdateProfileResponse
@@ -17,6 +18,8 @@ import com.test.test.data.remote.dto.volunteer.detail_volunteer.DetailVolunteerR
 import com.test.test.data.remote.dto.volunteer.summary_volunteer.VolunteerSummaryResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Multipart
@@ -167,6 +170,19 @@ interface DashboardService {
         @Part("title") title: RequestBody,
         @Part("description") description: RequestBody,
     ): AddInteractionResponse
+
+    @FormUrlEncoded
+    @POST("interaction/{id}/comment")
+    suspend fun addInteractionComment(
+        @Header("Authorization") token: String,
+        @Path("id") id: Int,
+        @Field("body") body: String,
+    ): AddCommentResponse
+
+    @GET("analyst")
+    suspend fun getAnalysis(
+        @Header("Authorization") token: String
+    )
 
     @GET("user-profile")
     suspend fun getProfile(

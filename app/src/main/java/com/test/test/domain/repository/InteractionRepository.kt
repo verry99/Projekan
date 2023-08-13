@@ -6,6 +6,7 @@ import com.test.test.data.remote.dto.interaction.InteractionResponseItem
 import com.test.test.data.remote.dto.interaction.add_interaction.AddInteractionResponse
 import com.test.test.data.remote.dto.interaction.detail_interaction.DetailInteractionResponse
 import com.test.test.data.remote.dto.interaction.detail_interaction.InteractionCommentResponseItem
+import com.test.test.data.remote.dto.interaction.detail_interaction.add_comment.AddCommentResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
@@ -27,4 +28,9 @@ interface InteractionRepository {
         id: Int
     ): LiveData<PagingData<InteractionCommentResponseItem>>
 
+    suspend fun addComment(
+        token: String,
+        id: Int,
+        body: String
+    ): AddCommentResponse
 }

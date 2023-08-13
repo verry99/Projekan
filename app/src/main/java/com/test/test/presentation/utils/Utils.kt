@@ -1,5 +1,6 @@
 package com.test.test.presentation.utils
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -76,9 +77,11 @@ fun convertToYearFirst(inputDate: String): String {
     return date.format(outputFormat)
 }
 
+@SuppressLint("SimpleDateFormat")
 fun convertToHumanReadableDate(inputDate: String): String {
     val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
     val date = inputFormat.parse(inputDate)!!
+
     return DateUtils.getRelativeTimeSpanString(
         date.time,
         Calendar.getInstance().timeInMillis,

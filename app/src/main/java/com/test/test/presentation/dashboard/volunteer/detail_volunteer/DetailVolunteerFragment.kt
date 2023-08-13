@@ -70,7 +70,6 @@ class DetailVolunteerFragment : Fragment(), View.OnClickListener {
 
     private fun setUpChart() {
         showDemographyChart(0, 0, 0)
-
     }
 
     private fun setUpRecyclerView() {

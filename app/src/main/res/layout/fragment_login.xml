@@ -23,7 +23,7 @@
                 android:layout_height="300dp"
                 android:layout_gravity="center"
                 android:contentDescription="@string/gambar_susanto"
-                android:src="@drawable/img_esusanto" />
+                android:src="@drawable/img_logo_esusanto" />
 
             <TextView
                 android:layout_width="match_parent"

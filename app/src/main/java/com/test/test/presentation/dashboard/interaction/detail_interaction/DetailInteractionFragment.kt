@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -14,7 +15,6 @@ import com.test.test.common.Constants.IMAGE_URL
 import com.test.test.databinding.FragmentDetailInteractionBinding
 import com.test.test.presentation.adapter.InteractionCommentAdapter
 import com.test.test.presentation.adapter.LoadingStateAdapter
-import com.test.test.presentation.dashboard.interaction.InteractionSharedViewModel
 import com.test.test.presentation.utils.convertToHumanReadableDate
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -24,6 +24,7 @@ class DetailInteractionFragment : Fragment(), View.OnClickListener {
     private var _binding: FragmentDetailInteractionBinding? = null
     private val binding get() = _binding!!
     private val viewModel: DetailInteractionViewModel by viewModels()
+    private val adapter = InteractionCommentAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,6 +47,12 @@ class DetailInteractionFragment : Fragment(), View.OnClickListener {
     private fun setUpRecyclerView() {
         binding.rvComment.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
+        binding.rvComment.adapter = adapter.withLoadStateFooter(
+            footer = LoadingStateAdapter
+            {
+                adapter.retry()
+            })
     }
 
     private fun setUpLiveObserver() {
@@ -56,6 +63,7 @@ class DetailInteractionFragment : Fragment(), View.OnClickListener {
                     tvTitle.text = it.title
                     tvFullName.text = it.author
                     tvDescription.text = it.description
+
                     try {
                         tvDate.text = convertToHumanReadableDate(it.createdAt!!)
                     } catch (e: Exception) {
@@ -72,12 +80,39 @@ class DetailInteractionFragment : Fragment(), View.OnClickListener {
             }
 
             comment.observe(viewLifecycleOwner) {
-                val adapter = InteractionCommentAdapter()
-                binding.rvComment.adapter = adapter.withLoadStateFooter(
-                    footer = LoadingStateAdapter {
-                        adapter.retry()
-                    })
                 adapter.submitData(lifecycle, it)
+            }
+
+            addCommentSuccess.observe(viewLifecycleOwner) {
+                if (it) {
+                    binding.edtComment.setText("")
+                    viewModel.fetchComment()
+                    comment.observe(viewLifecycleOwner) {
+                        adapter.submitData(lifecycle, it)
+                    }
+
+                    viewModel.setAddCommentSuccess(false)
+                }
+            }
+
+            errorMessage.observe(viewLifecycleOwner) {
+                if (it.isNotEmpty()) {
+                    Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            addCommentIsLoading.observe(viewLifecycleOwner) {
+                if (it) {
+                    binding.apply {
+                        btnSendComment.visibility = View.GONE
+                        progressBarAddComment.visibility = View.VISIBLE
+                    }
+                } else {
+                    binding.apply {
+                        btnSendComment.visibility = View.VISIBLE
+                        progressBarAddComment.visibility = View.GONE
+                    }
+                }
             }
         }
     }
@@ -85,17 +120,37 @@ class DetailInteractionFragment : Fragment(), View.OnClickListener {
     private fun setUpActionListeners() {
         binding.apply {
             btnBack.setOnClickListener(this@DetailInteractionFragment)
+            btnSendComment.setOnClickListener(this@DetailInteractionFragment)
         }
+    }
+
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.btn_back -> findNavController().navigateUp()
+            R.id.btn_send_comment -> {
+                addComment()
+            }
+        }
+    }
+
+    private fun addComment() {
+        val commentBody = binding.edtComment.text.toString()
+
+        if (commentBody.length < 5) {
+            Toast.makeText(
+                requireContext(),
+                "Komen harus berisi minimal 5 karakter",
+                Toast.LENGTH_SHORT
+            ).show()
+            return
+        }
+
+        viewModel.addComment(commentBody)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    override fun onClick(v: View?) {
-        when (v?.id) {
-            R.id.btn_back -> findNavController().navigateUp()
-        }
     }
 }

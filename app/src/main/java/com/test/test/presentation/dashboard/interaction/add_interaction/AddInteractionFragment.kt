@@ -16,7 +16,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.test.test.R
 import com.test.test.databinding.FragmentAddInteractionBinding
-import com.test.test.presentation.dashboard.interaction.InteractionSharedViewModel
 import com.test.test.presentation.utils.createTempFile
 import com.test.test.presentation.utils.reduceFileImage
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,7 +34,6 @@ class AddInteractionFragment : Fragment(), View.OnClickListener {
     private var _binding: FragmentAddInteractionBinding? = null
     private val binding get() = _binding!!
     private val viewModel: AddInteractionViewModel by viewModels()
-    private val sharedViewModel: InteractionSharedViewModel by viewModels()
     private var getFile: File? = null
 
     override fun onCreateView(
@@ -118,18 +116,20 @@ class AddInteractionFragment : Fragment(), View.OnClickListener {
 
             success.observe(viewLifecycleOwner) {
                 if (it) {
+                    viewModel.success.value = false
                     findNavController().navigateUp()
                     Toast.makeText(
                         requireActivity(),
                         "Berhasil menambahkan topik.",
                         Toast.LENGTH_SHORT
                     ).show()
-                    viewModel.success.value = false
                 }
             }
 
             errorMessage.observe(viewLifecycleOwner) {
-                if (it.isNotEmpty()) Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+                if (it.isNotEmpty()) {
+                    Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+                }
             }
 
             isLoading.observe(viewLifecycleOwner) {
@@ -148,25 +148,28 @@ class AddInteractionFragment : Fragment(), View.OnClickListener {
         }
     }
 
-
     private fun addInteraction() {
 
         val photo: MultipartBody.Part?
 
-        if (binding.edtJudul.text.toString().isEmpty()) {
+        if (binding.edtJudul.text.toString()
+                .isEmpty() || binding.edtJudul.text.toString().length < 5
+        ) {
             Toast.makeText(
                 requireContext(),
-                "Lengkapi judul terlebih dahulu",
+                "Judul harus diisi minimal 5 karakter.",
                 Toast.LENGTH_SHORT
             ).show()
 
             return
         }
 
-        if (binding.edtPesan.text.toString().isEmpty()) {
+        if (binding.edtPesan.text.toString()
+                .isEmpty() || binding.edtPesan.text.toString().length < 10
+        ) {
             Toast.makeText(
                 requireContext(),
-                "Lengkapi pesan terlebih dahulu",
+                "Pesan harus diisi minimal 10 karakter.",
                 Toast.LENGTH_SHORT
             ).show()
 
@@ -182,6 +185,7 @@ class AddInteractionFragment : Fragment(), View.OnClickListener {
 
             return
         }
+
         val file = reduceFileImage(getFile as File)
         val requestImageFile = file.asRequestBody("image/jpeg".toMediaType())
         photo = MultipartBody.Part.createFormData(
