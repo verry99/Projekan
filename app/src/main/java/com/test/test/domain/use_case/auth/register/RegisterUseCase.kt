@@ -5,6 +5,7 @@ import com.test.test.domain.models.UserPref
 import com.test.test.domain.repository.AuthRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import org.json.JSONObject
 import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
@@ -35,7 +36,11 @@ class RegisterUseCase @Inject constructor(
         } catch (e: HttpException) {
             when (e.code()) {
                 in 400..499 -> {
-                    emit(Resource.Error("Input salah. Mohon periksa kembali inputan Anda."))
+                    e.response()?.errorBody()?.string()?.let {
+                        val errorObj = JSONObject(it)
+                        val errorMessage = errorObj.optString("message", "Unknown Error")
+                        emit(Resource.Error(errorMessage))
+                    }
                 }
 
                 in 500..599 -> {

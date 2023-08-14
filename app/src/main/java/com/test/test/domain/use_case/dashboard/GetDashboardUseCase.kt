@@ -5,6 +5,7 @@ import com.test.test.data.remote.dto.dashboard.DashboardResponse
 import com.test.test.domain.repository.DashboardRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import org.json.JSONObject
 import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
@@ -20,7 +21,11 @@ class GetDashboardUseCase @Inject constructor(
         } catch (e: HttpException) {
             when (e.code()) {
                 in 400..499 -> {
-                    emit(Resource.Error("Token expired. Silahkan login kembali!"))
+                    e.response()?.errorBody()?.string()?.let {
+                        val errorObj = JSONObject(it)
+                        val errorMessage = errorObj.optString("message", "Unknown Error")
+                        emit(Resource.Error(errorMessage))
+                    }
                 }
 
                 in 500..599 -> {

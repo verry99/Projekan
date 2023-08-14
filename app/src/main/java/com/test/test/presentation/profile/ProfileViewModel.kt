@@ -1,5 +1,6 @@
 package com.test.test.presentation.profile
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -29,6 +30,9 @@ class ProfileViewModel @Inject constructor(
     private val _isLoading = MutableLiveData(false)
     val isLoading: LiveData<Boolean> = _isLoading
 
+    private val _logout = MutableLiveData(false)
+    val logout: LiveData<Boolean> = _logout
+
     init {
         viewModelScope.launch {
             getUserPreferenceUseCase().let { userPref ->
@@ -39,7 +43,12 @@ class ProfileViewModel @Inject constructor(
 
     fun logout() {
         viewModelScope.launch {
-            removeUserPreferenceUseCase()
+            try {
+                removeUserPreferenceUseCase()
+                _logout.value = true
+            } catch (e: Exception) {
+                Log.e("#vm", "$e")
+            }
         }
     }
 }

@@ -64,6 +64,9 @@ class ProfileFragment : Fragment(), View.OnClickListener {
                 }
             }
 
+            logout.observe(viewLifecycleOwner) {
+                if (it) findNavController().navigate(R.id.action_profileFragment_to_loginFragment)
+            }
         }
     }
 
@@ -81,12 +84,10 @@ class ProfileFragment : Fragment(), View.OnClickListener {
             R.id.btn_edit_profile -> findNavController().navigate(R.id.action_profileFragment_to_editProfileFragment)
             R.id.btn_ubah_password -> findNavController().navigate(R.id.action_profileFragment_to_changePasswordFragment)
             R.id.btn_ubah_no_hp -> findNavController().navigate(R.id.action_profileFragment_to_changePhoneNumberFragment)
-            R.id.tv_keluar -> {
-                viewModel.logout()
-                findNavController().navigate(R.id.action_profileFragment_to_loginFragment)
-            }
+            R.id.tv_keluar -> viewModel.logout()
         }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

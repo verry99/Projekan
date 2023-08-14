@@ -44,10 +44,7 @@ class UserPreferenceRepositoryImpl @Inject constructor(
 
     override suspend fun removeUserPreference() {
         context.dataStore.edit {
-            it.remove(NAME)
-            it.remove(ROLE)
-            it.remove(IMAGE_URL)
-            it.remove(ACCESS_TOKEN)
+            it.clear()
         }
     }
 

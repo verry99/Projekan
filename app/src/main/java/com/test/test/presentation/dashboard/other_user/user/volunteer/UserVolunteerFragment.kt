@@ -39,8 +39,10 @@ class UserVolunteerFragment : Fragment(), View.OnClickListener {
     private fun setUpLiveDataObservers() {
         viewModel.apply {
             pending.observe(viewLifecycleOwner) {
-                if(it) {
+                if (it) {
 
+                } else {
+                    binding.btnDaftar.isEnabled = true
                 }
             }
 
@@ -66,12 +68,10 @@ class UserVolunteerFragment : Fragment(), View.OnClickListener {
                 if (it) {
                     binding.apply {
                         progressBar.visibility = View.VISIBLE
-                        btnKirim.isEnabled = false
                     }
                 } else {
                     binding.apply {
                         progressBar.visibility = View.GONE
-                        btnKirim.isEnabled = true
                     }
                 }
             }

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.test.test.domain.models.UserPref
 import com.test.test.domain.use_case.user_pref.get_user.GetUserPreferenceUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -14,13 +15,13 @@ class SplashViewModel @Inject constructor(
     getUserPreferenceUseCase: GetUserPreferenceUseCase
 ) : ViewModel() {
 
-    private val _accessToken = MutableLiveData<String>(null)
-    val accessToken: LiveData<String> = _accessToken
+    private val _user = MutableLiveData<UserPref>()
+    val user: LiveData<UserPref> = _user
 
     init {
         viewModelScope.launch {
             getUserPreferenceUseCase().let {
-                _accessToken.value = it.accessToken
+                _user.value = it
             }
         }
     }

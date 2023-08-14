@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import org.json.JSONObject
 import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
@@ -57,12 +58,16 @@ class AddSupporterUseCase @Inject constructor(
                 religion,
                 maritalStatus
             )
-            emit(Resource.Success(response))
 
+            emit(Resource.Success(response))
         } catch (e: HttpException) {
             when (e.code()) {
                 in 400..499 -> {
-                    emit(Resource.Error("Input salah. Mohon periksa kembali inputan Anda."))
+                    e.response()?.errorBody()?.string()?.let {
+                        val errorObj = JSONObject(it)
+                        val errorMessage = errorObj.optString("message", "Unknown Error")
+                        emit(Resource.Error(errorMessage))
+                    }
                 }
 
                 in 500..599 -> {

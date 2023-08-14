@@ -98,13 +98,13 @@ interface DashboardService {
         @Part("marial_state") maritalStatus: RequestBody
     ): AddVolunteerResponse
 
-    @GET
+    @GET("request-upgrade")
     suspend fun getRequestUpgradeVolunteer(
         @Header("Authorization") token: String
     ): RequestUpgradeVolunteerResponse
 
     @FormUrlEncoded
-    @POST
+    @POST("request-upgrade")
     suspend fun requestUpgradeVolunteer(
         @Header("Authorization") token: String,
         @Field("role") role: String,

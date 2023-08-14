@@ -27,6 +27,9 @@ class LoginViewModel @Inject constructor(
     private val _errorMessage = MutableLiveData("")
     val errorMessage: LiveData<String> = _errorMessage
 
+    private val _role = MutableLiveData<String>()
+    val role: LiveData<String> = _role
+
     fun login(
         email: String,
         password: String,
@@ -36,6 +39,7 @@ class LoginViewModel @Inject constructor(
             when (it) {
                 is Resource.Success -> {
                     it.data?.let { userData ->
+                        _role.value = userData.role
                         saveUserPreferenceUseCase(
                             userData.name,
                             userData.role,

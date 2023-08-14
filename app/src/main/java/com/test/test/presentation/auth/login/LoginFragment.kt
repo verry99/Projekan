@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.test.test.R
 import com.test.test.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -49,11 +50,24 @@ class LoginFragment : Fragment(), View.OnClickListener {
             isLoading.observe(viewLifecycleOwner) {
                 showLoading(it)
             }
+
+            role.observe(viewLifecycleOwner) {
+                it?.let {
+                    if (it != "admin") {
+                        val bottomNavigationView =
+                            requireActivity().findViewById<BottomNavigationView>(R.id.nav_view)
+                        bottomNavigationView.menu.clear()
+                        bottomNavigationView.inflateMenu(R.menu.regular_user_bottom_nav_menu)
+                    }
+                }
+            }
+
             isValid.observe(viewLifecycleOwner) {
                 if (it) {
                     findNavController().navigate(R.id.action_loginFragment_to_dashboardFragment)
                 }
             }
+
             errorMessage.observe(viewLifecycleOwner) {
                 if (it.isNotEmpty()) {
                     Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()

@@ -81,11 +81,12 @@
                 android:textSize="12sp" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_kirim"
+                android:id="@+id/btn_daftar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:background="@drawable/button_red_background"
+                android:enabled="false"
                 android:fontFamily="@font/inter_semibold"
                 android:text="@string/daftar"
                 android:textAllCaps="false"
