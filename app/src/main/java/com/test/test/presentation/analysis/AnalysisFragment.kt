@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.components.XAxis
@@ -49,7 +50,7 @@ import com.test.test.presentation.utils.roundTo
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AnalysisFragment : Fragment() {
+class AnalysisFragment : Fragment(), View.OnClickListener {
 
     private var _binding: FragmentAnalysisBinding? = null
     private val binding get() = _binding!!
@@ -72,10 +73,32 @@ class AnalysisFragment : Fragment() {
         setUpRecyclerView()
         setUpLiveDataObserver()
         showDemographyChart(0, 0)
+        setUpSwipeRefresh()
+    }
+
+    private fun setUpSwipeRefresh() {
+        binding.swipeToRefresh.apply {
+            setOnRefreshListener {
+                viewModel.fetchAnalysisData()
+                viewModel.isLoading.observe(viewLifecycleOwner) {
+                    if (!it) {
+                        this.isRefreshing = false
+                    }
+                }
+            }
+        }
     }
 
     private fun setUpActionListener() {
+        binding.apply {
+            tvTableSelengkapnya.setOnClickListener(this@AnalysisFragment)
+        }
+    }
 
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.tv_table_selengkapnya -> findNavController().navigate(R.id.action_analysisFragment_to_analysisRegionFragment)
+        }
     }
 
     private fun setUpRecyclerView() {

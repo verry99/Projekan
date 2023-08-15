@@ -6,7 +6,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.test.test.common.Resource
-import com.test.test.data.remote.dto.detail.DetailPostResponse
+import com.test.test.data.remote.dto.post.detail.DetailPostResponse
 import com.test.test.domain.models.UserPref
 import com.test.test.domain.use_case.post.detail.GetDetailPostUseCase
 import com.test.test.domain.use_case.user_pref.get_user.GetUserPreferenceUseCase

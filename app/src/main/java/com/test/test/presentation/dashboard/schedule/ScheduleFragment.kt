@@ -5,21 +5,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import com.google.android.material.tabs.TabLayoutMediator
 import com.test.test.R
 import com.test.test.databinding.FragmentScheduleBinding
+import com.test.test.presentation.adapter.ScheduleViewPagerAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ScheduleFragment : Fragment(), View.OnClickListener {
-
     private var _binding: FragmentScheduleBinding? = null
     private val binding get() = _binding!!
+    private val args: ScheduleFragmentArgs by navArgs()
+    private val viewModel: ScheduleViewModel by viewModels()
+    private val tabsArray = arrayOf("All", "Active", "Inactive")
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentScheduleBinding.inflate(inflater, container, false)
+        _binding = FragmentScheduleBinding.inflate(layoutInflater)
 
         return binding.root
     }
@@ -27,21 +35,38 @@ class ScheduleFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setUpActionListeners()
+        viewModel.setToken(args.token)
+        setUpActionListener()
+        setUpViewPager()
     }
 
-    private fun setUpActionListeners() {
-//        binding.btnBack.setOnClickListener(this)
+    private fun setUpViewPager() {
+        val viewPager = binding.viewPager
+        val tabLayout = binding.tabLayout
+
+        val adapter = ScheduleViewPagerAdapter(childFragmentManager, lifecycle)
+        viewPager.adapter = adapter
+
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+            tab.text = tabsArray[position]
+        }.attach()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun setUpActionListener() {
+
+        binding.apply {
+            btnBack.setOnClickListener(this@ScheduleFragment)
+        }
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.btn_back -> findNavController().navigate(R.id.action_notificationFragment_to_dashboardFragment)
+            R.id.btn_back -> findNavController().navigateUp()
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

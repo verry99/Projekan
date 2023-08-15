@@ -125,7 +125,10 @@ class DashboardFragment : Fragment(), View.OnClickListener {
                         findNavController().navigate(action)
                     }
 
-                    "volunteer" -> {}
+                    "volunteer" -> {
+                        findNavController().navigate(R.id.action_dashboardFragment_to_volunteerVolunteerFragment)
+                    }
+
                     "user" -> {
                         findNavController().navigate(R.id.action_dashboardFragment_to_userVolunteerFragment)
                     }
@@ -142,7 +145,12 @@ class DashboardFragment : Fragment(), View.OnClickListener {
             R.id.btn_notification -> findNavController().navigate(R.id.action_dashboardFragment_to_notificationFragment)
             R.id.btn_quick_count -> findNavController().navigate(R.id.action_dashboardFragment_to_quickCountFragment)
             R.id.btn_profil_sbr -> findNavController().navigate(R.id.action_dashboardFragment_to_profileSBRFragment)
-            R.id.btn_jadwal -> findNavController().navigate(R.id.action_dashboardFragment_to_scheduleFragment)
+            R.id.btn_jadwal -> {
+                val action =
+                    DashboardFragmentDirections.actionDashboardFragmentToScheduleFragment(viewModel.user.value!!.accessToken)
+                findNavController().navigate(action)
+            }
+
             R.id.btn_aktifitas -> findNavController().navigate(R.id.action_dashboardFragment_to_activityFragment)
             R.id.btn_interaksi -> {
                 val action =

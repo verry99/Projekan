@@ -1,7 +1,6 @@
 package com.test.test.presentation.dashboard.volunteer.detail_volunteer
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,6 +34,11 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.data.BarData
+import com.github.mikephil.charting.data.BarDataSet
+import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.test.test.R
 import com.test.test.common.Constants
 import com.test.test.databinding.FragmentDetailVolunteerBinding
@@ -108,14 +112,100 @@ class DetailVolunteerFragment : Fragment(), View.OnClickListener {
                     showDemographyChart(supporterMaleTotal, supporterFemaleTotal, it.supporterCount)
 
                     rvSupporterNumber.adapter = AreaAdapter(it.area)
-                    Log.e("#detvolfrag", "${it.area}")
                 }
 
-                if (!it.supporter.isNullOrEmpty()) {
-                    binding.rvSupporter.adapter = VolunteerDetailSupporterAdapter(it.supporter)
+                it.supporter?.let {
+                    binding.rvSupporter.adapter = VolunteerDetailSupporterAdapter(it)
+                }
+
+                it.age?.let {
+                    val xValues =
+                        listOf("<20", "20-29", "30-39", "40-49", "50-59", "60-69", "70-79", "80>")
+                    val yMaleValues = listOf(
+                        it.x20.l!!.toFloat(),
+                        it.x2029.l!!.toFloat(),
+                        it.x3039.l!!.toFloat(),
+                        it.x4049.l!!.toFloat(),
+                        it.x5059.l!!.toFloat(),
+                        it.x6069.l!!.toFloat(),
+                        it.x7079.l!!.toFloat(),
+                        it.x80.l!!.toFloat()
+                    )
+                    val yFemaleValues = listOf(
+                        it.x20.p!!.toFloat(),
+                        it.x2029.p!!.toFloat(),
+                        it.x3039.p!!.toFloat(),
+                        it.x4049.p!!.toFloat(),
+                        it.x5059.p!!.toFloat(),
+                        it.x6069.p!!.toFloat(),
+                        it.x7079.p!!.toFloat(),
+                        it.x80.p!!.toFloat()
+                    )
+                    setUpBarChart(xValues, yMaleValues, yFemaleValues)
                 }
             }
         }
+    }
+
+    private fun setUpBarChart(
+        xValues: List<String>,
+        yMaleValues: List<Float>,
+        yFemaleValues: List<Float>
+    ) {
+
+        val barChart = binding.barChart
+        barChart.setDrawGridBackground(false)
+        barChart.axisRight.setDrawLabels(false)
+        barChart.description.isEnabled = false
+        barChart.isScaleXEnabled = true
+        barChart.isDragEnabled = true
+        barChart.setVisibleXRangeMaximum(3F)
+
+        val dataValues = ArrayList<BarEntry>()
+        for ((index, value) in yMaleValues.withIndex()) {
+            dataValues.add(BarEntry(index.toFloat(), value))
+        }
+
+        val dataValues2 = ArrayList<BarEntry>()
+        for ((index, value) in yFemaleValues.withIndex()) {
+            dataValues2.add(BarEntry(index.toFloat(), value))
+        }
+
+        val xAxis = barChart.xAxis
+        xAxis.setDrawGridLines(false)
+        xAxis.setCenterAxisLabels(true)
+        xAxis.position = XAxis.XAxisPosition.BOTTOM
+        xAxis.valueFormatter = IndexAxisValueFormatter(xValues)
+        xAxis.granularity = 1f
+        xAxis.isGranularityEnabled = true
+
+        val yAxis = barChart.axisLeft
+        yAxis.setDrawGridLines(false)
+        yAxis.axisMinimum = (yMaleValues + yFemaleValues).min()
+        yAxis.axisMaximum = (yMaleValues + yFemaleValues).max()
+        yAxis.axisLineWidth = 2f
+        yAxis.axisLineColor = resources.getColor(R.color.red)
+        yAxis.labelCount = 6
+
+        val dataSet1 = BarDataSet(dataValues, "Laki-laki")
+        dataSet1.color = android.graphics.Color.parseColor("#C21010")
+        val dataSet2 = BarDataSet(dataValues2, "Perempuan")
+        dataSet2.color = android.graphics.Color.parseColor("#5A5A5A")
+
+        val barData = BarData(dataSet1, dataSet2)
+        val barSpace = 0.1f
+        val groupSpace = 0.4f
+
+        barData.barWidth = .2f
+        barChart.data = barData
+        xAxis.axisMinimum = 0f
+        xAxis.axisMaximum =
+            (0 + barChart.barData.getGroupWidth(groupSpace, barSpace) * xValues.size)
+        barChart.axisLeft.axisMinimum = 0f
+        barChart.groupBars(0f, groupSpace, barSpace)
+        barChart.setFitBars(true);
+        barChart.animateY(1000)
+        barChart.invalidate()
     }
 
     private fun setUpActionListeners() {

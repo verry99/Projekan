@@ -40,9 +40,14 @@ class UserVolunteerFragment : Fragment(), View.OnClickListener {
         viewModel.apply {
             pending.observe(viewLifecycleOwner) {
                 if (it) {
-
-                } else {
-                    binding.btnDaftar.isEnabled = true
+                    binding.apply {
+                        tvTitle1.text = "Anda sudah dalam daftar pengajuan sebagai relawan."
+                        tvTitle2.visibility = View.GONE
+                        tvAlasan.visibility = View.GONE
+                        edtAlasan.visibility = View.GONE
+                        edtAlasanDesc.visibility = View.GONE
+                        btnDaftar.visibility = View.GONE
+                    }
                 }
             }
 
@@ -68,10 +73,12 @@ class UserVolunteerFragment : Fragment(), View.OnClickListener {
                 if (it) {
                     binding.apply {
                         progressBar.visibility = View.VISIBLE
+                        binding.btnDaftar.isEnabled = false
                     }
                 } else {
                     binding.apply {
                         progressBar.visibility = View.GONE
+                        binding.btnDaftar.isEnabled = true
                     }
                 }
             }
@@ -81,12 +88,25 @@ class UserVolunteerFragment : Fragment(), View.OnClickListener {
     private fun setUpActionListeners() {
         binding.apply {
             btnBack.setOnClickListener(this@UserVolunteerFragment)
+            btnDaftar.setOnClickListener(this@UserVolunteerFragment)
         }
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.btn_back -> findNavController().navigateUp()
+            R.id.btn_daftar -> {
+                val reason = binding.edtAlasan.text.toString()
+                if (reason.isNotEmpty()) {
+                    viewModel.requestUpgradeVolunteer(binding.edtAlasan.text.toString())
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "Lengkapi alasan terlebih dahulu.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
         }
     }
 

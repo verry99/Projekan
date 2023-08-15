@@ -1,4 +1,4 @@
-package com.test.test.presentation.dashboard.interaction.detail_interaction
+package com.test.test.presentation.dashboard.schedule.detail_schedule
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,7 +10,7 @@ import com.test.test.common.Resource
 import com.test.test.data.remote.dto.interaction.detail_interaction.Interaction
 import com.test.test.domain.use_case.interaction.add_comment.AddInteractionCommentUseCase
 import com.test.test.domain.use_case.interaction.get_detail_interaction.GetDetailInteractionUseCase
-import com.test.test.domain.use_case.interaction.get_detail_interaction.GetInteractionCommentUseCase
+import com.test.test.domain.use_case.interaction.get_detail_interaction.comment.GetInteractionCommentUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach

@@ -52,11 +52,13 @@ class RegisterFragment : Fragment(), View.OnClickListener {
 
             role.observe(viewLifecycleOwner) {
                 it?.let {
+                    val bottomNavigationView =
+                        requireActivity().findViewById<BottomNavigationView>(R.id.nav_view)
+                    bottomNavigationView.menu.clear()
                     if (it != "admin") {
-                        val bottomNavigationView =
-                            requireActivity().findViewById<BottomNavigationView>(R.id.nav_view)
-                        bottomNavigationView.menu.clear()
                         bottomNavigationView.inflateMenu(R.menu.regular_user_bottom_nav_menu)
+                    } else {
+                        bottomNavigationView.inflateMenu(R.menu.bottom_nav_menu)
                     }
                 }
             }

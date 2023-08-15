@@ -44,11 +44,14 @@ class SplashFragment : Fragment() {
                 } else {
                     lifecycleScope.launch {
                         delay(500)
+
+                        val bottomNavigationView =
+                            requireActivity().findViewById<BottomNavigationView>(R.id.nav_view)
+                        bottomNavigationView.menu.clear()
                         if (it.role != "admin") {
-                            val bottomNavigationView =
-                                requireActivity().findViewById<BottomNavigationView>(R.id.nav_view)
-                            bottomNavigationView.menu.clear()
                             bottomNavigationView.inflateMenu(R.menu.regular_user_bottom_nav_menu)
+                        } else {
+                            bottomNavigationView.inflateMenu(R.menu.bottom_nav_menu)
                         }
                         findNavController().navigate(R.id.action_splashFragment_to_dashboardFragment)
                     }

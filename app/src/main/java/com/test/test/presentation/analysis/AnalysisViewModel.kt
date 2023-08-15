@@ -30,22 +30,35 @@ class AnalysisViewModel @Inject constructor(
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
 
+    private val _isLoading = MutableLiveData(false)
+    val isLoading: LiveData<Boolean> = _isLoading
+
     init {
         viewModelScope.launch {
             getUserPreferenceUseCase().let { _user.value = it }
+            fetchAnalysisData()
+        }
+    }
+
+    fun fetchAnalysisData() {
+        viewModelScope.launch {
             getAnalysisUseCase("Bearer" + _user.value!!.accessToken).onEach {
                 when (it) {
                     is Resource.Success -> {
                         it.data?.let { response ->
                             _data.value = response
                         }
+                        _isLoading.value = false
                     }
 
                     is Resource.Error -> {
+                        _isLoading.value = false
                         _errorMessage.value = it.message!!
                     }
 
-                    is Resource.Loading -> {}
+                    is Resource.Loading -> {
+                        _isLoading.value = true
+                    }
                 }
             }.launchIn(viewModelScope)
         }

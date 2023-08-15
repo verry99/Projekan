@@ -2,6 +2,7 @@ package com.test.test.data.remote.dto.volunteer.detail_volunteer
 
 
 import com.google.gson.annotations.SerializedName
+import com.test.test.data.remote.dto.analysis.Age
 
 data class Volunteer(
     @SerializedName("email")
@@ -22,6 +23,8 @@ data class Volunteer(
     val area: List<Area?>?,
     @SerializedName("suporter")
     val supporter: List<Supporter?>?,
+    @SerializedName("age")
+    val age: Age?,
     @SerializedName("suporter_count")
     val supporterCount: Int?,
     @SerializedName("updated_at")

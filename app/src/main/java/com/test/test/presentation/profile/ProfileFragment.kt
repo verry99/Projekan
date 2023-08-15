@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.afollestad.materialdialogs.MaterialDialog
 import com.bumptech.glide.Glide
 import com.test.test.R
 import com.test.test.common.Constants.IMAGE_URL
@@ -84,10 +85,17 @@ class ProfileFragment : Fragment(), View.OnClickListener {
             R.id.btn_edit_profile -> findNavController().navigate(R.id.action_profileFragment_to_editProfileFragment)
             R.id.btn_ubah_password -> findNavController().navigate(R.id.action_profileFragment_to_changePasswordFragment)
             R.id.btn_ubah_no_hp -> findNavController().navigate(R.id.action_profileFragment_to_changePhoneNumberFragment)
-            R.id.tv_keluar -> viewModel.logout()
+            R.id.tv_keluar -> {
+                MaterialDialog(requireContext()).show {
+                    title(text = "Konfirmasi logout")
+                    positiveButton(text = "Keluar") {
+                        viewModel.logout()
+                    }
+                    negativeButton(text = "Batal")
+                }
+            }
         }
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -1,4 +1,4 @@
-package com.test.test.data.remote.dto.detail
+package com.test.test.data.remote.dto.post.detail
 
 
 import com.google.gson.annotations.SerializedName

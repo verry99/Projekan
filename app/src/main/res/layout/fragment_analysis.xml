@@ -1,341 +1,365 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipe_to_refresh"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:scrollbars="none"
-    tools:context=".presentation.analysis.AnalysisFragment">
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/screen_background"
-        android:orientation="vertical"
-        android:paddingHorizontal="16dp"
-        android:paddingTop="24dp">
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        tools:context=".presentation.analysis.AnalysisFragment">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/inter_semibold"
-            android:text="@string/statistik"
-            android:textAlignment="center"
-            android:textSize="20sp" />
-
-        <!-- Total Dukungan -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="16dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_weight="1"
-                android:background="@color/black" />
+            android:background="@drawable/screen_background"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="24dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:fontFamily="@font/inter_semibold"
-                android:text="@string/total_dukungan"
+                android:text="@string/statistik"
                 android:textAlignment="center"
-                android:textColor="@color/black" />
+                android:textSize="20sp" />
 
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="1dp"
-                android:layout_weight="1"
-                android:background="@color/black" />
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/tvTotalNumber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/inter_bold"
-            android:text="@string/empty_placeholder"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="32sp" />
-
-        <!-- Demografi Gender -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
-            android:fontFamily="@font/inter_semibold"
-            android:text="@string/demografi_gender"
-            android:textSize="16sp" />
-
-        <androidx.compose.ui.platform.ComposeView
-            android:id="@+id/my_composable"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:background="@color/white" />
-
-        <!-- Sebaran Wilayah -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
-            android:fontFamily="@font/inter_semibold"
-            android:text="@string/sebaran_wilayah"
-            android:textSize="16sp" />
-
-        <LinearLayout
-            android:id="@+id/table_header"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="@color/blue_demography_female"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="8"
-                android:text="@string/lokasi_wilayah"
-                android:textAlignment="center"
-                tools:ignore="RtlCompat" />
-
+            <!-- Total Dukungan -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:orientation="vertical">
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"
+                    android:background="@color/black" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingVertical="4dp"
-                    android:text="@string/pendukung"
-                    android:textAlignment="center" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@color/blue_demography_male"
-                        android:paddingVertical="4dp"
-                        android:text="@string/l"
-                        android:textAlignment="center" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@color/blue_demography_male"
-                        android:paddingVertical="4dp"
-                        android:text="@string/p"
-                        android:textAlignment="center" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@color/blue_demography_male"
-                        android:paddingVertical="4dp"
-                        android:text="@string/total"
-                        android:textAlignment="center" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <!-- Table Item -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_supporter_number"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            tools:listitem="@layout/item_table_supporter" />
-
-        <!-- Table Last Item -->
-        <LinearLayout
-            android:id="@+id/table_last_item"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:background="@color/gray"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tv_region"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="8"
-                android:paddingVertical="4dp"
-                android:text="@string/total"
-                android:textAlignment="center"
-                tools:ignore="RtlCompat" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/tv_total_supporter_number_male"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:paddingVertical="4dp"
-                        android:textAlignment="center"
-                        tools:text="500" />
-
-                    <TextView
-                        android:id="@+id/tv_total_supporter_number_female"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:paddingVertical="4dp"
-                        android:textAlignment="center"
-                        tools:text="300" />
-
-                    <TextView
-                        android:id="@+id/tv_total_all_supporter_number"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:paddingVertical="4dp"
-                        android:textAlignment="center"
-                        tools:text="800" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <!-- Demografi Usia -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
-            android:fontFamily="@font/inter_semibold"
-            android:text="@string/demografi_usia"
-            android:textSize="16sp" />
-
-        <com.github.mikephil.charting.charts.BarChart
-            android:id="@+id/barChart"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_marginTop="8dp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
-            android:baselineAligned="false"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:fontFamily="@font/inter_semibold"
-                    android:text="@string/pertumbuhan_pendukung"
+                    android:text="@string/total_dukungan"
+                    android:textAlignment="center"
+                    android:textColor="@color/black" />
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"
+                    android:background="@color/black" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvTotalNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_bold"
+                android:text="@string/empty_placeholder"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="32sp" />
+
+            <!-- Demografi Gender -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
+                android:fontFamily="@font/inter_semibold"
+                android:text="@string/demografi_gender"
+                android:textSize="16sp" />
+
+            <androidx.compose.ui.platform.ComposeView
+                android:id="@+id/my_composable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:background="@color/white" />
+
+            <!-- Sebaran Wilayah -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/inter_semibold"
+                    android:text="@string/sebaran_wilayah"
                     android:textSize="16sp" />
 
                 <TextView
+                    android:id="@+id/tv_table_selengkapnya"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/_30_hari_terakhir"
-                    android:textColor="@color/dark_gray"
-                    android:textSize="10sp" />
+                    android:layout_gravity="center"
+                    android:text="@string/selengkapnya"
+                    android:textAlignment="center"
+                    android:textSize="12sp" />
 
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/table_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@color/blue_demography_female"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="8"
+                    android:text="@string/lokasi_wilayah"
+                    android:textAlignment="center"
+                    tools:ignore="RtlCompat" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="4dp"
+                        android:text="@string/pendukung"
+                        android:textAlignment="center" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@color/blue_demography_male"
+                            android:paddingVertical="4dp"
+                            android:text="@string/l"
+                            android:textAlignment="center" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@color/blue_demography_male"
+                            android:paddingVertical="4dp"
+                            android:text="@string/p"
+                            android:textAlignment="center" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@color/blue_demography_male"
+                            android:paddingVertical="4dp"
+                            android:text="@string/total"
+                            android:textAlignment="center" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Table Item -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_supporter_number"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                tools:listitem="@layout/item_table_supporter" />
+
+            <!-- Table Last Item -->
+            <LinearLayout
+                android:id="@+id/table_last_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/gray"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tv_region"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="8"
+                    android:paddingVertical="4dp"
+                    android:text="@string/total"
+                    android:textAlignment="center"
+                    tools:ignore="RtlCompat" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/tv_total_supporter_number_male"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:paddingVertical="4dp"
+                            android:textAlignment="center"
+                            tools:text="500" />
+
+                        <TextView
+                            android:id="@+id/tv_total_supporter_number_female"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:paddingVertical="4dp"
+                            android:textAlignment="center"
+                            tools:text="300" />
+
+                        <TextView
+                            android:id="@+id/tv_total_all_supporter_number"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:paddingVertical="4dp"
+                            android:textAlignment="center"
+                            tools:text="800" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Demografi Usia -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
+                android:fontFamily="@font/inter_semibold"
+                android:text="@string/demografi_usia"
+                android:textSize="16sp" />
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/barChart"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginTop="8dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1.5"
-                android:gravity="end"
-                android:orientation="vertical">
+                android:layout_marginTop="48dp"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@string/gambar_pertumbuhan_pendukung"
-                        android:src="@drawable/ic_analysis_up"
-                        app:tint="@color/green" />
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/tv_supporter_growth_percentage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:textColor="@color/green"
-                        android:textSize="14sp"
-                        tools:text="10%" />
+                        android:fontFamily="@font/inter_semibold"
+                        android:text="@string/pertumbuhan_pendukung"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/_30_hari_terakhir"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="10sp" />
+
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tv_supporter_growth_number"
-                    android:layout_width="wrap_content"
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="10sp"
-                    tools:text="+10 dukungan" />
+                    android:layout_weight="1.5"
+                    android:gravity="end"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/gambar_pertumbuhan_pendukung"
+                            android:src="@drawable/ic_analysis_up"
+                            app:tint="@color/green" />
+
+                        <TextView
+                            android:id="@+id/tv_supporter_growth_percentage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:textColor="@color/green"
+                            android:textSize="14sp"
+                            tools:text="10%" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_supporter_growth_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="10sp"
+                        tools:text="+10 dukungan" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/line_chart_supporter"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginTop="8dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
+                android:fontFamily="@font/inter_semibold"
+                android:text="@string/pertumbuhan_relawan"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/_30_hari_terakhir"
+                android:textColor="@color/dark_gray"
+                android:textSize="10sp" />
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/line_chart_volunteer"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginTop="8dp" />
         </LinearLayout>
 
-
-        <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/line_chart_supporter"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_marginTop="8dp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
-            android:fontFamily="@font/inter_semibold"
-            android:text="@string/pertumbuhan_relawan"
-            android:textSize="16sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/_30_hari_terakhir"
-            android:textColor="@color/dark_gray"
-            android:textSize="10sp" />
-
-        <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/line_chart_volunteer"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_marginTop="8dp" />
-    </LinearLayout>
-</ScrollView>
+    </ScrollView>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

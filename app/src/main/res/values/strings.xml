@@ -171,6 +171,14 @@
     <string name="tulis_alasan_kamu_di_sini">Tulis alasan kamu di sini</string>
     <string name="berikan_alasan_mengapa_anda_layak_menjadi_relawan_sehingga_kami_yakin">*Berikan alasan mengapa anda layak menjadi relawan sehingga kami yakin.</string>
     <string name="gambar_pertumbuhan_pendukung">gambar pertumbuhan pendukung</string>
+    <string name="kembali">Kembali</string>
+    <string name="anda_adalah">Anda adalah</string>
+    <string name="gambar_jadwal">gambar jadwal</string>
+    <string name="detail_jadwal">Detail Jadwal</string>
+    <string name="umum">Umum</string>
+    <string name="mulai">Mulai</string>
+    <string name="selesai">Selesai</string>
+    <string name="lokasi">Lokasi</string>
 
     <string-array name="spinner_gender">
         <item>Laki-laki</item>

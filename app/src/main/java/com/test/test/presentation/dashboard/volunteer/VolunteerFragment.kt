@@ -41,6 +41,20 @@ class VolunteerFragment : Fragment(), View.OnClickListener {
         setUpRecyclerView()
         setUpEdtSearch()
         setUpLiveDataObserver()
+        setUpSwipeRefresh()
+    }
+
+    private fun setUpSwipeRefresh() {
+        binding.swipeToRefresh.apply {
+            setOnRefreshListener {
+                viewModel.refreshPage()
+                viewModel.isLoading.observe(viewLifecycleOwner) {
+                    if (!it) {
+                        this.isRefreshing = false
+                    }
+                }
+            }
+        }
     }
 
     private fun setUpEdtSearch() {

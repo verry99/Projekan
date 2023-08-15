@@ -6,7 +6,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.liveData
 import com.test.test.data.remote.api.DashboardService
-import com.test.test.data.remote.dto.detail.DetailPostResponse
+import com.test.test.data.remote.dto.post.detail.DetailPostResponse
 import com.test.test.data.remote.dto.post.PostResponseItem
 import com.test.test.data.remote.paging_source.PostPagingSource
 import com.test.test.domain.repository.PostRepository

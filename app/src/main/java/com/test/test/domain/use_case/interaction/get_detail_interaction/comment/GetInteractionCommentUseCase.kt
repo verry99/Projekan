@@ -1,4 +1,4 @@
-package com.test.test.domain.use_case.interaction.get_detail_interaction
+package com.test.test.domain.use_case.interaction.get_detail_interaction.comment
 
 import androidx.lifecycle.LiveData
 import androidx.paging.PagingData

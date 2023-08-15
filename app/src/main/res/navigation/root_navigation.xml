@@ -57,13 +57,20 @@
         <action
             android:id="@+id/action_dashboardFragment_to_userVolunteerFragment"
             app:destination="@id/userVolunteerFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_volunteerVolunteerFragment"
+            app:destination="@id/volunteerVolunteerFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/analysisFragment"
         android:name="com.test.test.presentation.analysis.AnalysisFragment"
         android:label="fragment_analysis"
-        tools:layout="@layout/fragment_analysis" />
+        tools:layout="@layout/fragment_analysis">
+        <action
+            android:id="@+id/action_analysisFragment_to_analysisRegionFragment"
+            app:destination="@id/analysisRegionFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/newsFragment"
@@ -224,11 +231,6 @@
             app:destination="@id/dashboardFragment" />
     </fragment>
     <fragment
-        android:id="@+id/scheduleFragment"
-        android:name="com.test.test.presentation.dashboard.schedule.ScheduleFragment"
-        android:label="fragment_schedule"
-        tools:layout="@layout/fragment_schedule" />
-    <fragment
         android:id="@+id/changePasswordFragment"
         android:name="com.test.test.presentation.profile.change_password.ChangePasswordFragment"
         android:label="fragment_change_password"
@@ -332,5 +334,24 @@
         android:id="@+id/userVolunteerFragment"
         android:name="com.test.test.presentation.dashboard.other_user.user.volunteer.UserVolunteerFragment"
         android:label="UserVolunteerFragment" />
+    <fragment
+        android:id="@+id/volunteerVolunteerFragment"
+        android:name="com.test.test.presentation.dashboard.other_user.volunteer.volunteer.VolunteerVolunteerFragment"
+        android:label="VolunteerVolunteerFragment" />
+    <fragment
+        android:id="@+id/analysisRegionFragment"
+        android:name="com.test.test.presentation.analysis.region.AnalysisRegionFragment"
+        android:label="AnalysisRegionFragment" />
+    <fragment
+        android:id="@+id/detailScheduleFragment"
+        android:name="com.test.test.presentation.dashboard.schedule.detail_schedule.DetailScheduleFragment"
+        android:label="DetailScheduleFragment" />
+    <fragment
+        android:id="@+id/scheduleFragment"
+        android:name="com.test.test.presentation.dashboard.schedule.ScheduleFragment"
+        android:label="fragment_schedule"
+        tools:layout="@layout/fragment_schedule" >
+        <argument android:name="token" />
+    </fragment>
 
 </navigation>

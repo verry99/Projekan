@@ -58,13 +58,11 @@ class UserVolunteerViewModel @Inject constructor(
 
                     is Resource.Error -> {
                         _isLoading.value = false
-                        _errorMessage.value = it.message!!
                     }
 
                     is Resource.Loading -> {
                         _isLoading.value = true
                     }
-
                 }
             }.launchIn(viewModelScope)
         }
@@ -83,7 +81,7 @@ class UserVolunteerViewModel @Inject constructor(
                 when (it) {
                     is Resource.Success -> {
                         _isLoading.value = false
-                        success.value = true
+                        _pending.value = true
                     }
 
                     is Resource.Error -> {

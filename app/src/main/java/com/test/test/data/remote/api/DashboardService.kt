@@ -2,14 +2,16 @@ package com.test.test.data.remote.api
 
 import com.test.test.data.remote.dto.analysis.AnalysisResponse
 import com.test.test.data.remote.dto.dashboard.DashboardResponse
-import com.test.test.data.remote.dto.detail.DetailPostResponse
 import com.test.test.data.remote.dto.interaction.InteractionResponse
 import com.test.test.data.remote.dto.interaction.add_interaction.AddInteractionResponse
 import com.test.test.data.remote.dto.interaction.detail_interaction.DetailInteractionResponse
 import com.test.test.data.remote.dto.interaction.detail_interaction.add_comment.AddCommentResponse
 import com.test.test.data.remote.dto.post.PostResponse
+import com.test.test.data.remote.dto.post.detail.DetailPostResponse
 import com.test.test.data.remote.dto.profile.ProfileResponse
 import com.test.test.data.remote.dto.profile.UpdateProfileResponse
+import com.test.test.data.remote.dto.schedule.ScheduleResponse
+import com.test.test.data.remote.dto.schedule.detail.DetailScheduleResponse
 import com.test.test.data.remote.dto.supporter.SupporterResponse
 import com.test.test.data.remote.dto.supporter.detail_supporter.DetailSupporterResponse
 import com.test.test.data.remote.dto.supporter.summary_supporter.SupporterSummaryResponse
@@ -193,6 +195,19 @@ interface DashboardService {
         @Path("id") id: Int,
         @Field("body") body: String,
     ): AddCommentResponse
+
+    @GET("schedule")
+    suspend fun getAllSchedule(
+        @Header("Authorization") token: String,
+        @Query("filter") filter: String,
+        @Query("page") page: Int,
+    ): ScheduleResponse
+
+    @GET("schedule/{id}")
+    suspend fun getDetailSchedule(
+        @Header("Authorization") token: String,
+        @Path("id") id: Int
+    ): DetailScheduleResponse
 
     @GET("analyst")
     suspend fun getAnalysis(
