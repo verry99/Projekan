@@ -180,6 +180,11 @@
     <string name="selesai">Selesai</string>
     <string name="lokasi">Lokasi</string>
     <string name="menunggu_persetujuan_">Menunggu Persetujuan</string>
+    <string name="susanto_budi_raharjo">SUSANTO BUDI RAHARJO</string>
+    <string name="instagram">INSTAGRAM</string>
+    <string name="facebook">FACEBOOK</string>
+    <string name="youtube">YOUTUBE</string>
+    <string name="www_susantobudiraharjo_com">www.susantobudiraharjo.com</string>
 
     <string-array name="spinner_gender">
         <item>Laki-laki</item>

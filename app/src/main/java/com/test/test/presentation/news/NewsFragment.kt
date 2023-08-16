@@ -38,7 +38,7 @@ class NewsFragment : Fragment(), View.OnKeyListener {
     private fun setUpWebView() {
         binding.webView.apply {
             webViewClient = WebViewClient()
-            loadUrl("https://google.com/")
+            loadUrl("https://susantobudiraharjo.com/")
             settings.javaScriptEnabled = true
 
             setOnKeyListener(this@NewsFragment)

@@ -38,15 +38,32 @@ class UserVolunteerFragment : Fragment(), View.OnClickListener {
 
     private fun setUpLiveDataObservers() {
         viewModel.apply {
-            pending.observe(viewLifecycleOwner) {
-                if (it) {
-                    binding.apply {
-                        tvTitle1.text = "Anda sudah dalam daftar pengajuan sebagai relawan."
-                        tvTitle2.visibility = View.GONE
-                        tvAlasan.visibility = View.GONE
-                        edtAlasan.visibility = View.GONE
-                        edtAlasanDesc.visibility = View.GONE
-                        btnDaftar.visibility = View.GONE
+            status.observe(viewLifecycleOwner) {
+                when (it) {
+                    "accepted" -> {
+                        binding.apply {
+                            tvTitle1.text = "Selamat, pengajuan anda telah disetujui."
+                            tvTitle2.visibility = View.GONE
+                            tvAlasan.visibility = View.GONE
+                            edtAlasan.visibility = View.GONE
+                            edtAlasanDesc.visibility = View.GONE
+                            btnDaftar.visibility = View.GONE
+                        }
+                    }
+
+                    "rejected" -> {
+
+                    }
+
+                    "pending" -> {
+                        binding.apply {
+                            tvTitle1.text = "Anda sudah dalam daftar pengajuan sebagai relawan."
+                            tvTitle2.visibility = View.GONE
+                            tvAlasan.visibility = View.GONE
+                            edtAlasan.visibility = View.GONE
+                            edtAlasanDesc.visibility = View.GONE
+                            btnDaftar.visibility = View.GONE
+                        }
                     }
                 }
             }

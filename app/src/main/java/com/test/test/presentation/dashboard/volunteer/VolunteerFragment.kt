@@ -15,7 +15,6 @@ import com.test.test.R
 import com.test.test.databinding.FragmentVolunteerBinding
 import com.test.test.presentation.adapter.LoadingStateAdapter
 import com.test.test.presentation.adapter.VolunteerAdapter
-import com.test.test.presentation.dashboard.volunteer.approval_volunteer.VolunteerApprovalViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,7 +22,7 @@ class VolunteerFragment : Fragment(), View.OnClickListener {
 
     private var _binding: FragmentVolunteerBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: VolunteerApprovalViewModel by viewModels()
+    private val viewModel: VolunteerViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,

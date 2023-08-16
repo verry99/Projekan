@@ -15,10 +15,11 @@ import com.test.test.data.remote.dto.schedule.detail.DetailScheduleResponse
 import com.test.test.data.remote.dto.supporter.SupporterResponse
 import com.test.test.data.remote.dto.supporter.detail_supporter.DetailSupporterResponse
 import com.test.test.data.remote.dto.supporter.summary_supporter.SupporterSummaryResponse
-import com.test.test.data.remote.dto.user.request_upgrade_volunteer.RequestUpgradeVolunteerResponse
+import com.test.test.data.remote.dto.user.request_upgrade_volunteer.RequestUpgradeVolunteerStatusResponse
 import com.test.test.data.remote.dto.volunteer.VolunteerResponse
 import com.test.test.data.remote.dto.volunteer.add_volunteer.AddVolunteerResponse
 import com.test.test.data.remote.dto.volunteer.detail_volunteer.DetailVolunteerResponse
+import com.test.test.data.remote.dto.volunteer.request_upgrade.RequestUpgradeVolunteerResponse
 import com.test.test.data.remote.dto.volunteer.summary_volunteer.VolunteerSummaryResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -102,14 +103,15 @@ interface DashboardService {
 
     @GET("request-upgrade")
     suspend fun getAllRequestUpgradeVolunteer(
-        @Header("Authorization") token: String
+        @Header("Authorization") token: String,
+        @Query("page") page: Int
     ): RequestUpgradeVolunteerResponse
 
 
     @GET("request-upgrade")
     suspend fun getRequestUpgradeVolunteer(
         @Header("Authorization") token: String
-    ): RequestUpgradeVolunteerResponse
+    ): RequestUpgradeVolunteerStatusResponse
 
     @FormUrlEncoded
     @POST("request-upgrade")
@@ -117,7 +119,7 @@ interface DashboardService {
         @Header("Authorization") token: String,
         @Field("role") role: String,
         @Field("reason") reason: String
-    ): RequestUpgradeVolunteerResponse
+    ): RequestUpgradeVolunteerStatusResponse
 
     @GET("suporter")
     suspend fun getAllSupporter(

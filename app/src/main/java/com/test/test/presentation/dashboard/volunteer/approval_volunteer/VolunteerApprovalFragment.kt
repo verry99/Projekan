@@ -1,12 +1,9 @@
 package com.test.test.presentation.dashboard.volunteer.approval_volunteer
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -14,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.test.test.R
 import com.test.test.databinding.FragmentVolunteerApprovalBinding
 import com.test.test.presentation.adapter.LoadingStateAdapter
-import com.test.test.presentation.adapter.VolunteerAdapter
+import com.test.test.presentation.adapter.RequestUpgradeVolunteerAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -39,50 +36,7 @@ class VolunteerApprovalFragment : Fragment(), View.OnClickListener {
 
         setUpActionListeners()
         setUpRecyclerView()
-        setUpEdtSearch()
         setUpLiveDataObserver()
-        setUpSwipeRefresh()
-    }
-
-    private fun setUpSwipeRefresh() {
-        binding.swipeToRefresh.apply {
-            setOnRefreshListener {
-                viewModel.refreshPage()
-                viewModel.isLoading.observe(viewLifecycleOwner) {
-                    if (!it) {
-                        this.isRefreshing = false
-                    }
-                }
-            }
-        }
-    }
-
-    private fun setUpEdtSearch() {
-        binding.edtSearch.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val volunteerName = s.toString()
-                if (volunteerName.isNotEmpty()) {
-                    viewModel.searchVolunteer(volunteerName).observe(viewLifecycleOwner) {
-                        val adapter = VolunteerAdapter()
-                        adapter.submitData(lifecycle, it)
-                        binding.rvVolunteer.adapter = adapter
-                    }
-                } else {
-                    viewModel.volunteer.observe(viewLifecycleOwner) {
-                        val adapter = VolunteerAdapter()
-                        binding.rvVolunteer.adapter = adapter.withLoadStateFooter(
-                            footer = LoadingStateAdapter {
-                                adapter.retry()
-                            })
-                        adapter.submitData(lifecycle, it)
-                    }
-                }
-            }
-
-            override fun afterTextChanged(s: Editable?) {}
-        })
     }
 
     private fun setUpRecyclerView() {
@@ -94,18 +48,12 @@ class VolunteerApprovalFragment : Fragment(), View.OnClickListener {
         viewModel.apply {
 
             volunteer.observe(viewLifecycleOwner) {
-                val adapter = VolunteerAdapter()
+                val adapter = RequestUpgradeVolunteerAdapter()
                 binding.rvVolunteer.adapter = adapter.withLoadStateFooter(
                     footer = LoadingStateAdapter {
                         adapter.retry()
                     })
                 adapter.submitData(lifecycle, it)
-            }
-
-            errorMessage.observe(viewLifecycleOwner) {
-                if (it.isNotEmpty()) {
-                    Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
-                }
             }
         }
     }

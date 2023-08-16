@@ -5,6 +5,7 @@ import androidx.paging.PagingData
 import com.test.test.data.remote.dto.volunteer.VolunteerResponseItem
 import com.test.test.data.remote.dto.volunteer.add_volunteer.AddVolunteerResponse
 import com.test.test.data.remote.dto.volunteer.detail_volunteer.DetailVolunteerResponse
+import com.test.test.data.remote.dto.volunteer.request_upgrade.RequestUpgradeVolunteerResponseItem
 import com.test.test.data.remote.dto.volunteer.summary_volunteer.VolunteerSummaryResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -12,6 +13,8 @@ import okhttp3.RequestBody
 interface VolunteerRepository {
 
     fun getAllVolunteer(token: String, page: Int): LiveData<PagingData<VolunteerResponseItem>>
+
+    fun getAllRequestUpgradeVolunteer(token: String, page: Int): LiveData<PagingData<RequestUpgradeVolunteerResponseItem>>
 
     suspend fun getAllVolunteerSummary(token: String): VolunteerSummaryResponse
 

@@ -1,7 +1,7 @@
 package com.test.test.domain.use_case.volunteer.request_upgrade
 
 import com.test.test.common.Resource
-import com.test.test.data.remote.dto.user.request_upgrade_volunteer.RequestUpgradeVolunteerResponse
+import com.test.test.data.remote.dto.user.request_upgrade_volunteer.RequestUpgradeVolunteerStatusResponse
 import com.test.test.domain.repository.OtherUserRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -17,7 +17,7 @@ class RequestUpgradeVolunteerUseCase @Inject constructor(
         token: String,
         role: String,
         reason: String
-    ): Flow<Resource<RequestUpgradeVolunteerResponse>> = flow {
+    ): Flow<Resource<RequestUpgradeVolunteerStatusResponse>> = flow {
 
         emit(Resource.Loading())
         try {

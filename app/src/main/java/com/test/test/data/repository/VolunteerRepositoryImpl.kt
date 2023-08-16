@@ -9,7 +9,9 @@ import com.test.test.data.remote.api.DashboardService
 import com.test.test.data.remote.dto.volunteer.VolunteerResponseItem
 import com.test.test.data.remote.dto.volunteer.add_volunteer.AddVolunteerResponse
 import com.test.test.data.remote.dto.volunteer.detail_volunteer.DetailVolunteerResponse
+import com.test.test.data.remote.dto.volunteer.request_upgrade.RequestUpgradeVolunteerResponseItem
 import com.test.test.data.remote.dto.volunteer.summary_volunteer.VolunteerSummaryResponse
+import com.test.test.data.remote.paging_source.RequestUpgradeVolunteerPagingSource
 import com.test.test.data.remote.paging_source.SearchVolunteerPagingSource
 import com.test.test.data.remote.paging_source.VolunteerPagingSource
 import com.test.test.domain.repository.VolunteerRepository
@@ -32,6 +34,21 @@ class VolunteerRepositoryImpl @Inject constructor(
             ),
             pagingSourceFactory = {
                 VolunteerPagingSource(dashboardService, token)
+            }
+        ).liveData
+    }
+
+    override fun getAllRequestUpgradeVolunteer(
+        token: String,
+        page: Int
+    ): LiveData<PagingData<RequestUpgradeVolunteerResponseItem>> {
+
+        return Pager(
+            config = PagingConfig(
+                pageSize = page
+            ),
+            pagingSourceFactory = {
+                RequestUpgradeVolunteerPagingSource(dashboardService, token)
             }
         ).liveData
     }
