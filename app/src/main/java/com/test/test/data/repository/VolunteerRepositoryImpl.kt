@@ -57,7 +57,7 @@ class VolunteerRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getVolunteer(token: String, id: Int): DetailVolunteerResponse {
-        return dashboardService.getVolunteer(token, id)
+        return dashboardService.getDetailVolunteer(token, id)
     }
 
     override suspend fun addVolunteer(

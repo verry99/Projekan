@@ -123,6 +123,9 @@
             android:id="@+id/action_volunteerFragment_to_detailVolunteerFragment"
             app:destination="@id/detailVolunteerFragment" />
         <argument android:name="token" />
+        <action
+            android:id="@+id/action_volunteerFragment_to_volunteerApprovalFragment"
+            app:destination="@id/volunteerApprovalFragment" />
     </fragment>
 
     <fragment
@@ -357,6 +360,13 @@
         <action
             android:id="@+id/action_scheduleFragment_to_detailScheduleFragment"
             app:destination="@id/detailScheduleFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/volunteerApprovalFragment"
+        android:name="com.test.test.presentation.dashboard.volunteer.approval_volunteer.VolunteerApprovalFragment"
+        android:label="fragment_volunteer_approval"
+        tools:layout="@layout/fragment_volunteer_approval" >
+        <argument android:name="token" />
     </fragment>
 
 </navigation>

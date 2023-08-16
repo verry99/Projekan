@@ -59,22 +59,22 @@
             android:id="@+id/tv_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/dark_gray"
-            android:textSize="12sp"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/inter_medium"
+            android:textColor="@color/text_dark_gray"
+            android:textSize="11sp"
             tools:text="Kamis, 13 Juni 2023, 15:00-22:00 WIB" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="48dp"
             android:background="@color/gray" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
             android:orientation="vertical">
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -86,7 +86,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_calendar"
-                    app:tint="@color/dark_gray" />
+                    app:tint="@color/text_dark_gray" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -100,12 +100,15 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/inter_medium"
                         android:text="@string/mulai" />
 
                     <TextView
                         android:id="@+id/tv_mulai_desc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/text_dark_gray"
+                        android:textSize="13sp"
                         tools:text="Kamis, 13 Juni 2023, 15:00 WIB" />
 
                 </LinearLayout>
@@ -121,11 +124,17 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+
+                        android:fontFamily="@font/inter_medium"
                         android:text="@string/selesai" />
 
                     <TextView
+                        android:id="@+id/tv_selesai_desc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+
+                        android:textColor="@color/text_dark_gray"
+                        android:textSize="13sp"
                         tools:text="Kamis, 13 Juni 2023, 22:00 WIB" />
 
                 </LinearLayout>
@@ -135,14 +144,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="36dp"
                 android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_location"
-                    app:tint="@color/dark_gray" />
+                    app:tint="@color/text_dark_gray" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -153,12 +162,16 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+
+                        android:fontFamily="@font/inter_medium"
                         android:text="@string/lokasi" />
 
                     <TextView
                         android:id="@+id/tv_location_description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/text_dark_gray"
+                        android:textSize="13sp"
                         tools:text="Alun-Alun Yogyakarta, Malioboro, Kecamatan Ga tau, Kota Sleman, DIY Yogyakarta, 16413" />
 
                 </LinearLayout>

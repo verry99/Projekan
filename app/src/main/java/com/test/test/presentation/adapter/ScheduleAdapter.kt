@@ -13,7 +13,7 @@ import com.test.test.common.Constants.IMAGE_URL
 import com.test.test.data.remote.dto.schedule.ScheduleResponseItem
 import com.test.test.databinding.ItemScheduleBinding
 import com.test.test.presentation.dashboard.schedule.ScheduleFragmentDirections
-import com.test.test.presentation.utils.convertToNormalDate
+import com.test.test.presentation.utils.convertToFullDate
 
 class ScheduleAdapter :
     PagingDataAdapter<ScheduleResponseItem, ScheduleAdapter.ItemViewHolder>(DIFF_CALLBACK) {
@@ -45,7 +45,7 @@ class ScheduleAdapter :
                     Glide.with(itemView).load(IMAGE_URL + "/" + it.image).into(imgSchedule)
                     tvTitle.text = it.title
                     try {
-                        tvDate.text = convertToNormalDate(it.startDate!!)
+                        tvDate.text = convertToFullDate(it.startDate!!)
                     } catch (e: Exception) {
                         tvDate.text = it.startDate
                     }

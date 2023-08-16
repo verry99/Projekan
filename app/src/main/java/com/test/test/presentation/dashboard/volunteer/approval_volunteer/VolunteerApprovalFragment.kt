@@ -1,4 +1,4 @@
-package com.test.test.presentation.dashboard.volunteer
+package com.test.test.presentation.dashboard.volunteer.approval_volunteer
 
 import android.os.Bundle
 import android.text.Editable
@@ -12,16 +12,15 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.test.test.R
-import com.test.test.databinding.FragmentVolunteerBinding
+import com.test.test.databinding.FragmentVolunteerApprovalBinding
 import com.test.test.presentation.adapter.LoadingStateAdapter
 import com.test.test.presentation.adapter.VolunteerAdapter
-import com.test.test.presentation.dashboard.volunteer.approval_volunteer.VolunteerApprovalViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class VolunteerFragment : Fragment(), View.OnClickListener {
+class VolunteerApprovalFragment : Fragment(), View.OnClickListener {
 
-    private var _binding: FragmentVolunteerBinding? = null
+    private var _binding: FragmentVolunteerApprovalBinding? = null
     private val binding get() = _binding!!
     private val viewModel: VolunteerApprovalViewModel by viewModels()
 
@@ -30,7 +29,7 @@ class VolunteerFragment : Fragment(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentVolunteerBinding.inflate(inflater, container, false)
+        _binding = FragmentVolunteerApprovalBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -94,13 +93,6 @@ class VolunteerFragment : Fragment(), View.OnClickListener {
     private fun setUpLiveDataObserver() {
         viewModel.apply {
 
-            volunteerSummary.observe(viewLifecycleOwner) {
-                binding.apply {
-                    tvVolunteerNumber.text = it.totalVolunteer.toString()
-                    tvApprovalNumber.text = it.requestUpgradeCount.toString()
-                }
-            }
-
             volunteer.observe(viewLifecycleOwner) {
                 val adapter = VolunteerAdapter()
                 binding.rvVolunteer.adapter = adapter.withLoadStateFooter(
@@ -120,11 +112,8 @@ class VolunteerFragment : Fragment(), View.OnClickListener {
 
     private fun setUpActionListeners() {
         binding.apply {
-            btnBack.setOnClickListener(this@VolunteerFragment)
-            btnVolunteerApproval.setOnClickListener(this@VolunteerFragment)
-            fabAddVolunteer.setOnClickListener(this@VolunteerFragment)
+            btnBack.setOnClickListener(this@VolunteerApprovalFragment)
         }
-
     }
 
     override fun onDestroyView() {
@@ -135,15 +124,6 @@ class VolunteerFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.btn_back -> findNavController().navigateUp()
-            R.id.btn_volunteer_approval -> {
-                val action =
-                    VolunteerFragmentDirections.actionVolunteerFragmentToVolunteerApprovalFragment(
-                        viewModel.token
-                    )
-                findNavController().navigate(action)
-            }
-
-            R.id.fab_add_volunteer -> findNavController().navigate(R.id.action_volunteerFragment_to_addVolunteerFragment)
         }
     }
 }

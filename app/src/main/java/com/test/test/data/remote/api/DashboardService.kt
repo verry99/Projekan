@@ -71,7 +71,7 @@ interface DashboardService {
     ): VolunteerResponse
 
     @GET("volunteer/{id}")
-    suspend fun getVolunteer(
+    suspend fun getDetailVolunteer(
         @Header("Authorization") token: String,
         @Path("id") id: Int
     ): DetailVolunteerResponse
@@ -101,6 +101,12 @@ interface DashboardService {
     ): AddVolunteerResponse
 
     @GET("request-upgrade")
+    suspend fun getAllRequestUpgradeVolunteer(
+        @Header("Authorization") token: String
+    ): RequestUpgradeVolunteerResponse
+
+
+    @GET("request-upgrade")
     suspend fun getRequestUpgradeVolunteer(
         @Header("Authorization") token: String
     ): RequestUpgradeVolunteerResponse
@@ -118,6 +124,7 @@ interface DashboardService {
         @Header("Authorization") token: String,
         @Query("page") page: Int
     ): SupporterResponse
+
 
     @GET("suporter")
     suspend fun getSupporterSummary(

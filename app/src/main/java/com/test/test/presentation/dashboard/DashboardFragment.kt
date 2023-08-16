@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
 import com.test.test.R
-import com.test.test.common.Constants.IMAGE_URL
+import com.test.test.common.Constants
 import com.test.test.databinding.FragmentDashboardBinding
 import com.test.test.presentation.adapter.NewsAdapter
 import com.test.test.presentation.adapter.OpinionAdapter
@@ -42,21 +42,17 @@ class DashboardFragment : Fragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         binding.tvGreeting.text = getGreetingText(requireContext())
 
+        setUpShimmer()
         setUpActionListener()
-        setUpSlideShow()
         setUpRecyclerView()
         setUpLiveDataObserver()
     }
 
-    private fun setUpSlideShow() {
-        viewModel.banners.observe(viewLifecycleOwner) {
-            val imageList = ArrayList<SlideModel>()
-
-            for (banner in it) {
-                imageList.add(SlideModel(IMAGE_URL + "/" + banner.urlToImage, banner.title))
-            }
-
-            binding.carouselView.setImageList(imageList, ScaleTypes.CENTER_CROP)
+    private fun setUpShimmer() {
+        binding.apply {
+            carouselShimmer.startShimmer()
+            rvBeritaShimmer.startShimmer()
+            rvOpiniShimmer.startShimmer()
         }
     }
 
@@ -96,12 +92,47 @@ class DashboardFragment : Fragment(), View.OnClickListener {
                 binding.tvFullName.text = it.name
             }
 
+            banners.observe(viewLifecycleOwner) {
+                if (!it.isNullOrEmpty()) {
+                    val imageList = ArrayList<SlideModel>()
+                    for (banner in it) {
+                        imageList.add(
+                            SlideModel(
+                                Constants.IMAGE_URL + "/" + banner.urlToImage,
+                                banner.title
+                            )
+                        )
+                    }
+
+                    binding.apply {
+                        carouselView.setImageList(imageList, ScaleTypes.CENTER_CROP)
+                        carouselShimmer.stopShimmer()
+                        carouselShimmer.visibility = View.GONE
+                        carouselView.visibility = View.VISIBLE
+                    }
+                }
+            }
+
             news.observe(viewLifecycleOwner) {
-                binding.rvBerita.adapter = NewsAdapter(it)
+                if (!it.isNullOrEmpty()) {
+                    binding.apply {
+                        rvBerita.adapter = NewsAdapter(it)
+                        rvBeritaShimmer.stopShimmer()
+                        rvBeritaShimmer.visibility = View.GONE
+                        rvBerita.visibility = View.VISIBLE
+                    }
+                }
             }
 
             opinion.observe(viewLifecycleOwner) {
-                binding.rvOpini.adapter = OpinionAdapter(it)
+                if (!it.isNullOrEmpty()) {
+                    binding.apply {
+                        rvOpini.adapter = OpinionAdapter(it)
+                        rvOpiniShimmer.stopShimmer()
+                        rvOpiniShimmer.visibility = View.GONE
+                        rvOpini.visibility = View.VISIBLE
+                    }
+                }
             }
 
             errorMessage.observe(viewLifecycleOwner) {

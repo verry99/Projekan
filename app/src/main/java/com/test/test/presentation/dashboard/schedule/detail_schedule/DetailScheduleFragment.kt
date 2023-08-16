@@ -12,8 +12,7 @@ import com.bumptech.glide.Glide
 import com.test.test.R
 import com.test.test.common.Constants
 import com.test.test.databinding.FragmentDetailScheduleBinding
-import com.test.test.presentation.adapter.InteractionCommentAdapter
-import com.test.test.presentation.utils.convertToNormalDate
+import com.test.test.presentation.utils.convertToFullDate
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,7 +21,6 @@ class DetailScheduleFragment : Fragment(), View.OnClickListener {
     private var _binding: FragmentDetailScheduleBinding? = null
     private val binding get() = _binding!!
     private val viewModel: DetailScheduleViewModel by viewModels()
-    private val adapter = InteractionCommentAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,9 +56,11 @@ class DetailScheduleFragment : Fragment(), View.OnClickListener {
                         tvLocationDescription.text = it.location
 
                         try {
-                            tvMulaiDesc.text = convertToNormalDate(it.createdAt!!)
+                            tvMulaiDesc.text = convertToFullDate(it.startDate!!)
+                            tvSelesaiDesc.text = convertToFullDate(it.endDate!!)
                         } catch (e: Exception) {
-                            tvMulaiDesc.text = it.createdAt
+                            tvMulaiDesc.text = convertToFullDate(it.startDate!!)
+                            tvSelesaiDesc.text = convertToFullDate(it.endDate!!)
                         }
 
                         Glide.with(requireContext()).load(Constants.IMAGE_URL + "/" + it.image)

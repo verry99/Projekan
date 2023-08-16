@@ -102,6 +102,23 @@ fun convertToNormalDate(inputDate: String): String {
     return outputFormat.format(date)
 }
 
+@SuppressLint("SimpleDateFormat")
+fun convertToFullDate(inputDate: String): String {
+    val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+    val date = inputFormat.parse(inputDate)!!
+
+    val indonesianLocale = Locale("id", "ID")
+    val dayFormat = SimpleDateFormat("EEEE", indonesianLocale)
+    val dateFormat = SimpleDateFormat("dd MMMM yyyy", indonesianLocale)
+    val hourFormat = SimpleDateFormat("HH:mm", indonesianLocale)
+
+    val dayOutput = dayFormat.format(date)
+    val dateOutput = dateFormat.format(date)
+    val hourOutput = hourFormat.format(date)
+
+    return "$dayOutput, $dateOutput, $hourOutput WIB"
+}
+
 fun Double.roundTo(decimals: Int): Double {
     var multiplier = 1.0
     repeat(decimals) { multiplier *= 10 }

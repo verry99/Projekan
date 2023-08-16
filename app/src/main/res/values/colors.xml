@@ -14,6 +14,7 @@
     <color name="blue_link">#0092E4</color>
     <color name="gray">#E3E3E3</color>
     <color name="text_gray">#C5C5C5</color>
+    <color name="text_dark_gray">#808080</color>
     <color name="light_gray">#4fececec</color>
     <color name="dark_gray">#5A5A5A</color>
     <color name="blue_demography_male">#990092e4</color>
@@ -21,4 +22,5 @@
     <color name="light_blue">#331f77b4</color>
     <color name="green">#04F038</color>
     <color name="green_success">#4fbf26</color>
+    <color name="shimmer">#C2C2C2</color>
 </resources>
