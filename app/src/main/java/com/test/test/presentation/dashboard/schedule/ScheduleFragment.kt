@@ -20,7 +20,6 @@ class ScheduleFragment : Fragment(), View.OnClickListener {
     private val binding get() = _binding!!
     private val args: ScheduleFragmentArgs by navArgs()
     private val viewModel: ScheduleViewModel by viewModels()
-    private val tabsArray = arrayOf("All", "Active", "Inactive")
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,6 +35,7 @@ class ScheduleFragment : Fragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.setToken(args.token)
+        viewModel.fetchSchedules()
         setUpActionListener()
         setUpViewPager()
     }
@@ -46,6 +46,8 @@ class ScheduleFragment : Fragment(), View.OnClickListener {
 
         val adapter = ScheduleViewPagerAdapter(childFragmentManager, lifecycle)
         viewPager.adapter = adapter
+
+        val tabsArray = arrayOf("Semua", "Aktif", "Berakhir")
 
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = tabsArray[position]

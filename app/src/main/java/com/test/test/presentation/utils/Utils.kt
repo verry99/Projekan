@@ -92,6 +92,16 @@ fun convertToHumanReadableDate(inputDate: String): String {
     ).toString()
 }
 
+@SuppressLint("SimpleDateFormat")
+fun convertToNormalDate(inputDate: String): String {
+
+    val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+    val date = inputFormat.parse(inputDate)!!
+
+    val outputFormat = SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault())
+    return outputFormat.format(date)
+}
+
 fun Double.roundTo(decimals: Int): Double {
     var multiplier = 1.0
     repeat(decimals) { multiplier *= 10 }

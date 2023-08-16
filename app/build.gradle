@@ -108,4 +108,7 @@ dependencies {
 
     // Swipe to refresh
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+
+    // Gallery layout
+    implementation 'com.github.stfalcon-studio:StfalconImageViewer:v1.0.1'
 }

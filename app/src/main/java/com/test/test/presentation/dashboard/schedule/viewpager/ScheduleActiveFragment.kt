@@ -4,14 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.test.test.R
 import com.test.test.databinding.FragmentScheduleActiveBinding
-import com.test.test.presentation.adapter.InteractionAdapter
+import com.test.test.presentation.adapter.LoadingStateAdapter
+import com.test.test.presentation.adapter.ScheduleAdapter
 import com.test.test.presentation.dashboard.schedule.ScheduleViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -20,8 +20,8 @@ class ScheduleActiveFragment : Fragment(), View.OnClickListener {
 
     private var _binding: FragmentScheduleActiveBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: ScheduleViewModel by viewModels()
-    private lateinit var adapter: InteractionAdapter
+    private val viewModel: ScheduleViewModel by viewModels({ requireParentFragment() })
+    private lateinit var adapter: ScheduleAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,14 +42,14 @@ class ScheduleActiveFragment : Fragment(), View.OnClickListener {
     }
 
     private fun setUpRecyclerView() {
-        binding.rvInteraction.layoutManager =
+        binding.rvSchedule.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
-//        adapter = InteractionAdapter(viewModel.token)
-//        binding.rvInteraction.adapter = adapter.withLoadStateFooter(
-//            footer = LoadingStateAdapter {
-//                adapter.retry()
-//            })
+        adapter = ScheduleAdapter()
+        binding.rvSchedule.adapter = adapter.withLoadStateFooter(
+            footer = LoadingStateAdapter {
+                adapter.retry()
+            })
     }
 
     private fun setUpActionListeners() {
@@ -65,7 +65,9 @@ class ScheduleActiveFragment : Fragment(), View.OnClickListener {
 
     private fun setUpLiveDataObserver() {
         viewModel.apply {
-
+            activeSchedule?.observe(viewLifecycleOwner) {
+                adapter.submitData(lifecycle, it)
+            }
         }
     }
 

@@ -23,7 +23,7 @@ class DetailInteractionFragment : Fragment(), View.OnClickListener {
 
     private var _binding: FragmentDetailInteractionBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: DetailScheduleViewModel by viewModels()
+    private val viewModel: DetailInteractionViewModel by viewModels()
     private val adapter = InteractionCommentAdapter()
 
     override fun onCreateView(

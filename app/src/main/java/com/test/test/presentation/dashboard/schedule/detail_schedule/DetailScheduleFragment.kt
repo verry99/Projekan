@@ -8,16 +8,18 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.test.test.R
-import com.test.test.databinding.FragmentDetailInteractionBinding
+import com.test.test.common.Constants
+import com.test.test.databinding.FragmentDetailScheduleBinding
 import com.test.test.presentation.adapter.InteractionCommentAdapter
-import com.test.test.presentation.dashboard.interaction.detail_interaction.DetailScheduleViewModel
+import com.test.test.presentation.utils.convertToNormalDate
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class DetailScheduleFragment : Fragment(), View.OnClickListener {
 
-    private var _binding: FragmentDetailInteractionBinding? = null
+    private var _binding: FragmentDetailScheduleBinding? = null
     private val binding get() = _binding!!
     private val viewModel: DetailScheduleViewModel by viewModels()
     private val adapter = InteractionCommentAdapter()
@@ -27,7 +29,7 @@ class DetailScheduleFragment : Fragment(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentDetailInteractionBinding.inflate(inflater, container, false)
+        _binding = FragmentDetailScheduleBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -45,6 +47,25 @@ class DetailScheduleFragment : Fragment(), View.OnClickListener {
             errorMessage.observe(viewLifecycleOwner) {
                 if (it.isNotEmpty()) {
                     Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            schedule.observe(viewLifecycleOwner) { response ->
+                response.data?.let {
+                    binding.apply {
+                        tvTitle.text = it.title
+                        tvDescription.text = it.description
+                        tvLocationDescription.text = it.location
+
+                        try {
+                            tvMulaiDesc.text = convertToNormalDate(it.createdAt!!)
+                        } catch (e: Exception) {
+                            tvMulaiDesc.text = it.createdAt
+                        }
+
+                        Glide.with(requireContext()).load(Constants.IMAGE_URL + "/" + it.image)
+                            .into(imgJadwal)
+                    }
                 }
             }
         }

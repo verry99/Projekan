@@ -1,4 +1,4 @@
-package com.test.test.presentation.dashboard.schedule.detail_schedule
+package com.test.test.presentation.dashboard.interaction.detail_interaction
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
