@@ -197,6 +197,7 @@
     <string name="suara_rival_required">Suara Rival*</string>
     <string name="tambah_rival">Tambah Rival</string>
     <string name="suara_sbr">Suara SBR</string>
+    <string name="detail_real_count">Detail Real Count</string>
 
     <string-array name="spinner_gender">
         <item>Laki-laki</item>

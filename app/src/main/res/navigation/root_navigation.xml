@@ -151,6 +151,9 @@
             android:id="@+id/action_realCountFragment_to_addRealCountFragment"
             app:destination="@id/addRealCountFragment" />
         <argument android:name="token" />
+        <action
+            android:id="@+id/action_realCountFragment_to_detailRealCountFragment"
+            app:destination="@id/detailRealCountFragment" />
     </fragment>
 
     <fragment
@@ -399,5 +402,12 @@
         android:name="com.test.test.presentation.dashboard.real_count.add.AddRealCountFragment"
         android:label="fragment_add_real_count"
         tools:layout="@layout/fragment_add_real_count" />
+    <fragment
+        android:id="@+id/detailRealCountFragment"
+        android:name="com.test.test.presentation.dashboard.real_count.detail.DetailRealCountFragment"
+        android:label="fragment_detail_real_count"
+        tools:layout="@layout/fragment_detail_real_count" >
+        <argument android:name="id" />
+    </fragment>
 
 </navigation>

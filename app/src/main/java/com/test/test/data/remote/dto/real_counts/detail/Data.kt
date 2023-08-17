@@ -1,9 +1,9 @@
-package com.test.test.data.remote.dto.real_counts
+package com.test.test.data.remote.dto.real_counts.detail
 
 
 import com.google.gson.annotations.SerializedName
 
-data class DataX(
+data class Data(
     @SerializedName("count")
     val count: String?,
     @SerializedName("created_at")
@@ -12,10 +12,8 @@ data class DataX(
     val id: Int?,
     @SerializedName("image")
     val image: String?,
-    @SerializedName("percentage")
-    val percentage: Double?,
     @SerializedName("rivals")
-    val rivals: String?,
+    val rivals: List<Rival?>?,
     @SerializedName("subdistrict")
     val subdistrict: String?,
     @SerializedName("tps")

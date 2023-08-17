@@ -12,6 +12,7 @@ import com.test.test.data.repository.InteractionRepositoryImpl
 import com.test.test.data.repository.OtherUserRepositoryImpl
 import com.test.test.data.repository.PostRepositoryImpl
 import com.test.test.data.repository.ProfileRepositoryImpl
+import com.test.test.data.repository.RealCountRepositoryImpl
 import com.test.test.data.repository.ScheduleRepositoryImpl
 import com.test.test.data.repository.SupporterRepositoryImpl
 import com.test.test.data.repository.UserPreferenceRepositoryImpl
@@ -24,6 +25,7 @@ import com.test.test.domain.repository.InteractionRepository
 import com.test.test.domain.repository.OtherUserRepository
 import com.test.test.domain.repository.PostRepository
 import com.test.test.domain.repository.ProfileRepository
+import com.test.test.domain.repository.RealCountRepository
 import com.test.test.domain.repository.ScheduleRepository
 import com.test.test.domain.repository.SupporterRepository
 import com.test.test.domain.repository.UserPreferenceRepository
@@ -72,6 +74,12 @@ object AppModule {
     @Singleton
     fun provideScheduleRepository(dashboardService: DashboardService): ScheduleRepository {
         return ScheduleRepositoryImpl(dashboardService)
+    }
+
+    @Provides
+    @Singleton
+    fun provideRealCountRepository(dashboardService: DashboardService): RealCountRepository {
+        return RealCountRepositoryImpl(dashboardService)
     }
 
     @Provides

@@ -11,6 +11,7 @@ import com.test.test.data.remote.dto.post.detail.DetailPostResponse
 import com.test.test.data.remote.dto.profile.ProfileResponse
 import com.test.test.data.remote.dto.profile.UpdateProfileResponse
 import com.test.test.data.remote.dto.real_counts.RealCountsResponse
+import com.test.test.data.remote.dto.real_counts.detail.DetailRealCountResponse
 import com.test.test.data.remote.dto.schedule.ScheduleResponse
 import com.test.test.data.remote.dto.schedule.detail.DetailScheduleResponse
 import com.test.test.data.remote.dto.supporter.SupporterResponse
@@ -266,6 +267,12 @@ interface DashboardService {
         @Header("Authorization") token: String,
         @Query("page") page: Int,
     ): RealCountsResponse
+
+    @GET("real-counts/{id}")
+    suspend fun getDetailRealCount(
+        @Header("Authorization") token: String,
+        @Path("id") id: Int
+    ): DetailRealCountResponse
 
     @GET("analyst")
     suspend fun getAnalysis(

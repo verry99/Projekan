@@ -45,6 +45,7 @@
 
             <TextView
                 style="@style/MyEditTextLabelStyle"
+                android:layout_marginTop="36dp"
                 android:text="@string/bukti_required" />
 
             <androidx.cardview.widget.CardView
@@ -76,6 +77,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
                 android:baselineAligned="false"
                 android:orientation="horizontal">
 
@@ -105,7 +107,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="8dp"
+                    android:layout_marginStart="8dp"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
@@ -120,7 +122,7 @@
                         style="@style/PurpleEditTextStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/_0"
+                        android:hint="@string/tps"
                         android:importantForAutofill="no"
                         android:inputType="number" />
 
@@ -161,7 +163,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="8dp"
+                    android:layout_marginStart="8dp"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
@@ -188,7 +190,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="32dp"
                 android:text="@string/suara_rival_required" />
 
             <LinearLayout
@@ -204,23 +206,26 @@
 
             </LinearLayout>
 
-            <ImageButton
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_add_name"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/button_gray_background"
                 android:contentDescription="@string/tambah_rival"
+                android:drawableEnd="@drawable/ic_add"
+                android:drawableTint="@color/text_dark_gray"
                 android:fontFamily="@font/inter_medium"
                 android:padding="14dp"
-                android:src="@drawable/ic_add" />
+                android:text="@string/tambah_rival"
+                android:textColor="@color/text_dark_gray" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_kirim"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="36dp"
+                android:layout_marginTop="64dp"
                 android:background="@drawable/button_red_background"
                 android:fontFamily="@font/inter_medium"
                 android:text="@string/kirim"
