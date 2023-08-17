@@ -1,4 +1,4 @@
-package com.test.test.presentation.dashboard.volunteer.approval_volunteer
+package com.test.test.presentation.dashboard.volunteer.request_upgrade
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -9,7 +9,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class VolunteerApprovalViewModel @Inject constructor(
+class RequestUpgradeVolunteerViewModel @Inject constructor(
     private val getAllRequestUpgradeVolunteerUseCase: GetAllRequestUpgradeVolunteerUseCase,
     private val state: SavedStateHandle
 ) : ViewModel() {
@@ -17,4 +17,9 @@ class VolunteerApprovalViewModel @Inject constructor(
     val token = "Bearer " + state.get<String>("token")!!
 
     var volunteer = getAllRequestUpgradeVolunteerUseCase(token, 10).cachedIn(viewModelScope)
+
+
+    fun fetchData() {
+        volunteer = getAllRequestUpgradeVolunteerUseCase(token, 10).cachedIn(viewModelScope)
+    }
 }

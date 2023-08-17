@@ -125,7 +125,7 @@
         <argument android:name="token" />
         <action
             android:id="@+id/action_volunteerFragment_to_volunteerApprovalFragment"
-            app:destination="@id/volunteerApprovalFragment" />
+            app:destination="@id/requestUpgradeVolunteerFragment" />
     </fragment>
 
     <fragment
@@ -266,6 +266,9 @@
         android:name="com.test.test.presentation.dashboard.volunteer.detail_volunteer.DetailVolunteerFragment"
         android:label="DetailVolunteerFragment">
         <argument android:name="id" />
+        <action
+            android:id="@+id/action_detailVolunteerFragment_to_viewVolunteerFragment"
+            app:destination="@id/viewVolunteerFragment" />
     </fragment>
     <fragment
         android:id="@+id/newsDashboardFragment"
@@ -348,25 +351,43 @@
     <fragment
         android:id="@+id/detailScheduleFragment"
         android:name="com.test.test.presentation.dashboard.schedule.detail_schedule.DetailScheduleFragment"
-        android:label="DetailScheduleFragment" >
+        android:label="DetailScheduleFragment">
         <argument android:name="id" />
     </fragment>
     <fragment
         android:id="@+id/scheduleFragment"
         android:name="com.test.test.presentation.dashboard.schedule.ScheduleFragment"
         android:label="fragment_schedule"
-        tools:layout="@layout/fragment_schedule" >
+        tools:layout="@layout/fragment_schedule">
         <argument android:name="token" />
         <action
             android:id="@+id/action_scheduleFragment_to_detailScheduleFragment"
             app:destination="@id/detailScheduleFragment" />
     </fragment>
     <fragment
-        android:id="@+id/volunteerApprovalFragment"
-        android:name="com.test.test.presentation.dashboard.volunteer.approval_volunteer.VolunteerApprovalFragment"
+        android:id="@+id/requestUpgradeVolunteerFragment"
+        android:name="com.test.test.presentation.dashboard.volunteer.request_upgrade.RequestUpgradeVolunteerFragment"
         android:label="fragment_volunteer_approval"
-        tools:layout="@layout/fragment_volunteer_approval" >
+        tools:layout="@layout/fragment_volunteer_approval">
         <argument android:name="token" />
+        <action
+            android:id="@+id/action_volunteerApprovalFragment_to_DetailRequestUpgradeVolunteerFragment"
+            app:destination="@id/DetailRequestUpgradeVolunteerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/DetailRequestUpgradeVolunteerFragment"
+        android:name="com.test.test.presentation.dashboard.volunteer.request_upgrade.detail.DetailRequestUpgradeVolunteerFragment"
+        android:label="fragment_detail_volunteer_approval"
+        tools:layout="@layout/fragment_detail_volunteer_approval">
+        <argument android:name="id" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewVolunteerFragment"
+        android:name="com.test.test.presentation.dashboard.volunteer.view_profile.ViewVolunteerFragment"
+        android:label="ViewVolunteerFragment">
+        <argument
+            android:name="id"
+            app:argType="string" />
     </fragment>
 
 </navigation>

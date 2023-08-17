@@ -10,9 +10,9 @@ import com.bumptech.glide.Glide
 import com.test.test.common.Constants.IMAGE_URL
 import com.test.test.data.remote.dto.volunteer.request_upgrade.RequestUpgradeVolunteerResponseItem
 import com.test.test.databinding.ItemSupporterBinding
-import com.test.test.presentation.dashboard.volunteer.VolunteerFragmentDirections
+import com.test.test.presentation.dashboard.volunteer.request_upgrade.RequestUpgradeVolunteerFragmentDirections
 
-class RequestUpgradeVolunteerAdapter() :
+class RequestUpgradeVolunteerAdapter :
     PagingDataAdapter<RequestUpgradeVolunteerResponseItem, RequestUpgradeVolunteerAdapter.ItemViewHolder>(
         DIFF_CALLBACK
     ) {
@@ -57,7 +57,7 @@ class RequestUpgradeVolunteerAdapter() :
         private fun setUpActionListener(volunteer: RequestUpgradeVolunteerResponseItem) {
             itemView.setOnClickListener {
                 val action =
-                    VolunteerFragmentDirections.actionVolunteerFragmentToDetailVolunteerFragment(
+                    RequestUpgradeVolunteerFragmentDirections.actionVolunteerApprovalFragmentToDetailRequestUpgradeVolunteerFragment(
                         volunteer.id.toString()
                     )
 

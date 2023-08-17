@@ -6,6 +6,8 @@ import com.test.test.data.remote.dto.volunteer.VolunteerResponseItem
 import com.test.test.data.remote.dto.volunteer.add_volunteer.AddVolunteerResponse
 import com.test.test.data.remote.dto.volunteer.detail_volunteer.DetailVolunteerResponse
 import com.test.test.data.remote.dto.volunteer.request_upgrade.RequestUpgradeVolunteerResponseItem
+import com.test.test.data.remote.dto.volunteer.request_upgrade.accept_reject.UpdateRequestUpgradeVolunteerResponse
+import com.test.test.data.remote.dto.volunteer.request_upgrade.detail.DetailRequestUpgradeVolunteerResponse
 import com.test.test.data.remote.dto.volunteer.summary_volunteer.VolunteerSummaryResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -13,8 +15,6 @@ import okhttp3.RequestBody
 interface VolunteerRepository {
 
     fun getAllVolunteer(token: String, page: Int): LiveData<PagingData<VolunteerResponseItem>>
-
-    fun getAllRequestUpgradeVolunteer(token: String, page: Int): LiveData<PagingData<RequestUpgradeVolunteerResponseItem>>
 
     suspend fun getAllVolunteerSummary(token: String): VolunteerSummaryResponse
 
@@ -24,7 +24,7 @@ interface VolunteerRepository {
         role: String
     ): LiveData<PagingData<VolunteerResponseItem>>
 
-    suspend fun getVolunteer(token: String, id: Int): DetailVolunteerResponse
+    suspend fun getDetailVolunteer(token: String, id: Int): DetailVolunteerResponse
 
     suspend fun addVolunteer(
         token: String,
@@ -48,4 +48,19 @@ interface VolunteerRepository {
         maritalStatus: RequestBody
     ): AddVolunteerResponse
 
+    fun getAllRequestUpgradeVolunteer(
+        token: String,
+        page: Int
+    ): LiveData<PagingData<RequestUpgradeVolunteerResponseItem>>
+
+    suspend fun getDetailRequestUpgradeVolunteer(
+        token: String,
+        id: Int
+    ): DetailRequestUpgradeVolunteerResponse
+
+    suspend fun updateRequestUpgradeVolunteer(
+        token: String,
+        id: Int,
+        status: String
+    ): UpdateRequestUpgradeVolunteerResponse
 }

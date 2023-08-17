@@ -1,13 +1,15 @@
-package com.test.test.presentation.dashboard.volunteer.add_volunteer
+package com.test.test.presentation.dashboard.volunteer.view_profile
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
 import com.test.test.common.Resource
+import com.test.test.data.remote.dto.volunteer.detail_volunteer.Volunteer
 import com.test.test.domain.models.Division.Province
 import com.test.test.domain.models.Division.Regency
 import com.test.test.domain.models.Division.SubDistrict
@@ -19,6 +21,7 @@ import com.test.test.domain.use_case.division.get_all_regency.GetAllRegencyUseCa
 import com.test.test.domain.use_case.division.get_all_village.GetAllVillageUseCase
 import com.test.test.domain.use_case.user_pref.get_user.GetUserPreferenceUseCase
 import com.test.test.domain.use_case.volunteer.add_volunteer.AddVolunteerUseCase
+import com.test.test.domain.use_case.volunteer.get_detail_volunteer.GetDetailVolunteerUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.launchIn
@@ -27,19 +30,25 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import java.io.IOException
 import java.net.UnknownHostException
 import javax.inject.Inject
 
 @HiltViewModel
-class AddVolunteerViewModel @Inject constructor(
+class ViewVolunteerViewModel @Inject constructor(
     private val getUserPreferenceUseCase: GetUserPreferenceUseCase,
     private val addVolunteerUseCase: AddVolunteerUseCase,
+    private val getDetailVolunteerUseCase: GetDetailVolunteerUseCase,
     private val getAllProvinceUseCase: GetAllProvinceUseCase,
     private val getAllRegencyUseCase: GetAllRegencyUseCase,
     private val getAllDistrictUseCase: GetAllDistrictUseCase,
-    private val getAllVillageUseCase: GetAllVillageUseCase
+    private val getAllVillageUseCase: GetAllVillageUseCase,
+    private val state: SavedStateHandle
 ) : ViewModel() {
+
+    private val _volunteer = MutableLiveData<Volunteer>()
+    val volunteer: LiveData<Volunteer> = _volunteer
+
+    private val id = state.get<String>("id")
 
     private val _province = MutableLiveData<List<Province>>()
     val province: LiveData<List<Province>> = _province
@@ -104,32 +113,47 @@ class AddVolunteerViewModel @Inject constructor(
         }
     }
 
-
     init {
         viewModelScope.launch {
-            try {
-                val province =
-                    withContext(Dispatchers.IO) {
-                        try {
-                            getAllProvinceUseCase()
-                        } catch (e: UnknownHostException) {
-                            emptyList()
-                        }
+            val province =
+                withContext(Dispatchers.IO) {
+                    try {
+                        getAllProvinceUseCase()
+                    } catch (e: UnknownHostException) {
+                        emptyList()
                     }
-                _province.value = listOf(Province(id = "0", "Pilih Provinsi")) + province
-
-                getUserPreferenceUseCase().let {
-                    _user.value = it
                 }
-            } catch (e: IOException) {
-                Log.e("#edtee", "IOException: ${e.message}")
-            } catch (e: Exception) {
-                Log.e("#edtee", "An unexpected error occurred: ${e.message}")
+
+            _province.value = listOf(Province(id = "0", "Pilih Provinsi")) + province
+
+            getUserPreferenceUseCase().let {
+                _user.value = it
             }
+
+            getDetailVolunteerUseCase(
+                "Bearer ${_user.value!!.accessToken}",
+                id!!.toInt()
+            ).onEach {
+                when (it) {
+                    is Resource.Success -> {
+                        _isLoading.value = false
+                        _volunteer.value = it.data!!.volunteer!!
+                    }
+
+                    is Resource.Error -> {
+                        _isLoading.value = false
+
+                    }
+
+                    is Resource.Loading -> {
+                        _isLoading.value = true
+                    }
+                }
+            }.launchIn(viewModelScope)
         }
     }
 
-    fun addVolunteer(
+    fun updateVolunteer(
         photo: MultipartBody.Part?,
         nik: RequestBody,
         name: RequestBody,
@@ -192,4 +216,3 @@ class AddVolunteerViewModel @Inject constructor(
         }
     }
 }
-

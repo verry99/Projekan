@@ -10,6 +10,8 @@ import com.test.test.data.remote.dto.volunteer.VolunteerResponseItem
 import com.test.test.data.remote.dto.volunteer.add_volunteer.AddVolunteerResponse
 import com.test.test.data.remote.dto.volunteer.detail_volunteer.DetailVolunteerResponse
 import com.test.test.data.remote.dto.volunteer.request_upgrade.RequestUpgradeVolunteerResponseItem
+import com.test.test.data.remote.dto.volunteer.request_upgrade.accept_reject.UpdateRequestUpgradeVolunteerResponse
+import com.test.test.data.remote.dto.volunteer.request_upgrade.detail.DetailRequestUpgradeVolunteerResponse
 import com.test.test.data.remote.dto.volunteer.summary_volunteer.VolunteerSummaryResponse
 import com.test.test.data.remote.paging_source.RequestUpgradeVolunteerPagingSource
 import com.test.test.data.remote.paging_source.SearchVolunteerPagingSource
@@ -38,21 +40,6 @@ class VolunteerRepositoryImpl @Inject constructor(
         ).liveData
     }
 
-    override fun getAllRequestUpgradeVolunteer(
-        token: String,
-        page: Int
-    ): LiveData<PagingData<RequestUpgradeVolunteerResponseItem>> {
-
-        return Pager(
-            config = PagingConfig(
-                pageSize = page
-            ),
-            pagingSourceFactory = {
-                RequestUpgradeVolunteerPagingSource(dashboardService, token)
-            }
-        ).liveData
-    }
-
     override suspend fun getAllVolunteerSummary(token: String): VolunteerSummaryResponse {
         return dashboardService.getAllVolunteerSummary(token)
     }
@@ -73,7 +60,7 @@ class VolunteerRepositoryImpl @Inject constructor(
         ).liveData
     }
 
-    override suspend fun getVolunteer(token: String, id: Int): DetailVolunteerResponse {
+    override suspend fun getDetailVolunteer(token: String, id: Int): DetailVolunteerResponse {
         return dashboardService.getDetailVolunteer(token, id)
     }
 
@@ -120,5 +107,35 @@ class VolunteerRepositoryImpl @Inject constructor(
             religion,
             maritalStatus
         )
+    }
+
+    override fun getAllRequestUpgradeVolunteer(
+        token: String,
+        page: Int
+    ): LiveData<PagingData<RequestUpgradeVolunteerResponseItem>> {
+
+        return Pager(
+            config = PagingConfig(
+                pageSize = page
+            ),
+            pagingSourceFactory = {
+                RequestUpgradeVolunteerPagingSource(dashboardService, token)
+            }
+        ).liveData
+    }
+
+    override suspend fun getDetailRequestUpgradeVolunteer(
+        token: String,
+        id: Int
+    ): DetailRequestUpgradeVolunteerResponse {
+        return dashboardService.getDetailRequestUpgradeVolunteer(token, id)
+    }
+
+    override suspend fun updateRequestUpgradeVolunteer(
+        token: String,
+        id: Int,
+        status: String
+    ): UpdateRequestUpgradeVolunteerResponse {
+        return dashboardService.updateRequestUpgradeVolunteer(token, id, status)
     }
 }

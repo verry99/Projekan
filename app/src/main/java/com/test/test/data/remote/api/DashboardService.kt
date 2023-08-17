@@ -20,6 +20,8 @@ import com.test.test.data.remote.dto.volunteer.VolunteerResponse
 import com.test.test.data.remote.dto.volunteer.add_volunteer.AddVolunteerResponse
 import com.test.test.data.remote.dto.volunteer.detail_volunteer.DetailVolunteerResponse
 import com.test.test.data.remote.dto.volunteer.request_upgrade.RequestUpgradeVolunteerResponse
+import com.test.test.data.remote.dto.volunteer.request_upgrade.accept_reject.UpdateRequestUpgradeVolunteerResponse
+import com.test.test.data.remote.dto.volunteer.request_upgrade.detail.DetailRequestUpgradeVolunteerResponse
 import com.test.test.data.remote.dto.volunteer.summary_volunteer.VolunteerSummaryResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -29,6 +31,7 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -107,6 +110,11 @@ interface DashboardService {
         @Query("page") page: Int
     ): RequestUpgradeVolunteerResponse
 
+    @GET("request-upgrade/{id}")
+    suspend fun getDetailRequestUpgradeVolunteer(
+        @Header("Authorization") token: String,
+        @Path("id") id: Int
+    ): DetailRequestUpgradeVolunteerResponse
 
     @GET("request-upgrade")
     suspend fun getRequestUpgradeVolunteer(
@@ -120,6 +128,15 @@ interface DashboardService {
         @Field("role") role: String,
         @Field("reason") reason: String
     ): RequestUpgradeVolunteerStatusResponse
+
+    @FormUrlEncoded
+    @PUT("request-upgrade/{id}")
+    suspend fun updateRequestUpgradeVolunteer(
+        @Header("Authorization") token: String,
+        @Path("id") id: Int,
+        @Field("status") status: String,
+    ): UpdateRequestUpgradeVolunteerResponse
+
 
     @GET("suporter")
     suspend fun getAllSupporter(

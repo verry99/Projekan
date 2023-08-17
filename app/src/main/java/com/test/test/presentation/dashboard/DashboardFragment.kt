@@ -226,6 +226,11 @@ class DashboardFragment : Fragment(), View.OnClickListener {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.refreshUserPreference()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

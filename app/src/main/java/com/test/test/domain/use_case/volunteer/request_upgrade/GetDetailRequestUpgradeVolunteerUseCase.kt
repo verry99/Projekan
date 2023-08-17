@@ -1,7 +1,7 @@
-package com.test.test.domain.use_case.volunteer.get_detail_volunteer
+package com.test.test.domain.use_case.volunteer.request_upgrade
 
 import com.test.test.common.Resource
-import com.test.test.data.remote.dto.volunteer.detail_volunteer.DetailVolunteerResponse
+import com.test.test.data.remote.dto.volunteer.request_upgrade.detail.DetailRequestUpgradeVolunteerResponse
 import com.test.test.domain.repository.VolunteerRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -9,14 +9,17 @@ import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
-class GetDetailVolunteerUseCase @Inject constructor(
+class GetDetailRequestUpgradeVolunteerUseCase @Inject constructor(
     private val volunteerRepository: VolunteerRepository
 ) {
-    suspend operator fun invoke(token: String, id: Int): Flow<Resource<DetailVolunteerResponse>> =
+    suspend operator fun invoke(
+        token: String,
+        id: Int
+    ): Flow<Resource<DetailRequestUpgradeVolunteerResponse>> =
         flow {
             emit(Resource.Loading())
             try {
-                val data = volunteerRepository.getDetailVolunteer(token, id)
+                val data = volunteerRepository.getDetailRequestUpgradeVolunteer(token, id)
                 emit(Resource.Success(data))
             } catch (e: HttpException) {
                 emit(Resource.Error(e.localizedMessage ?: "Unexpected Error"))

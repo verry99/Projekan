@@ -126,11 +126,6 @@ class VolunteerFragment : Fragment(), View.OnClickListener {
 
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.btn_back -> findNavController().navigateUp()
@@ -144,5 +139,17 @@ class VolunteerFragment : Fragment(), View.OnClickListener {
 
             R.id.fab_add_volunteer -> findNavController().navigate(R.id.action_volunteerFragment_to_addVolunteerFragment)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.apply {
+            refreshPage()
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

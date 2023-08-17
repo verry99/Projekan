@@ -1,13 +1,13 @@
-package com.test.test.data.remote.dto.volunteer.detail_volunteer
+package com.test.test.data.remote.dto.volunteer.request_upgrade.detail
 
 
-import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import kotlinx.parcelize.Parcelize
 
 data class Profile(
     @SerializedName("address")
     val address: String?,
+    @SerializedName("age")
+    val age: String?,
     @SerializedName("created_at")
     val createdAt: String?,
     @SerializedName("date_of_birth")
@@ -42,8 +42,6 @@ data class Profile(
     val subdistrict: String?,
     @SerializedName("tps")
     val tps: String?,
-    @SerializedName("age")
-    val age: String?,
     @SerializedName("updated_at")
     val updatedAt: String?,
     @SerializedName("user_id")

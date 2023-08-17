@@ -1,4 +1,4 @@
-package com.test.test.domain.use_case.volunteer.get_request_upgrade_status
+package com.test.test.domain.use_case.volunteer.request_upgrade.send_request_upgrade
 
 import com.test.test.common.Resource
 import com.test.test.data.remote.dto.user.request_upgrade_volunteer.RequestUpgradeVolunteerStatusResponse
@@ -10,18 +10,22 @@ import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
-class GetRequestUpgradeVolunteerStatusUseCase @Inject constructor(
+class RequestUpgradeVolunteerUseCase @Inject constructor(
     private val otherUserRepository: OtherUserRepository
 ) {
 
     suspend operator fun invoke(
-        token: String
+        token: String,
+        role: String,
+        reason: String
     ): Flow<Resource<RequestUpgradeVolunteerStatusResponse>> = flow {
 
         emit(Resource.Loading())
         try {
-            val response = otherUserRepository.getRequestUpgradeVolunteer(
-                token
+            val response = otherUserRepository.requestUpgradeVolunteer(
+                token,
+                role,
+                reason
             )
             emit(Resource.Success(response))
 

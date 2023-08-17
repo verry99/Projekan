@@ -167,7 +167,7 @@
     <string name="_30_hari_terakhir">30 hari terakhir</string>
     <string name="gabung_sebagai">Gabung Sebagai</string>
     <string name="relawan_sbr">Relawan SBR</string>
-    <string name="alasan">Alasan*</string>
+    <string name="alasan_required">Alasan*</string>
     <string name="tulis_alasan_kamu_di_sini">Tulis alasan kamu di sini</string>
     <string name="berikan_alasan_mengapa_anda_layak_menjadi_relawan_sehingga_kami_yakin">*Berikan alasan mengapa anda layak menjadi relawan sehingga kami yakin.</string>
     <string name="gambar_pertumbuhan_pendukung">gambar pertumbuhan pendukung</string>
@@ -185,6 +185,9 @@
     <string name="facebook">FACEBOOK</string>
     <string name="youtube">YOUTUBE</string>
     <string name="www_susantobudiraharjo_com">www.susantobudiraharjo.com</string>
+    <string name="tolak">Tolak</string>
+    <string name="terima">Terima</string>
+    <string name="alasan">Alasan</string>
 
     <string-array name="spinner_gender">
         <item>Laki-laki</item>

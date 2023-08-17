@@ -26,5 +26,4 @@ class InteractionViewModel @Inject constructor(
     fun fetchInteraction() {
         interaction = getAllInteractionUseCase(token, 10).cachedIn(viewModelScope)
     }
-
 }

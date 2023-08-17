@@ -63,4 +63,10 @@ class DashboardViewModel @Inject constructor(
             }.launchIn(viewModelScope)
         }
     }
+
+    fun refreshUserPreference() {
+        viewModelScope.launch {
+            getUserPreferenceUseCase().let { _user.value = it }
+        }
+    }
 }

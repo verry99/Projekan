@@ -23,4 +23,5 @@
     <color name="green">#04F038</color>
     <color name="green_success">#4fbf26</color>
     <color name="shimmer">#C2C2C2</color>
+    <color name="dark_green">#198754</color>
 </resources>

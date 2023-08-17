@@ -1,4 +1,4 @@
-package com.test.test.presentation.dashboard.volunteer.approval_volunteer
+package com.test.test.presentation.dashboard.volunteer.request_upgrade
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,11 +15,11 @@ import com.test.test.presentation.adapter.RequestUpgradeVolunteerAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class VolunteerApprovalFragment : Fragment(), View.OnClickListener {
+class RequestUpgradeVolunteerFragment : Fragment(), View.OnClickListener {
 
     private var _binding: FragmentVolunteerApprovalBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: VolunteerApprovalViewModel by viewModels()
+    private val viewModel: RequestUpgradeVolunteerViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,18 +60,25 @@ class VolunteerApprovalFragment : Fragment(), View.OnClickListener {
 
     private fun setUpActionListeners() {
         binding.apply {
-            btnBack.setOnClickListener(this@VolunteerApprovalFragment)
+            btnBack.setOnClickListener(this@RequestUpgradeVolunteerFragment)
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.btn_back -> findNavController().navigateUp()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.apply {
+            fetchData()
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
