@@ -16,10 +16,13 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.test.test.R
+import com.test.test.common.Constants
 import com.test.test.databinding.FragmentViewVolunteerBinding
+import com.test.test.presentation.utils.convertToDayFirst
 import com.test.test.presentation.utils.createTempFile
 import com.test.test.presentation.utils.reduceFileImage
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,7 +46,11 @@ class ViewVolunteerFragment : Fragment(), View.OnClickListener,
     private val binding get() = _binding!!
     private val viewModel: ViewVolunteerViewModel by viewModels()
     private var getFile: File? = null
-    private var birthDate: String? = null
+    private var userBirthDate: String? = null
+    private var userProvince: String? = null
+    private var userRegency: String? = null
+    private var userSubDistrict: String? = null
+    private var userVillage: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,59 +67,7 @@ class ViewVolunteerFragment : Fragment(), View.OnClickListener,
 
         setUpSpinners()
         setUpActionListeners()
-        setUpProfileData()
         setUpLiveDataObservers()
-    }
-
-    private fun setUpProfileData() {
-//        args.profile.let {
-//            binding.apply {
-//                it.photo?.let {
-//                    Glide.with(requireContext())
-//                        .load(Constants.IMAGE_URL + it)
-//                        .into(binding.imgProfile)
-//
-//                    binding.btnAddPicture.text = "Ubah"
-//                }
-//                edtNik.setText(it.nik)
-//                edtNama.setText(it.name)
-//                edtAlamat.setText(it.address)
-//                edtNoHp.setText(it.)
-//                edtTempatLahir.setText(it.birthPlace)
-//                edtRt.setText(it.rt)
-//                edtRw.setText(it.rw)
-//                edtTps.setText(it.tps)
-//
-//                it.birthDate?.let {
-//                    tvTanggalLahir.text = convertToDayFirst(it)
-//                }
-//
-//                var selectedProvinceIndex =
-//                    viewModel.province.value!!.indexOfFirst { itemList -> itemList.name == it.province }
-//                if (selectedProvinceIndex == -1) selectedProvinceIndex = 0
-//                binding.spinnerProvinsi.setSelection(selectedProvinceIndex)
-//
-//                it.religion?.let {
-//                    val selectedReligionIndex =
-//                        resources.getStringArray(R.array.spinner_religion).indexOf(it)
-//                    if (selectedReligionIndex == -1) selectedProvinceIndex = 0
-//                    binding.spinnerAgama.setSelection(
-//                        selectedReligionIndex
-//                    )
-//                }
-//
-//                it.maritalStatus?.let {
-//                    var selectedStatusIndex =
-//                        resources.getStringArray(R.array.spinner_marital_status).indexOf(it)
-//                    if (selectedStatusIndex == -1) selectedStatusIndex = 0
-//                    binding.spinnerStatusPerkawinan.setSelection(selectedStatusIndex)
-//                }
-//
-//                userRegency = it.regency
-//                userSubDistrict = it.subDistrict
-//                userVillage = it.village
-//            }
-//        }
     }
 
     private fun startGallery() {
@@ -134,7 +89,7 @@ class ViewVolunteerFragment : Fragment(), View.OnClickListener,
 
                 binding.apply {
                     imgProfile.setImageURI(uri)
-                    btnAddPicture.text = "Ubah"
+                    btnChangePicture.text = "Ubah"
                 }
             }
         }
@@ -207,7 +162,7 @@ class ViewVolunteerFragment : Fragment(), View.OnClickListener,
         binding.apply {
             btnBack.setOnClickListener(this@ViewVolunteerFragment)
             ibTanggalLahir.setOnClickListener(this@ViewVolunteerFragment)
-            btnAddPicture.setOnClickListener { startGallery() }
+            btnChangePicture.setOnClickListener { startGallery() }
             spinnerProvinsi.onItemSelectedListener = this@ViewVolunteerFragment
             spinnerKabupaten.onItemSelectedListener = this@ViewVolunteerFragment
             spinnerKecamatan.onItemSelectedListener = this@ViewVolunteerFragment
@@ -246,7 +201,7 @@ class ViewVolunteerFragment : Fragment(), View.OnClickListener,
                 datePicker.addOnPositiveButtonClickListener { selectedDate ->
                     val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US)
                     val formattedDate = dateFormat.format(Date(selectedDate))
-                    birthDate = formattedDate
+                    userBirthDate = formattedDate
 
                     binding.tvTanggalLahir.text =
                         SimpleDateFormat("dd-MM-yyyy", Locale.US).format(Date(selectedDate))
@@ -265,7 +220,55 @@ class ViewVolunteerFragment : Fragment(), View.OnClickListener,
         viewModel.apply {
 
             volunteer.observe(viewLifecycleOwner) {
+                binding.apply {
+                    it.profile?.photo?.let {
+                        Glide.with(requireContext())
+                            .load(Constants.IMAGE_URL + it)
+                            .into(binding.imgProfile)
+                    }
 
+                    edtNik.setText(it.profile?.nik)
+                    edtNama.setText(it.profile?.name)
+                    edtEmail.setText(it.profile?.name)
+                    edtAlamat.setText(it.profile?.address)
+                    edtEmail.setText(it.email)
+                    edtNoHp.setText(it.phone)
+                    edtTempatLahir.setText(it.profile?.placeOfBirth)
+                    edtRt.setText(it.profile?.rt)
+                    edtRw.setText(it.profile?.rw)
+                    edtTps.setText(it.profile?.tps)
+
+                    try {
+                        tvTanggalLahir.text = convertToDayFirst(it.profile?.dateOfBirth!!)
+                    } catch (e: Exception) {
+                        tvTanggalLahir.text = it.profile?.dateOfBirth
+                    }
+
+                    var selectedProvinceIndex =
+                        viewModel.province.value!!.indexOfFirst { itemList -> itemList.name == it.profile?.province }
+                    if (selectedProvinceIndex == -1) selectedProvinceIndex = 0
+                    binding.spinnerProvinsi.setSelection(selectedProvinceIndex)
+
+                    it.profile?.religion?.let {
+                        val selectedReligionIndex =
+                            resources.getStringArray(R.array.spinner_religion).indexOf(it)
+                        if (selectedReligionIndex == -1) selectedProvinceIndex = 0
+                        binding.spinnerAgama.setSelection(
+                            selectedReligionIndex
+                        )
+                    }
+
+                    it.profile?.maritalStatus?.let {
+                        var selectedStatusIndex =
+                            resources.getStringArray(R.array.spinner_marital_status).indexOf(it)
+                        if (selectedStatusIndex == -1) selectedStatusIndex = 0
+                        binding.spinnerStatusPerkawinan.setSelection(selectedStatusIndex)
+                    }
+
+                    userRegency = it.profile?.regency
+                    userSubDistrict = it.profile?.subdistrict
+                    userVillage = it.profile?.village
+                }
             }
 
             province.observe(viewLifecycleOwner) {
@@ -274,6 +277,13 @@ class ViewVolunteerFragment : Fragment(), View.OnClickListener,
                     ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, itemList)
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 binding.spinnerProvinsi.adapter = adapter
+                if (userProvince != null) {
+                    val selectedIndex = itemList.indexOfFirst { it == userProvince }
+                    if (selectedIndex != -1) {
+                        binding.spinnerProvinsi.setSelection(selectedIndex)
+                        userProvince = null
+                    }
+                }
             }
 
             regency.observe(viewLifecycleOwner) {
@@ -282,6 +292,13 @@ class ViewVolunteerFragment : Fragment(), View.OnClickListener,
                     ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, itemList)
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 binding.spinnerKabupaten.adapter = adapter
+                if (userRegency != null) {
+                    val selectedIndex = itemList.indexOfFirst { it == userRegency }
+                    if (selectedIndex != -1) {
+                        binding.spinnerKabupaten.setSelection(selectedIndex)
+                        userRegency = null
+                    }
+                }
             }
 
             subDistrict.observe(viewLifecycleOwner) {
@@ -290,6 +307,13 @@ class ViewVolunteerFragment : Fragment(), View.OnClickListener,
                     ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, itemList)
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 binding.spinnerKecamatan.adapter = adapter
+                if (userSubDistrict != null) {
+                    val selectedIndex = itemList.indexOfFirst { it == userSubDistrict }
+                    if (selectedIndex != -1) {
+                        binding.spinnerKecamatan.setSelection(selectedIndex)
+                        userSubDistrict = null
+                    }
+                }
             }
 
             village.observe(viewLifecycleOwner) {
@@ -298,6 +322,13 @@ class ViewVolunteerFragment : Fragment(), View.OnClickListener,
                     ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, itemList)
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 binding.spinnerDesa.adapter = adapter
+                if (userVillage != null) {
+                    val selectedIndex = itemList.indexOfFirst { it == userVillage }
+                    if (selectedIndex != -1) {
+                        binding.spinnerDesa.setSelection(selectedIndex)
+                        userVillage = null
+                    }
+                }
             }
 
             isLoading.observe(viewLifecycleOwner) {
@@ -319,7 +350,7 @@ class ViewVolunteerFragment : Fragment(), View.OnClickListener,
                     findNavController().navigateUp()
                     Toast.makeText(
                         requireActivity(),
-                        "Berhasil menambahkan volunteeer.",
+                        "Berhasil mengubah data volunteeer.",
                         Toast.LENGTH_SHORT
                     ).show()
                     viewModel.success.value = false

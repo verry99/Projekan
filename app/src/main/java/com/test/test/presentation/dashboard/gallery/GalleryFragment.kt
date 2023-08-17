@@ -31,7 +31,9 @@ class GalleryFragment : Fragment(), View.OnClickListener {
     }
 
     private fun setUpActionListeners() {
-//        binding.btnBack.setOnClickListener(this)
+        binding.apply {
+            btnBack.setOnClickListener(this@GalleryFragment)
+        }
     }
 
     override fun onDestroyView() {
@@ -41,7 +43,7 @@ class GalleryFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.btn_back -> findNavController().navigate(R.id.action_notificationFragment_to_dashboardFragment)
+            R.id.btn_back -> findNavController().navigateUp()
         }
     }
 }

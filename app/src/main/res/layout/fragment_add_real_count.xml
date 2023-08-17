@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.dashboard.real_count.add.AddRealCountFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <!-- Button Back -->
+            <LinearLayout
+                android:id="@+id/btn_back_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                tools:ignore="UseCompoundDrawables">
+
+                <ImageView
+                    android:id="@+id/btn_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/icon_back"
+                    android:src="@drawable/ic_back" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_bold"
+                    android:paddingEnd="24dp"
+                    android:text="@string/tambah_tps"
+                    android:textAlignment="center"
+                    tools:ignore="RtlSymmetry" />
+
+            </LinearLayout>
+
+            <TextView
+                style="@style/MyEditTextLabelStyle"
+                android:text="@string/bukti_required" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/btn_lampiran"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/edit_text_background_color"
+                app:cardCornerRadius="12dp">
+
+                <ImageView
+                    android:id="@+id/img_lampiran"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/img_attachment_interaction" />
+
+            </androidx.cardview.widget.CardView>
+
+            <!--    <TextView-->
+            <!--        android:layout_width="wrap_content"-->
+            <!--        android:layout_height="wrap_content"-->
+            <!--        android:layout_marginTop="4dp"-->
+            <!--        android:text="@string/foto_maks_5_mb"-->
+            <!--        android:textColor="@color/dark_gray"-->
+            <!--        android:textSize="12sp" />-->
+
+            <!--Suara SBR & TPS -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/MyEditTextLabelStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/suara_sbr_required" />
+
+                    <EditText
+                        android:id="@+id/edt_suara_sbr"
+                        style="@style/PurpleEditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/suara_sbr"
+                        android:importantForAutofill="no" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/MyEditTextLabelStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tps_required" />
+
+                    <EditText
+                        android:id="@+id/edt_rw"
+                        style="@style/PurpleEditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/_0"
+                        android:importantForAutofill="no"
+                        android:inputType="number" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/MyEditTextLabelStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/kecamatan_required" />
+
+                    <EditText
+                        android:id="@+id/edt_kecamatan"
+                        style="@style/PurpleEditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/kecamatan"
+                        android:importantForAutofill="no"
+                        android:inputType="text" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/MyEditTextLabelStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/desa_kelurahan_required" />
+
+                    <EditText
+                        android:id="@+id/edt_desa"
+                        style="@style/PurpleEditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/desa_kelurahan"
+                        android:importantForAutofill="no"
+                        android:inputType="text" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Dynamic Edit Text -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/suara_rival_required" />
+
+            <LinearLayout
+                android:id="@+id/pair_edit_text_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical">
+
+                <include
+                    android:id="@+id/suara_rival"
+                    layout="@layout/edittext_pair_layout" />
+
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/btn_add_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/button_gray_background"
+                android:contentDescription="@string/tambah_rival"
+                android:fontFamily="@font/inter_medium"
+                android:padding="14dp"
+                android:src="@drawable/ic_add" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_kirim"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
+                android:background="@drawable/button_red_background"
+                android:fontFamily="@font/inter_medium"
+                android:text="@string/kirim"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+    </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:indeterminateTint="@color/red"
+        android:indeterminateTintMode="src_atop"
+        android:visibility="gone" />
+
+</RelativeLayout>

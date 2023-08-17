@@ -48,6 +48,29 @@ interface VolunteerRepository {
         maritalStatus: RequestBody
     ): AddVolunteerResponse
 
+    suspend fun updateVolunteer(
+        token: String,
+        id: Int,
+        photo: MultipartBody.Part?,
+        nik: RequestBody,
+        name: RequestBody,
+        phone: RequestBody,
+        email: RequestBody,
+        birthPlace: RequestBody,
+        birthDate: RequestBody,
+        gender: RequestBody,
+        address: RequestBody,
+        rt: RequestBody,
+        rw: RequestBody,
+        tps: RequestBody,
+        province: RequestBody,
+        regency: RequestBody,
+        subDistrict: RequestBody,
+        village: RequestBody,
+        religion: RequestBody,
+        maritalStatus: RequestBody
+    ): AddVolunteerResponse
+
     fun getAllRequestUpgradeVolunteer(
         token: String,
         page: Int

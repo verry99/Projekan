@@ -1,9 +1,7 @@
 package com.test.test.data.remote.dto.volunteer.detail_volunteer
 
 
-import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import kotlinx.parcelize.Parcelize
 
 data class Profile(
     @SerializedName("address")
@@ -19,7 +17,7 @@ data class Profile(
     @SerializedName("isCompleted")
     val isCompleted: String?,
     @SerializedName("marial_state")
-    val marialState: String?,
+    val maritalStatus: String?,
     @SerializedName("name")
     val name: String?,
     @SerializedName("nik")

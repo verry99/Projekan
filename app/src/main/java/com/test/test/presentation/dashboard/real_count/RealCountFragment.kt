@@ -34,13 +34,20 @@ class RealCountFragment : Fragment(), View.OnClickListener {
     }
 
     private fun setUpActionListener() {
-        binding.btnBack.setOnClickListener(this)
+        binding.apply {
+            btnBack.setOnClickListener(this@RealCountFragment)
+            fabAdd.setOnClickListener(this@RealCountFragment)
+        }
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.btn_back -> {
                 findNavController().navigateUp()
+            }
+
+            R.id.fab_add -> {
+                findNavController().navigate(R.id.action_realCountFragment_to_addRealCountFragment)
             }
         }
     }

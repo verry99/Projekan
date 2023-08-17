@@ -22,8 +22,8 @@
             android:id="@+id/action_dashboardFragment_to_supporterFragment"
             app:destination="@id/supporterFragment" />
         <action
-            android:id="@+id/action_dashboardFragment_to_quickCountFragment"
-            app:destination="@id/quickCountFragment" />
+            android:id="@+id/action_dashboardFragment_to_realCountFragment"
+            app:destination="@id/realCountFragment" />
         <action
             android:id="@+id/action_dashboardFragment_to_activityFragment"
             app:destination="@id/activityFragment" />
@@ -143,10 +143,15 @@
     </fragment>
 
     <fragment
-        android:id="@+id/quickCountFragment"
+        android:id="@+id/realCountFragment"
         android:name="com.test.test.presentation.dashboard.real_count.RealCountFragment"
-        android:label="fragment_quick_count"
-        tools:layout="@layout/fragment_real_count" />
+        android:label="fragment_real_count"
+        tools:layout="@layout/fragment_real_count" >
+        <action
+            android:id="@+id/action_realCountFragment_to_addRealCountFragment"
+            app:destination="@id/addRealCountFragment" />
+        <argument android:name="token" />
+    </fragment>
 
     <fragment
         android:id="@+id/loginFragment"
@@ -389,5 +394,10 @@
             android:name="id"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/addRealCountFragment"
+        android:name="com.test.test.presentation.dashboard.real_count.add.AddRealCountFragment"
+        android:label="fragment_add_real_count"
+        tools:layout="@layout/fragment_add_real_count" />
 
 </navigation>

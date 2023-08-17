@@ -20,8 +20,8 @@ import com.test.test.domain.use_case.division.get_all_province.GetAllProvinceUse
 import com.test.test.domain.use_case.division.get_all_regency.GetAllRegencyUseCase
 import com.test.test.domain.use_case.division.get_all_village.GetAllVillageUseCase
 import com.test.test.domain.use_case.user_pref.get_user.GetUserPreferenceUseCase
-import com.test.test.domain.use_case.volunteer.add_volunteer.AddVolunteerUseCase
 import com.test.test.domain.use_case.volunteer.get_detail_volunteer.GetDetailVolunteerUseCase
+import com.test.test.domain.use_case.volunteer.update_volunteer.UpdateVolunteerUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.launchIn
@@ -36,7 +36,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ViewVolunteerViewModel @Inject constructor(
     private val getUserPreferenceUseCase: GetUserPreferenceUseCase,
-    private val addVolunteerUseCase: AddVolunteerUseCase,
+    private val updateVolunteerUseCase: UpdateVolunteerUseCase,
     private val getDetailVolunteerUseCase: GetDetailVolunteerUseCase,
     private val getAllProvinceUseCase: GetAllProvinceUseCase,
     private val getAllRegencyUseCase: GetAllRegencyUseCase,
@@ -123,8 +123,9 @@ class ViewVolunteerViewModel @Inject constructor(
                         emptyList()
                     }
                 }
-
             _province.value = listOf(Province(id = "0", "Pilih Provinsi")) + province
+
+            Log.e("#viewvolvm", "${_province.value}")
 
             getUserPreferenceUseCase().let {
                 _user.value = it
@@ -138,6 +139,7 @@ class ViewVolunteerViewModel @Inject constructor(
                     is Resource.Success -> {
                         _isLoading.value = false
                         _volunteer.value = it.data!!.volunteer!!
+                        Log.e("#viewvolvm", "${it.data.volunteer}")
                     }
 
                     is Resource.Error -> {
@@ -175,8 +177,9 @@ class ViewVolunteerViewModel @Inject constructor(
     ) {
         val token = "Bearer " + _user.value?.accessToken
         viewModelScope.launch {
-            addVolunteerUseCase(
+            updateVolunteerUseCase(
                 token,
+                id!!.toInt(),
                 photo,
                 nik,
                 name,
@@ -210,7 +213,6 @@ class ViewVolunteerViewModel @Inject constructor(
                     is Resource.Loading -> {
                         _isLoading.value = true
                     }
-
                 }
             }.launchIn(viewModelScope)
         }

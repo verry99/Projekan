@@ -188,6 +188,15 @@
     <string name="tolak">Tolak</string>
     <string name="terima">Terima</string>
     <string name="alasan">Alasan</string>
+    <string name="ubah">Ubah</string>
+    <string name="profil_relawan">Profil Relawan</string>
+    <string name="tambah_tps">Tambah TPS</string>
+    <string name="suara">Suara</string>
+    <string name="bukti_required">Bukti*</string>
+    <string name="suara_sbr_required">Suara SBR*</string>
+    <string name="suara_rival_required">Suara Rival*</string>
+    <string name="tambah_rival">Tambah Rival</string>
+    <string name="suara_sbr">Suara SBR</string>
 
     <string-array name="spinner_gender">
         <item>Laki-laki</item>

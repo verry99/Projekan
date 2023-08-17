@@ -10,6 +10,7 @@ import com.test.test.data.remote.dto.post.PostResponse
 import com.test.test.data.remote.dto.post.detail.DetailPostResponse
 import com.test.test.data.remote.dto.profile.ProfileResponse
 import com.test.test.data.remote.dto.profile.UpdateProfileResponse
+import com.test.test.data.remote.dto.real_counts.RealCountsResponse
 import com.test.test.data.remote.dto.schedule.ScheduleResponse
 import com.test.test.data.remote.dto.schedule.detail.DetailScheduleResponse
 import com.test.test.data.remote.dto.supporter.SupporterResponse
@@ -84,6 +85,31 @@ interface DashboardService {
     @POST("volunteer")
     suspend fun addVolunteer(
         @Header("Authorization") token: String,
+        @Part photo: MultipartBody.Part?,
+        @Part("nik") nik: RequestBody,
+        @Part("name") name: RequestBody,
+        @Part("phone") phone: RequestBody,
+        @Part("email") email: RequestBody,
+        @Part("place_of_birth") birthPlace: RequestBody,
+        @Part("date_of_birth") birthDate: RequestBody,
+        @Part("gender") gender: RequestBody,
+        @Part("address") address: RequestBody,
+        @Part("rt") rt: RequestBody,
+        @Part("rw") rw: RequestBody,
+        @Part("tps") tps: RequestBody,
+        @Part("province") province: RequestBody,
+        @Part("regency") regency: RequestBody,
+        @Part("subdistrict") subDistrict: RequestBody,
+        @Part("village") village: RequestBody,
+        @Part("religion") religion: RequestBody,
+        @Part("marial_state") maritalStatus: RequestBody
+    ): AddVolunteerResponse
+
+    @Multipart
+    @POST("volunteer/{id}")
+    suspend fun updateVolunteer(
+        @Header("Authorization") token: String,
+        @Path("id") id: Int,
         @Part photo: MultipartBody.Part?,
         @Part("nik") nik: RequestBody,
         @Part("name") name: RequestBody,
@@ -234,6 +260,12 @@ interface DashboardService {
         @Header("Authorization") token: String,
         @Path("id") id: Int
     ): DetailScheduleResponse
+
+    @GET("real-counts")
+    suspend fun getAllRealCounts(
+        @Header("Authorization") token: String,
+        @Query("page") page: Int,
+    ): RealCountsResponse
 
     @GET("analyst")
     suspend fun getAnalysis(

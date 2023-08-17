@@ -109,6 +109,53 @@ class VolunteerRepositoryImpl @Inject constructor(
         )
     }
 
+    override suspend fun updateVolunteer(
+        token: String,
+        id: Int,
+        photo: MultipartBody.Part?,
+        nik: RequestBody,
+        name: RequestBody,
+        phone: RequestBody,
+        email: RequestBody,
+        birthPlace: RequestBody,
+        birthDate: RequestBody,
+        gender: RequestBody,
+        address: RequestBody,
+        rt: RequestBody,
+        rw: RequestBody,
+        tps: RequestBody,
+        province: RequestBody,
+        regency: RequestBody,
+        subDistrict: RequestBody,
+        village: RequestBody,
+        religion: RequestBody,
+        maritalStatus: RequestBody
+    ): AddVolunteerResponse {
+
+        return dashboardService.updateVolunteer(
+            token,
+            id,
+            photo,
+            nik,
+            name,
+            phone,
+            email,
+            birthPlace,
+            birthDate,
+            gender,
+            address,
+            rt,
+            rw,
+            tps,
+            province,
+            regency,
+            subDistrict,
+            village,
+            religion,
+            maritalStatus
+        )
+    }
+
     override fun getAllRequestUpgradeVolunteer(
         token: String,
         page: Int
