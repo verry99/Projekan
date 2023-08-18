@@ -12,6 +12,8 @@ import com.test.test.data.remote.dto.post.PostResponse
 import com.test.test.data.remote.dto.post.detail.DetailPostResponse
 import com.test.test.data.remote.dto.profile.ProfileResponse
 import com.test.test.data.remote.dto.profile.UpdateProfileResponse
+import com.test.test.data.remote.dto.profile.update_password.UpdatePasswordResponse
+import com.test.test.data.remote.dto.profile.update_phone.UpdatePhoneResponse
 import com.test.test.data.remote.dto.real_counts.RealCountsResponse
 import com.test.test.data.remote.dto.real_counts.add.AddRealCountResponse
 import com.test.test.data.remote.dto.real_counts.detail.DetailRealCountResponse
@@ -334,4 +336,21 @@ interface DashboardService {
         @Part("religion") religion: RequestBody,
         @Part("marial_state") maritalStatus: RequestBody
     ): UpdateProfileResponse
+
+    @FormUrlEncoded
+    @POST("password-update")
+    suspend fun updatePassword(
+        @Header("Authorization") token: String,
+        @Field("old_password") oldPassword: String,
+        @Field("password") password: String,
+        @Field("password_confirmation") passwordConfirmation: String,
+    ) : UpdatePasswordResponse
+
+    @FormUrlEncoded
+    @POST("phone-update")
+    suspend fun updatePhone(
+        @Header("Authorization") token: String,
+        @Field("password") password: String,
+        @Field("phone") phone: String,
+    ): UpdatePhoneResponse
 }

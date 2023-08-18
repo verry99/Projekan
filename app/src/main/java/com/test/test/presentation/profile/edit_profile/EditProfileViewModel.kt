@@ -53,10 +53,10 @@ class EditProfileViewModel @Inject constructor(
     val selectedRegency = MutableLiveData<String>()
     val selectedDistrict = MutableLiveData<String>()
 
+    private val _user = MutableLiveData<UserPref>()
+
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
-
-    private val _user = MutableLiveData<UserPref>()
 
     val success = MutableLiveData(false)
 

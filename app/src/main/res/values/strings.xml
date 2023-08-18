@@ -34,6 +34,7 @@
     <string name="image_login">image login</string>
     <string name="masuk">Masuk</string>
     <string name="masukkan_email_anda">Masukkan email anda</string>
+    <string name="masukkan_email_telpon_anda">Masukkan email/telpon anda</string>
     <string name="masukkan_password_anda">Masukkan password anda</string>
     <string name="btn_lupa_password">Lupa password?</string>
     <string name="belum_punya_akun">Belum punya akun?</string>
@@ -205,6 +206,14 @@
     <string name="wilayah">Wilayah</string>
     <string name="list_supporter">List Supporter</string>
     <string name="daftar_pendukung">Daftar Pendukung</string>
+    <string name="password_lama_required">Password Lama*</string>
+    <string name="masukkan_password_lama">Masukkan password lama anda</string>
+    <string name="konfirmasi_password_baru_required">Konfirmasi Password Baru*</string>
+    <string name="masukkan_password_baru_anda">Masukkan password baru anda</string>
+    <string name="password_baru_required">Password Baru*</string>
+    <string name="masukkan_konfirmasi_password_baru_anda">Masukkan konfirmasi password baru anda</string>
+    <string name="masukkan_no_hp_baru_anda">Masukkan No. HP baru anda</string>
+    <string name="password_required">Password*</string>
 
     <string-array name="spinner_gender">
         <item>Laki-laki</item>

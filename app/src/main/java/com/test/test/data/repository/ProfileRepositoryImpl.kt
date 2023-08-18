@@ -3,9 +3,13 @@ package com.test.test.data.repository
 import com.test.test.data.remote.api.DashboardService
 import com.test.test.data.remote.dto.profile.ProfileResponse
 import com.test.test.data.remote.dto.profile.UpdateProfileResponse
+import com.test.test.data.remote.dto.profile.update_password.UpdatePasswordResponse
+import com.test.test.data.remote.dto.profile.update_phone.UpdatePhoneResponse
 import com.test.test.domain.repository.ProfileRepository
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import retrofit2.http.Field
+import retrofit2.http.Header
 import javax.inject.Inject
 
 class ProfileRepositoryImpl @Inject constructor(
@@ -57,5 +61,22 @@ class ProfileRepositoryImpl @Inject constructor(
             religion,
             maritalStatus
         )
+    }
+
+    override suspend fun updatePassword(
+        token: String,
+        oldPassword: String,
+        password: String,
+        passwordConfirmation: String
+    ): UpdatePasswordResponse {
+        return dashboardService.updatePassword(token, oldPassword, password, passwordConfirmation)
+    }
+
+    override suspend fun updatePhone(
+        token: String,
+        password: String,
+        phone: String,
+    ): UpdatePhoneResponse {
+        return dashboardService.updatePhone(token, password, phone)
     }
 }

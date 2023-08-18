@@ -1,4 +1,4 @@
-package com.test.test.presentation.profile.change_password
+package com.test.test.presentation.profile.change_phone_number
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.test.test.common.Resource
 import com.test.test.domain.models.UserPref
-import com.test.test.domain.use_case.profile.UpdatePasswordUseCase
+import com.test.test.domain.use_case.profile.UpdatePhoneUseCase
 import com.test.test.domain.use_case.user_pref.get_user.GetUserPreferenceUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
@@ -15,9 +15,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ChangePasswordViewModel @Inject constructor(
+class ChangePhoneNumberViewModel @Inject constructor(
     private val getUserPreferenceUseCase: GetUserPreferenceUseCase,
-    private val updatePasswordUseCase: UpdatePasswordUseCase
+    private val updatePhoneUseCase: UpdatePhoneUseCase
 ) : ViewModel() {
 
     private val _user = MutableLiveData<UserPref>()
@@ -38,17 +38,15 @@ class ChangePasswordViewModel @Inject constructor(
         }
     }
 
-    fun updatePassword(
-        oldPassword: String,
+    fun updatePhone(
         password: String,
-        passwordConfirmation: String,
+        phone: String,
     ) {
         viewModelScope.launch {
-            updatePasswordUseCase(
+            updatePhoneUseCase(
                 "Bearer ${_user.value?.accessToken}",
-                oldPassword,
                 password,
-                passwordConfirmation
+                phone
             ).onEach {
                 when (it) {
                     is Resource.Success -> {

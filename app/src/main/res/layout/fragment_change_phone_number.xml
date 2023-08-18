@@ -1,14 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".presentation.main.profile.change_phone_number.ChangePhoneNumberFragment">
+    android:layout_height="wrap_content"
+    tools:context=".presentation.profile.change_phone_number.ChangePhoneNumberFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content">
 
-</FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="24dp">
+
+            <LinearLayout
+                android:id="@+id/btn_back_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                tools:ignore="UseCompoundDrawables">
+
+                <ImageView
+                    android:id="@+id/btn_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/icon_back"
+                    android:src="@drawable/ic_back" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_bold"
+                    android:paddingEnd="24dp"
+                    android:text="@string/ubah_nomor_handphone"
+                    android:textAlignment="center"
+                    tools:ignore="RtlSymmetry" />
+
+            </LinearLayout>
+
+            <TextView
+                style="@style/MyEditTextLabelStyle"
+                android:layout_marginTop="24dp"
+                android:text="@string/no_hp_required" />
+
+            <EditText
+                android:id="@+id/edt_phone"
+                style="@style/PurpleEditTextStyle"
+                android:hint="@string/masukkan_no_hp_baru_anda"
+                android:importantForAutofill="no"
+                android:inputType="phone"
+                android:maxLines="1" />
+
+            <TextView
+                style="@style/MyEditTextLabelStyle"
+                android:layout_marginTop="12dp"
+                android:text="@string/password_required" />
+
+            <EditText
+                android:id="@+id/edt_password"
+                style="@style/PurpleEditTextStyle"
+                android:hint="@string/masukkan_password_anda"
+                android:importantForAutofill="no"
+                android:inputType="textPassword"
+                android:maxLines="1" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_simpan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/button_red_background"
+                android:fontFamily="@font/inter_semibold"
+                android:text="@string/simpan"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+    </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:indeterminateTint="@color/red"
+        android:indeterminateTintMode="src_atop"
+        android:visibility="gone" />
+
+</RelativeLayout>

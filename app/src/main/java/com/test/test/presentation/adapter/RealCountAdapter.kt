@@ -1,5 +1,6 @@
 package com.test.test.presentation.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
@@ -12,6 +13,7 @@ import com.test.test.common.Constants
 import com.test.test.data.remote.dto.real_counts.RealCountResponseItem
 import com.test.test.databinding.ItemVolunteerSupporterBinding
 import com.test.test.presentation.dashboard.real_count.RealCountFragmentDirections
+import com.test.test.presentation.utils.formatNumber
 
 class RealCountAdapter() :
     PagingDataAdapter<RealCountResponseItem, RealCountAdapter.ItemViewHolder>(DIFF_CALLBACK) {
@@ -35,6 +37,7 @@ class RealCountAdapter() :
     inner class ItemViewHolder(private val binding: ItemVolunteerSupporterBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
+        @SuppressLint("SetTextI18n")
         fun bind(realCount: RealCountResponseItem) {
             binding.apply {
                 tvNama.text = "TPS " + realCount.tps
@@ -43,7 +46,7 @@ class RealCountAdapter() :
                 tvLocation.text =
                     "${realCount.village?.uppercase()}, ${realCount.subdistrict?.uppercase()}"
 
-                tvSupporterNumber.text = realCount.count
+                tvSupporterNumber.text = formatNumber(realCount.count!!.toLong())
                 tvNumberDesc.text = "Suara"
 
                 realCount.image?.let {
