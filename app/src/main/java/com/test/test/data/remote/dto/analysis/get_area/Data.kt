@@ -5,13 +5,13 @@ import com.google.gson.annotations.SerializedName
 
 data class Data(
     @SerializedName("province")
-    val province: List<String?>?,
+    val province: List<String>,
     @SerializedName("regency")
-    val regency: List<String?>?,
+    val regency: List<String>,
     @SerializedName("subdistrict")
-    val subdistrict: List<String?>?,
+    val subdistrict: List<String>,
     @SerializedName("tps")
-    val tps: List<String?>?,
+    val tps: List<String>,
     @SerializedName("village")
-    val village: List<String?>?
+    val village: List<String>
 )

@@ -3,7 +3,7 @@ package com.test.test.data.remote.dto.analysis.get_item_by_area
 
 import com.google.gson.annotations.SerializedName
 
-data class DataX(
+data class AreaSupporter(
     @SerializedName("added_by")
     val addedBy: String?,
     @SerializedName("address")
@@ -23,7 +23,7 @@ data class DataX(
     @SerializedName("isCompleted")
     val isCompleted: String?,
     @SerializedName("marial_state")
-    val marialState: Any?,
+    val maritalStatus: Any?,
     @SerializedName("name")
     val name: String?,
     @SerializedName("nik")

@@ -1,6 +1,6 @@
 <resources>
     <!--  General  -->
-    <string name="app_name">E-Susanto</string>
+    <string name="app_name">e-susanto</string>
     <string name="beranda">Beranda</string>
     <string name="analisis">Analisis</string>
     <string name="berita">Berita</string>
@@ -202,6 +202,9 @@
     <string name="suara_rival">Suara Rival</string>
     <string name="bukti">Bukti</string>
     <string name="tipe_wilayah">Tipe Wilayah</string>
+    <string name="wilayah">Wilayah</string>
+    <string name="list_supporter">List Supporter</string>
+    <string name="daftar_pendukung">Daftar Pendukung</string>
 
     <string-array name="spinner_gender">
         <item>Laki-laki</item>
@@ -229,6 +232,15 @@
     <string-array name="spinner_picture">
         <item>Kamera</item>
         <item>Galeri</item>
+    </string-array>
+
+    <string-array name="spinner_area_type">
+        <item>Pilh Tipe Wilayah</item>
+        <item>Provinsi</item>
+        <item>Kabupaten</item>
+        <item>Kecamatan</item>
+        <item>TPS</item>
+        <item>Desa/Kelurahan</item>
     </string-array>
 
 </resources>

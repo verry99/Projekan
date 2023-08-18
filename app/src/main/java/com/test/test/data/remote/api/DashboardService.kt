@@ -2,7 +2,7 @@ package com.test.test.data.remote.api
 
 import com.test.test.data.remote.dto.analysis.AnalysisResponse
 import com.test.test.data.remote.dto.analysis.get_area.AnalysisGetAreaResponse
-import com.test.test.data.remote.dto.analysis.get_item_by_area.AnalysisGetAreaItemsResponse
+import com.test.test.data.remote.dto.analysis.get_item_by_area.AnalysisDataByAreaResponse
 import com.test.test.data.remote.dto.dashboard.DashboardResponse
 import com.test.test.data.remote.dto.interaction.InteractionResponse
 import com.test.test.data.remote.dto.interaction.add_interaction.AddInteractionResponse
@@ -300,12 +300,12 @@ interface DashboardService {
         @Header("Authorization") token: String
     ): AnalysisGetAreaResponse
 
-    @GET("analyst/get-area")
-    suspend fun getAnalysisAreaItems(
+    @GET("analyst")
+    suspend fun getAnalysisDataByArea(
         @Header("Authorization") token: String,
         @Query("area") area: String,
         @Query("type") type: String
-    ): AnalysisGetAreaItemsResponse
+    ): AnalysisDataByAreaResponse
 
     @GET("user-profile")
     suspend fun getProfile(

@@ -20,7 +20,8 @@
                 android:id="@+id/btn_back_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                tools:ignore="UseCompoundDrawables">
 
                 <ImageView
                     android:id="@+id/btn_back"
@@ -46,35 +47,43 @@
                 style="@style/MyEditTextLabelStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
                 android:text="@string/tipe_wilayah" />
 
             <Spinner
-                android:id="@+id/spinner_kabupaten"
+                android:id="@+id/spinner_area_type"
                 style="@style/PurpleEditTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="12dp" />
 
-            <!-- Subdistrict -->
+            <!-- Item Wilayah -->
             <TextView
                 style="@style/MyEditTextLabelStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="@string/kecamatan_required" />
+                android:layout_marginTop="12dp"
+                android:text="@string/wilayah" />
 
             <Spinner
-                android:id="@+id/spinner_kecamatan"
+                android:id="@+id/spinner_area_item"
                 style="@style/PurpleEditTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="12dp" />
 
-            <!-- Table Header -->
-            <LinearLayout
+            <!-- Table -->
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="13dp"
+                android:text="@string/sebaran_wilayah" />
+
+            <LinearLayout
+                android:id="@+id/table_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:background="@color/blue_demography_female"
                 android:orientation="horizontal">
 
@@ -139,14 +148,14 @@
 
             <!-- Table Item -->
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_subdistrict"
+                android:id="@+id/rv_supporter_number"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="wrap_content"
                 tools:listitem="@layout/item_table_supporter" />
 
             <!-- Table Last Item -->
             <LinearLayout
-                android:id="@+id/table_last_item_subdistrict"
+                android:id="@+id/table_last_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/gray"
@@ -154,6 +163,7 @@
                 android:visibility="gone">
 
                 <TextView
+                    android:id="@+id/tv_region"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="8"
@@ -173,7 +183,7 @@
                         android:layout_height="wrap_content">
 
                         <TextView
-                            android:id="@+id/tv_total_supporter_number_male_subdistrict"
+                            android:id="@+id/tv_total_supporter_number_male"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -182,7 +192,7 @@
                             tools:text="500" />
 
                         <TextView
-                            android:id="@+id/tv_total_supporter_number_female_subdisctrict"
+                            android:id="@+id/tv_total_supporter_number_female"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -191,7 +201,7 @@
                             tools:text="300" />
 
                         <TextView
-                            android:id="@+id/tv_total_all_supporter_number_subdistrict"
+                            android:id="@+id/tv_total_all_supporter_number"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -205,153 +215,18 @@
 
             </LinearLayout>
 
-            <!-- Village -->
             <TextView
-                style="@style/MyEditTextLabelStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/desa_kelurahan_required" />
-
-            <Spinner
-                android:id="@+id/spinner_desa"
-                style="@style/PurpleEditTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="12dp" />
+                android:layout_marginTop="24dp"
+                android:text="@string/daftar_pendukung" />
 
-            <!-- Table Header -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:background="@color/blue_demography_female"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="8"
-                    android:text="@string/lokasi_wilayah"
-                    android:textAlignment="center"
-                    tools:ignore="RtlCompat" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="4"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingVertical="4dp"
-                        android:text="@string/pendukung"
-                        android:textAlignment="center" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@color/blue_demography_male"
-                            android:paddingVertical="4dp"
-                            android:text="@string/l"
-                            android:textAlignment="center" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@color/blue_demography_male"
-                            android:paddingVertical="4dp"
-                            android:text="@string/p"
-                            android:textAlignment="center" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@color/blue_demography_male"
-                            android:paddingVertical="4dp"
-                            android:text="@string/total"
-                            android:textAlignment="center" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <!-- Table Item -->
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_village"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                tools:listitem="@layout/item_table_supporter" />
-
-            <!-- Table Last Item -->
-            <LinearLayout
-                android:id="@+id/table_last_item_village"
+                android:id="@+id/rvSupporter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/gray"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="8"
-                    android:paddingVertical="4dp"
-                    android:text="@string/total"
-                    android:textAlignment="center"
-                    tools:ignore="RtlCompat" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="4"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:id="@+id/tv_total_supporter_number_male_village"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:paddingVertical="4dp"
-                            android:textAlignment="center"
-                            tools:text="500" />
-
-                        <TextView
-                            android:id="@+id/tv_total_supporter_number_female_village"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:paddingVertical="4dp"
-                            android:textAlignment="center"
-                            tools:text="300" />
-
-                        <TextView
-                            android:id="@+id/tv_total_all_supporter_number_village"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:paddingVertical="4dp"
-                            android:textAlignment="center"
-                            tools:text="800" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </LinearLayout>
+                android:layout_marginTop="8dp"
+                tools:listitem="@layout/item_volunteer_supporter" />
 
         </LinearLayout>
 

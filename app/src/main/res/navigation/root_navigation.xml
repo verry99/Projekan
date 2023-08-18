@@ -69,7 +69,7 @@
         tools:layout="@layout/fragment_analysis">
         <action
             android:id="@+id/action_analysisFragment_to_analysisRegionFragment"
-            app:destination="@id/analysisRegionFragment" />
+            app:destination="@id/analysisAreaFragment" />
     </fragment>
 
     <fragment
@@ -353,8 +353,8 @@
         android:name="com.test.test.presentation.dashboard.other_user.volunteer.volunteer.VolunteerVolunteerFragment"
         android:label="VolunteerVolunteerFragment" />
     <fragment
-        android:id="@+id/analysisRegionFragment"
-        android:name="com.test.test.presentation.analysis.region.AnalysisRegionFragment"
+        android:id="@+id/analysisAreaFragment"
+        android:name="com.test.test.presentation.analysis.area.AnalysisAreaFragment"
         android:label="AnalysisRegionFragment" />
     <fragment
         android:id="@+id/detailScheduleFragment"

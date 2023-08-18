@@ -145,7 +145,6 @@ class AnalysisFragment : Fragment(), View.OnClickListener {
                             formatNumber(supporterFemaleTotal.toLong())
                         tvTotalAllSupporterNumber.text = formatNumber(supporterTotal.toLong())
                     }
-
                 }
 
                 data.supporter?.let {

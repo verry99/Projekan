@@ -47,6 +47,7 @@ class VolunteerAdapter :
                     }
                 }
                 tvSupporterNumber.text = volunteer.supporterCount.toString()
+                tvNumberDesc.text = "Dukungan"
             }
             setUpActionListener(volunteer)
         }
