@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.test.test.common.Resource
 import com.test.test.domain.models.UserPref
-import com.test.test.domain.use_case.interaction.add_interaction.AddInteractionUseCase
+import com.test.test.domain.use_case.real_count.AddRealCountUseCase
 import com.test.test.domain.use_case.user_pref.get_user.GetUserPreferenceUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
@@ -19,7 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class AddRealCountViewModel @Inject constructor(
     private val getUserPreferenceUseCase: GetUserPreferenceUseCase,
-    private val addInteractionUseCase: AddInteractionUseCase
+    private val addRealCountUseCase: AddRealCountUseCase,
 ) : ViewModel() {
 
     private val _errorMessage = MutableLiveData<String>()
@@ -40,18 +40,26 @@ class AddRealCountViewModel @Inject constructor(
         }
     }
 
-    fun addInteraction(
-        photo: MultipartBody.Part,
-        title: RequestBody,
-        description: RequestBody,
+    fun addRealCount(
+        image: MultipartBody.Part,
+        tps: RequestBody,
+        count: RequestBody,
+        subDistrict: RequestBody,
+        village: RequestBody,
+        name: RequestBody,
+        voice: RequestBody,
     ) {
         val token = "Bearer " + _user.value?.accessToken!!
         viewModelScope.launch {
-            addInteractionUseCase(
+            addRealCountUseCase(
                 token,
-                photo,
-                title,
-                description
+                image,
+                tps,
+                count,
+                subDistrict,
+                village,
+                name,
+                voice
             ).onEach {
                 when (it) {
                     is Resource.Success -> {

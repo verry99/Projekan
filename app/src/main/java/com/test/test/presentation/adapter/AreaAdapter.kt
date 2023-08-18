@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.test.test.data.remote.dto.volunteer.detail_volunteer.Area
 import com.test.test.databinding.ItemTableSupporterBinding
+import com.test.test.presentation.utils.formatNumber
 
 class AreaAdapter(private val data: List<Area?>?) :
     RecyclerView.Adapter<AreaAdapter.ItemViewHolder>() {
@@ -35,21 +36,12 @@ class AreaAdapter(private val data: List<Area?>?) :
             binding.apply {
                 tvRegion.text =
                     area.name?.lowercase()!!.split(" ").joinToString(" ") { it.capitalize() }
-                tvSupporterNumberFemale.text = area.gender!!.l?.toString() ?: "0"
-                tvSupporterNumberMale.text = area.gender.p?.toString() ?: "0"
-                tvSupporterNumberTotal.text = area.total.toString()
+                tvSupporterNumberFemale.text =
+                    formatNumber((area.gender!!.l?.toString() ?: "0").toLong())
+                tvSupporterNumberMale.text =
+                    formatNumber((area.gender.p?.toString() ?: "0").toLong())
+                tvSupporterNumberTotal.text = formatNumber(area.total!!.toLong())
             }
-
-//            // setUpActionListener(supporterNumber)
         }
-
-//        private fun setUpActionListener(totalSupporter: SupporterNumber) {
-//            itemView.setOnClickListener {
-//                val action =
-//                    HomeFragmentDirections.actionFragmentHomeTototalSupporterFragment(totalSupporter)
-//
-//                itemView.findNavController().navigate(action)
-//            }
-//        }
     }
 }

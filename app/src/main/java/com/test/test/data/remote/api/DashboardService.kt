@@ -1,6 +1,8 @@
 package com.test.test.data.remote.api
 
 import com.test.test.data.remote.dto.analysis.AnalysisResponse
+import com.test.test.data.remote.dto.analysis.get_area.AnalysisGetAreaResponse
+import com.test.test.data.remote.dto.analysis.get_item_by_area.AnalysisGetAreaItemsResponse
 import com.test.test.data.remote.dto.dashboard.DashboardResponse
 import com.test.test.data.remote.dto.interaction.InteractionResponse
 import com.test.test.data.remote.dto.interaction.add_interaction.AddInteractionResponse
@@ -11,6 +13,7 @@ import com.test.test.data.remote.dto.post.detail.DetailPostResponse
 import com.test.test.data.remote.dto.profile.ProfileResponse
 import com.test.test.data.remote.dto.profile.UpdateProfileResponse
 import com.test.test.data.remote.dto.real_counts.RealCountsResponse
+import com.test.test.data.remote.dto.real_counts.add.AddRealCountResponse
 import com.test.test.data.remote.dto.real_counts.detail.DetailRealCountResponse
 import com.test.test.data.remote.dto.schedule.ScheduleResponse
 import com.test.test.data.remote.dto.schedule.detail.DetailScheduleResponse
@@ -274,10 +277,35 @@ interface DashboardService {
         @Path("id") id: Int
     ): DetailRealCountResponse
 
+    @Multipart
+    @POST("real-counts")
+    suspend fun addRealCount(
+        @Header("Authorization") token: String,
+        @Part image: MultipartBody.Part?,
+        @Part("tps") tps: RequestBody,
+        @Part("count") count: RequestBody,
+        @Part("subdistrict") subDistrict: RequestBody,
+        @Part("vilage") village: RequestBody,
+        @Part("name") name: RequestBody,
+        @Part("suara") voice: RequestBody,
+    ): AddRealCountResponse
+
     @GET("analyst")
     suspend fun getAnalysis(
         @Header("Authorization") token: String
     ): AnalysisResponse
+
+    @GET("analyst/get-area")
+    suspend fun getAnalysisArea(
+        @Header("Authorization") token: String
+    ): AnalysisGetAreaResponse
+
+    @GET("analyst/get-area")
+    suspend fun getAnalysisAreaItems(
+        @Header("Authorization") token: String,
+        @Query("area") area: String,
+        @Query("type") type: String
+    ): AnalysisGetAreaItemsResponse
 
     @GET("user-profile")
     suspend fun getProfile(

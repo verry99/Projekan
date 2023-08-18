@@ -1,8 +1,8 @@
-package com.test.test.domain.use_case.interaction.add_interaction
+package com.test.test.domain.use_case.real_count
 
 import com.test.test.common.Resource
-import com.test.test.data.remote.dto.interaction.add_interaction.AddInteractionResponse
-import com.test.test.domain.repository.InteractionRepository
+import com.test.test.data.remote.dto.real_counts.add.AddRealCountResponse
+import com.test.test.domain.repository.RealCountRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import okhttp3.MultipartBody
@@ -12,23 +12,31 @@ import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
-class AddInteractionUseCase @Inject constructor(
-    private val interactionRepository: InteractionRepository
+class AddRealCountUseCase @Inject constructor(
+    private val realCountRepository: RealCountRepository
 ) {
     suspend operator fun invoke(
         token: String,
-        photo: MultipartBody.Part,
-        title: RequestBody,
-        description: RequestBody
-    ): Flow<Resource<AddInteractionResponse>> = flow {
+        image: MultipartBody.Part,
+        tps: RequestBody,
+        count: RequestBody,
+        subDistrict: RequestBody,
+        village: RequestBody,
+        name: RequestBody,
+        voice: RequestBody,
+    ): Flow<Resource<AddRealCountResponse>> = flow {
 
         emit(Resource.Loading())
         try {
-            val response = interactionRepository.addInteraction(
+            val response = realCountRepository.addRealCount(
                 token,
-                photo,
-                title,
-                description
+                image,
+                tps,
+                count,
+                subDistrict,
+                village,
+                name,
+                voice
             )
             emit(Resource.Success(response))
 

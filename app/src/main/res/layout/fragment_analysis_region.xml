@@ -41,12 +41,12 @@
 
             </LinearLayout>
 
-            <!-- Regency -->
+            <!-- Type -->
             <TextView
                 style="@style/MyEditTextLabelStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/kabupaten_required" />
+                android:text="@string/tipe_wilayah" />
 
             <Spinner
                 android:id="@+id/spinner_kabupaten"
@@ -54,141 +54,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="12dp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:background="@color/blue_demography_female"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="8"
-                    android:text="@string/lokasi_wilayah"
-                    android:textAlignment="center"
-                    tools:ignore="RtlCompat" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="4"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingVertical="4dp"
-                        android:text="@string/pendukung"
-                        android:textAlignment="center" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@color/blue_demography_male"
-                            android:paddingVertical="4dp"
-                            android:text="@string/l"
-                            android:textAlignment="center" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@color/blue_demography_male"
-                            android:paddingVertical="4dp"
-                            android:text="@string/p"
-                            android:textAlignment="center" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@color/blue_demography_male"
-                            android:paddingVertical="4dp"
-                            android:text="@string/total"
-                            android:textAlignment="center" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <!-- Table Item -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_kabupaten"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                tools:listitem="@layout/item_table_supporter" />
-
-            <!-- Table Last Item -->
-            <LinearLayout
-                android:id="@+id/table_last_item"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/gray"
-                android:orientation="horizontal"
-                android:visibility="gone">
-
-                <TextView
-                    android:id="@+id/tv_region_regency"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="8"
-                    android:paddingVertical="4dp"
-                    android:text="@string/total"
-                    android:textAlignment="center"
-                    tools:ignore="RtlCompat" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="4"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:id="@+id/tv_total_supporter_number_male_regency"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:paddingVertical="4dp"
-                            android:textAlignment="center"
-                            tools:text="500" />
-
-                        <TextView
-                            android:id="@+id/tv_total_supporter_number_female_regency"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:paddingVertical="4dp"
-                            android:textAlignment="center"
-                            tools:text="300" />
-
-                        <TextView
-                            android:id="@+id/tv_total_all_supporter_number_regency"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:paddingVertical="4dp"
-                            android:textAlignment="center"
-                            tools:text="800" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </LinearLayout>
 
             <!-- Subdistrict -->
             <TextView

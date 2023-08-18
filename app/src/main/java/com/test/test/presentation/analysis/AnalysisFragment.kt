@@ -1,5 +1,6 @@
 package com.test.test.presentation.analysis
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -45,6 +46,7 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.test.test.R
 import com.test.test.databinding.FragmentAnalysisBinding
 import com.test.test.presentation.adapter.AreaAdapter
+import com.test.test.presentation.utils.formatNumber
 import com.test.test.presentation.utils.getStringPercentage
 import com.test.test.presentation.utils.roundTo
 import dagger.hilt.android.AndroidEntryPoint
@@ -108,17 +110,18 @@ class AnalysisFragment : Fragment(), View.OnClickListener {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setUpLiveDataObserver() {
 
         viewModel.data.observe(viewLifecycleOwner) { response ->
             response.data?.let { data ->
                 binding.apply {
-                    tvTotalNumber.text = data.totalSupporter.toString()
+                    tvTotalNumber.text = formatNumber(data.totalSupporter!!.toLong())
                     tvSupporterGrowthPercentage.text =
                         "${data.percentageSupporter.toString()}%"
-                    tvSupporterGrowthNumber.text = "${data.growthSupporter.toString()} dukungan"
+                    tvSupporterGrowthNumber.text =
+                        "${formatNumber(data.growthSupporter!!.toLong())} dukungan"
                 }
-
 
                 data.genderSupporter?.let { gender ->
                     showDemographyChart(
@@ -137,9 +140,10 @@ class AnalysisFragment : Fragment(), View.OnClickListener {
                     binding.apply {
                         tableLastItem.visibility = View.VISIBLE
                         rvSupporterNumber.adapter = AreaAdapter(it)
-                        tvTotalSupporterNumberMale.text = supporterMaleTotal.toString()
-                        tvTotalSupporterNumberFemale.text = supporterFemaleTotal.toString()
-                        tvTotalAllSupporterNumber.text = supporterTotal.toString()
+                        tvTotalSupporterNumberMale.text = formatNumber(supporterMaleTotal.toLong())
+                        tvTotalSupporterNumberFemale.text =
+                            formatNumber(supporterFemaleTotal.toLong())
+                        tvTotalAllSupporterNumber.text = formatNumber(supporterTotal.toLong())
                     }
 
                 }
@@ -254,7 +258,7 @@ class AnalysisFragment : Fragment(), View.OnClickListener {
                             text = getStringPercentage(supporterMalePercentage)
                         )
                         Text(
-                            text = supporterMaleTotal.toString(),
+                            text = formatNumber(supporterMaleTotal.toLong()),
                             fontWeight = FontWeight.Bold,
                             fontSize = 20.sp
                         )
@@ -266,7 +270,7 @@ class AnalysisFragment : Fragment(), View.OnClickListener {
                             text = getStringPercentage(supporterFemalePercentage)
                         )
                         Text(
-                            text = supporterFemaleTotal.toString(),
+                            text = formatNumber(supporterFemaleTotal.toLong()),
                             fontWeight = FontWeight.Bold,
                             fontSize = 20.sp
                         )

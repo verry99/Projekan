@@ -57,7 +57,9 @@ class RealCountFragment : Fragment(), View.OnClickListener {
 
             realCountSummary.observe(viewLifecycleOwner) {
                 binding.apply {
-                    tvNumberVoice.text = it.totalVote.toString()
+                    tvProgress.text = it.voterPercentage!!.toInt().toString() + "%"
+                    voicePercentage.progress = it.voterPercentage.toInt()
+                    tvNumberVoice.text = formatNumber(it.totalVote!!.toLong())
                     tvTotalSupporter.text =
                         formatNumber(it.supporter!!.toLong()) + " total dukungan"
                 }
@@ -91,6 +93,15 @@ class RealCountFragment : Fragment(), View.OnClickListener {
             R.id.fab_add -> {
                 findNavController().navigate(R.id.action_realCountFragment_to_addRealCountFragment)
             }
+        }
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.fetchRealCount()
+        viewModel.realCount.observe(viewLifecycleOwner) {
+            adapter.submitData(lifecycle, it)
         }
     }
 

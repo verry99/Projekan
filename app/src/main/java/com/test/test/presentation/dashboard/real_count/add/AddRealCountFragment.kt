@@ -19,7 +19,12 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.test.test.R
 import com.test.test.databinding.FragmentAddRealCountBinding
+import com.test.test.presentation.utils.reduceFileImage
 import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
@@ -34,6 +39,7 @@ class AddRealCountFragment : Fragment(), View.OnClickListener {
     private val fullNameList = mutableListOf<String>()
     private val voiceList = mutableListOf<Int>()
     private var getFile: File? = null
+    private var isDynamicTextField = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -113,11 +119,126 @@ class AddRealCountFragment : Fragment(), View.OnClickListener {
                 addPairEditTextField()
             }
 
-            R.id.btn_kirim -> {
-
-                retrieveAllNameAndVoice()
-            }
+            R.id.btn_kirim -> addRealCount()
         }
+    }
+
+    private fun addRealCount() {
+        if (!retrieveAllNameAndVoice()) return
+
+        val stringList: String = if (fullNameList.isNotEmpty()) {
+            "${binding.suaraRival.edtNamaLengkap.text}, " + fullNameList.joinToString { it }
+        } else {
+            binding.suaraRival.edtNamaLengkap.text.toString()
+        }
+
+        val intList: String = if (voiceList.isNotEmpty()) {
+            "${binding.suaraRival.edtSuara.text}, " + voiceList.joinToString { it.toString() }
+        } else {
+            binding.suaraRival.edtSuara.text.toString()
+        }
+
+        val image: MultipartBody.Part
+
+        if (binding.edtSuaraSbr.text.toString().isEmpty()) {
+            Toast.makeText(
+                requireContext(),
+                "Lengkapi Suara SBR terlebih dahulu.",
+                Toast.LENGTH_SHORT
+            ).show()
+
+            return
+        }
+
+        if (binding.edtTps.text.toString().isEmpty()) {
+            Toast.makeText(
+                requireContext(),
+                "Lengkapi TPS terlebih dahulu.",
+                Toast.LENGTH_SHORT
+            ).show()
+
+            return
+        }
+
+        if (binding.edtKecamatan.text.toString().isEmpty()) {
+            Toast.makeText(
+                requireContext(),
+                "Lengkapi Kecamatan terlebih dahulu.",
+                Toast.LENGTH_SHORT
+            ).show()
+
+            return
+        }
+
+        if (binding.edtDesa.text.toString().isEmpty()) {
+            Toast.makeText(
+                requireContext(),
+                "Lengkapi Kelurahan/Desa terlebih dahulu.",
+                Toast.LENGTH_SHORT
+            ).show()
+
+            return
+        }
+
+        if (binding.suaraRival.edtNamaLengkap.text.toString().isEmpty()) {
+            Toast.makeText(
+                requireContext(),
+                "Lengkapi nama rival terlebih dahulu.",
+                Toast.LENGTH_SHORT
+            ).show()
+
+            return
+        }
+
+        if (binding.suaraRival.edtNamaLengkap.text.toString().isEmpty()) {
+            Toast.makeText(
+                requireContext(),
+                "Lengkapi suara rival terlebih dahulu.",
+                Toast.LENGTH_SHORT
+            ).show()
+
+            return
+        }
+
+        if (getFile == null) {
+            Toast.makeText(
+                requireContext(),
+                "Lengkapi bukti terlebih dahulu.",
+                Toast.LENGTH_SHORT
+            ).show()
+
+            return
+        }
+
+        val file = reduceFileImage(getFile as File)
+        val requestImageFile = file.asRequestBody("image/jpeg".toMediaType())
+        image = MultipartBody.Part.createFormData(
+            "image", file.name, requestImageFile
+        )
+
+        val count = binding.edtSuaraSbr.text.toString().toRequestBody("text/plain".toMediaType())
+
+        val tps =
+            binding.edtTps.text.toString().toRequestBody("text/plain".toMediaType())
+
+        val subDistrict =
+            binding.edtKecamatan.text.toString().toRequestBody("text/plain".toMediaType())
+
+        val village =
+            binding.edtDesa.text.toString().toRequestBody("text/plain".toMediaType())
+
+        val name = stringList.toRequestBody("text/plain".toMediaType())
+        val voice = intList.toRequestBody("text/plain".toMediaType())
+
+        viewModel.addRealCount(
+            image,
+            tps,
+            count,
+            subDistrict,
+            village,
+            name,
+            voice
+        )
     }
 
     private fun setUpLiveDataObserver() {
@@ -146,72 +267,18 @@ class AddRealCountFragment : Fragment(), View.OnClickListener {
                     binding.apply {
                         progressBar.visibility = View.VISIBLE
                         btnKirim.isEnabled = false
+                        btnAddName.isEnabled = false
                     }
                 } else {
                     binding.apply {
                         progressBar.visibility = View.GONE
                         btnKirim.isEnabled = true
+                        btnAddName.isEnabled = true
                     }
                 }
             }
         }
     }
-
-//    private fun addTPS() {
-//
-//        val photo: MultipartBody.Part?
-//
-//        if (binding.edtJudul.text.toString()
-//                .isEmpty() || binding.edtJudul.text.toString().length < 5
-//        ) {
-//            Toast.makeText(
-//                requireContext(),
-//                "Judul harus diisi minimal 5 karakter.",
-//                Toast.LENGTH_SHORT
-//            ).show()
-//
-//            return
-//        }
-//
-//        if (binding.edtPesan.text.toString()
-//                .isEmpty() || binding.edtPesan.text.toString().length < 10
-//        ) {
-//            Toast.makeText(
-//                requireContext(),
-//                "Pesan harus diisi minimal 10 karakter.",
-//                Toast.LENGTH_SHORT
-//            ).show()
-//
-//            return
-//        }
-//
-//        if (getFile == null) {
-//            Toast.makeText(
-//                requireContext(),
-//                "Lengkapi lampiran terlebih dahulu.",
-//                Toast.LENGTH_SHORT
-//            ).show()
-//
-//            return
-//        }
-//
-//        val file = reduceFileImage(getFile as File)
-//        val requestImageFile = file.asRequestBody("image/jpeg".toMediaType())
-//        photo = MultipartBody.Part.createFormData(
-//            "image", file.name, requestImageFile
-//        )
-//
-//        val title = binding.edtJudul.text.toString().toRequestBody("text/plain".toMediaType())
-//
-//        val description =
-//            binding.edtPesan.text.toString().toRequestBody("text/plain".toMediaType())
-//
-//        viewModel.addInteraction(
-//            photo,
-//            title,
-//            description
-//        )
-//    }
 
     @SuppressLint("InflateParams")
     private fun addPairEditTextField() {
@@ -229,6 +296,8 @@ class AddRealCountFragment : Fragment(), View.OnClickListener {
     }
 
     private fun retrieveAllNameAndVoice(): Boolean {
+        fullNameList.clear()
+        voiceList.clear()
 
         for (pair in pairEditTextList) {
             val editText1 = pair.getChildAt(0) as EditText
@@ -242,6 +311,7 @@ class AddRealCountFragment : Fragment(), View.OnClickListener {
                     "Lengkapi nama rival atau kosongkan kolom suara terlebih dahulu.",
                     Toast.LENGTH_SHORT
                 ).show()
+                fullNameList.clear()
 
                 return false
             } else if (editText2.text.isEmpty()) {
@@ -250,6 +320,7 @@ class AddRealCountFragment : Fragment(), View.OnClickListener {
                     "Lengkapi suara rival atau kosongkan nama terlebih dahulu.",
                     Toast.LENGTH_SHORT
                 ).show()
+                voiceList.clear()
 
                 return false
             }
@@ -262,7 +333,6 @@ class AddRealCountFragment : Fragment(), View.OnClickListener {
         }
         return true
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

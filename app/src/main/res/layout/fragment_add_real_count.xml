@@ -37,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_bold"
                     android:paddingEnd="24dp"
-                    android:text="@string/tambah_tps"
+                    android:text="@string/tambah_real_count"
                     android:textAlignment="center"
                     tools:ignore="RtlSymmetry" />
 
@@ -100,7 +100,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/suara_sbr"
-                        android:importantForAutofill="no" />
+                        android:importantForAutofill="no"
+                        android:inputType="number" />
 
                 </LinearLayout>
 
@@ -118,7 +119,7 @@
                         android:text="@string/tps_required" />
 
                     <EditText
-                        android:id="@+id/edt_rw"
+                        android:id="@+id/edt_tps"
                         style="@style/PurpleEditTextStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

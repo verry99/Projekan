@@ -37,7 +37,7 @@ class RealCountAdapter() :
 
         fun bind(realCount: RealCountResponseItem) {
             binding.apply {
-                tvNama.text = realCount.tps
+                tvNama.text = "TPS " + realCount.tps
                 imgProfile.setImageResource(R.drawable.ic_tps)
 
                 tvLocation.text =

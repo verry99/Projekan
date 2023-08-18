@@ -13,7 +13,7 @@ data class Data(
     @SerializedName("image")
     val image: String?,
     @SerializedName("rivals")
-    val rivals: List<Rival?>?,
+    val rivals: List<Rival>,
     @SerializedName("subdistrict")
     val subdistrict: String?,
     @SerializedName("tps")

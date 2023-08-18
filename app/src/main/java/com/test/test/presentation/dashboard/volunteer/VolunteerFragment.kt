@@ -15,6 +15,7 @@ import com.test.test.R
 import com.test.test.databinding.FragmentVolunteerBinding
 import com.test.test.presentation.adapter.LoadingStateAdapter
 import com.test.test.presentation.adapter.VolunteerAdapter
+import com.test.test.presentation.utils.formatNumber
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -95,8 +96,8 @@ class VolunteerFragment : Fragment(), View.OnClickListener {
 
             volunteerSummary.observe(viewLifecycleOwner) {
                 binding.apply {
-                    tvVolunteerNumber.text = it.totalVolunteer.toString()
-                    tvApprovalNumber.text = it.requestUpgradeCount.toString()
+                    tvVolunteerNumber.text = formatNumber(it.totalVolunteer.toLong())
+                    tvApprovalNumber.text = formatNumber(it.requestUpgradeCount.toLong())
                 }
             }
 

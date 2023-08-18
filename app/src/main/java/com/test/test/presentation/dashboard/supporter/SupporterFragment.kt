@@ -15,6 +15,7 @@ import com.test.test.R
 import com.test.test.databinding.FragmentSupporterBinding
 import com.test.test.presentation.adapter.LoadingStateAdapter
 import com.test.test.presentation.adapter.SupporterAdapter
+import com.test.test.presentation.utils.formatNumber
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -95,9 +96,9 @@ class SupporterFragment : Fragment(), View.OnClickListener {
 
             supporterSummary.observe(viewLifecycleOwner) {
                 binding.apply {
-                    tvSupporterNumberTotal.text = it.totalSupporter.toString()
-                    tvSupporterNumberMale.text = it.gender.l.toString()
-                    tvSupporterNumberFemale.text = it.gender.p.toString()
+                    tvSupporterNumberTotal.text = formatNumber(it.totalSupporter.toLong())
+                    tvSupporterNumberMale.text = formatNumber(it.gender.l.toLong())
+                    tvSupporterNumberFemale.text = formatNumber(it.gender.p.toLong())
                 }
             }
 
