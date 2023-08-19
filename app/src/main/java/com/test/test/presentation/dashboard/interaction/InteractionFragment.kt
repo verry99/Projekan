@@ -19,8 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class InteractionFragment : Fragment(), View.OnClickListener {
 
-    private var _binding: FragmentInteractionBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentInteractionBinding
     private val viewModel: InteractionViewModel by viewModels()
     private lateinit var adapter: InteractionAdapter
 
@@ -29,7 +28,7 @@ class InteractionFragment : Fragment(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentInteractionBinding.inflate(inflater, container, false)
+        binding = FragmentInteractionBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -114,10 +113,5 @@ class InteractionFragment : Fragment(), View.OnClickListener {
                 adapter.submitData(lifecycle, it)
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

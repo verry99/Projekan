@@ -19,8 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class RealCountFragment : Fragment(), View.OnClickListener {
-    private var _binding: FragmentRealCountBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentRealCountBinding
     private val viewModel: RealCountViewModel by viewModels()
     private lateinit var adapter: RealCountAdapter
 
@@ -29,7 +28,7 @@ class RealCountFragment : Fragment(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentRealCountBinding.inflate(inflater, container, false)
+        binding = FragmentRealCountBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -119,17 +118,11 @@ class RealCountFragment : Fragment(), View.OnClickListener {
         }
     }
 
-
     override fun onResume() {
         super.onResume()
         viewModel.fetchRealCount()
         viewModel.realCount.observe(viewLifecycleOwner) {
             adapter.submitData(lifecycle, it)
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

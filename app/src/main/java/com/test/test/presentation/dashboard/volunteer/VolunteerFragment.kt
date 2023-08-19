@@ -22,8 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class VolunteerFragment : Fragment(), View.OnClickListener {
 
-    private var _binding: FragmentVolunteerBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentVolunteerBinding
     private val viewModel: VolunteerViewModel by viewModels()
     private lateinit var adapter: VolunteerAdapter
 
@@ -32,7 +31,7 @@ class VolunteerFragment : Fragment(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentVolunteerBinding.inflate(inflater, container, false)
+        binding = FragmentVolunteerBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -166,10 +165,5 @@ class VolunteerFragment : Fragment(), View.OnClickListener {
         viewModel.apply {
             refreshPage()
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

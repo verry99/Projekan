@@ -18,9 +18,8 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ActivitiesFragment : Fragment(), View.OnClickListener {
 
-    private var _binding: FragmentActivitiesBinding? = null
+    private lateinit var binding: FragmentActivitiesBinding
     private val viewModel: ActivitiesViewModel by viewModels()
-    private val binding get() = _binding!!
     private lateinit var adapter: ActivitiesAdapter
 
     override fun onCreateView(
@@ -28,7 +27,7 @@ class ActivitiesFragment : Fragment(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentActivitiesBinding.inflate(inflater, container, false)
+        binding = FragmentActivitiesBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -92,10 +91,5 @@ class ActivitiesFragment : Fragment(), View.OnClickListener {
         when (v?.id) {
             R.id.btn_back -> findNavController().navigateUp()
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.test.test.data.remote.dto.post.PostResponseItem
-import com.test.test.databinding.ItemScheduleBinding
+import com.test.test.databinding.ItemActivitiesBinding
 import com.test.test.presentation.dashboard.activities.ActivitiesFragmentDirections
 import com.test.test.presentation.dashboard.post.news.NewsDashboardFragmentDirections
 
@@ -16,7 +16,7 @@ class ActivitiesAdapter :
     PagingDataAdapter<PostResponseItem, ActivitiesAdapter.ItemViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        val binding = ItemScheduleBinding.inflate(
+        val binding = ItemActivitiesBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
@@ -31,7 +31,7 @@ class ActivitiesAdapter :
         }
     }
 
-    inner class ItemViewHolder(private val binding: ItemScheduleBinding) :
+    inner class ItemViewHolder(private val binding: ItemActivitiesBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(post: PostResponseItem) {

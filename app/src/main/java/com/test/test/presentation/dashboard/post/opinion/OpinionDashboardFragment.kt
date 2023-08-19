@@ -18,8 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class OpinionDashboardFragment : Fragment(), View.OnClickListener {
 
-    private var _binding: FragmentPostDashboardBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentPostDashboardBinding
     private val viewModel: OpinionDashboardViewModel by viewModels()
     private lateinit var adapter: AllOpinionAdapter
 
@@ -28,7 +27,7 @@ class OpinionDashboardFragment : Fragment(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentPostDashboardBinding.inflate(inflater, container, false)
+        binding = FragmentPostDashboardBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -87,11 +86,6 @@ class OpinionDashboardFragment : Fragment(), View.OnClickListener {
 
     private fun setUpActionListeners() {
         binding.btnBack.setOnClickListener(this)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     override fun onClick(v: View?) {

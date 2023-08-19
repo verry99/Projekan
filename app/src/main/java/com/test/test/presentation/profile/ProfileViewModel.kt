@@ -5,12 +5,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.test.test.common.Resource
 import com.test.test.data.remote.dto.profile.ProfileResponse
 import com.test.test.domain.models.UserPref
 import com.test.test.domain.use_case.profile.GetProfileUseCase
 import com.test.test.domain.use_case.user_pref.get_user.GetUserPreferenceUseCase
 import com.test.test.domain.use_case.user_pref.remove_user.RemoveUserPreferenceUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -37,6 +40,23 @@ class ProfileViewModel @Inject constructor(
         viewModelScope.launch {
             getUserPreferenceUseCase().let { userPref ->
                 _user.value = userPref
+                getProfileUseCase("Bearer ${userPref.accessToken}").onEach {
+                    when (it) {
+                        is Resource.Success -> {
+                            _isLoading.value = false
+                            _profile.value = it.data!!
+                        }
+
+                        is Resource.Error -> {
+                            _isLoading.value = false
+                        }
+
+                        is Resource.Loading -> {
+                            _isLoading.value = true
+                        }
+                    }
+                }
+                    .launchIn(viewModelScope)
             }
         }
     }

@@ -21,8 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class SupporterFragment : Fragment(), View.OnClickListener {
 
-    private var _binding: FragmentSupporterBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentSupporterBinding
     private val viewModel: SupporterViewModel by viewModels()
     private lateinit var adapter: SupporterAdapter
 
@@ -31,7 +30,7 @@ class SupporterFragment : Fragment(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentSupporterBinding.inflate(inflater, container, false)
+        binding = FragmentSupporterBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -131,11 +130,5 @@ class SupporterFragment : Fragment(), View.OnClickListener {
                 }
             }
         }
-    }
-
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

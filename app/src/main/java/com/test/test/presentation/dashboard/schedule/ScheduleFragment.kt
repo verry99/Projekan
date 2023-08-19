@@ -17,8 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ScheduleFragment : Fragment(), View.OnClickListener {
 
-    private var _binding: FragmentScheduleBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentScheduleBinding
     private val args: ScheduleFragmentArgs by navArgs()
     private val viewModel: ScheduleViewModel by viewModels()
 
@@ -27,7 +26,7 @@ class ScheduleFragment : Fragment(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentScheduleBinding.inflate(layoutInflater)
+        binding = FragmentScheduleBinding.inflate(layoutInflater)
 
         return binding.root
     }
@@ -65,10 +64,5 @@ class ScheduleFragment : Fragment(), View.OnClickListener {
         when (v?.id) {
             R.id.btn_back -> findNavController().navigateUp()
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
     }
 }

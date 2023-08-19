@@ -292,7 +292,7 @@ class EditProfileFragment : Fragment(), View.OnClickListener, AdapterView.OnItem
                 binding.apply {
                     it.urlToImage?.let {
                         Glide.with(requireContext())
-                            .load(IMAGE_URL + it)
+                            .load("$IMAGE_URL/$it")
                             .into(binding.imgProfile)
 
                         binding.btnAddPicture.text = "Ubah"
@@ -353,7 +353,7 @@ class EditProfileFragment : Fragment(), View.OnClickListener, AdapterView.OnItem
 
             success.observe(viewLifecycleOwner) {
                 if (it) {
-                    findNavController().navigate(R.id.action_editProfileFragment_to_profileFragment)
+                    findNavController().navigateUp()
                     Toast.makeText(
                         requireActivity(),
                         "Berhasil mengubah profile.",

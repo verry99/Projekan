@@ -18,8 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class NewsDashboardFragment : Fragment(), View.OnClickListener {
 
-    private var _binding: FragmentPostDashboardBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentPostDashboardBinding
     private val viewModel: NewsDashboardViewModel by viewModels()
     private lateinit var adapter: AllNewsAdapter
 
@@ -28,7 +27,7 @@ class NewsDashboardFragment : Fragment(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentPostDashboardBinding.inflate(inflater, container, false)
+        binding = FragmentPostDashboardBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -92,10 +91,5 @@ class NewsDashboardFragment : Fragment(), View.OnClickListener {
         when (v?.id) {
             R.id.btn_back -> findNavController().navigateUp()
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

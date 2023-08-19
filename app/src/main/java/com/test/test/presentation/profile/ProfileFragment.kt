@@ -40,14 +40,14 @@ class ProfileFragment : Fragment(), View.OnClickListener {
 
     private fun setUpLiveDataObserver() {
         viewModel.apply {
-            user.observe(viewLifecycleOwner) {
+            profile.observe(viewLifecycleOwner) {
                 binding.apply {
                     tvFullName.text = it.name
                     tvRole.text = it.role
 
-                    if (it.urlToImage.isNotEmpty()) {
+                    it.profile.photo.let {
                         Glide.with(requireContext())
-                            .load(IMAGE_URL + it.urlToImage)
+                            .load("$IMAGE_URL/$it")
                             .into(binding.imgProfile)
                     }
                 }
@@ -92,6 +92,24 @@ class ProfileFragment : Fragment(), View.OnClickListener {
                         viewModel.logout()
                     }
                     negativeButton(text = "Batal")
+                }
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.apply {
+            profile.observe(viewLifecycleOwner) {
+                binding.apply {
+                    tvFullName.text = it.name
+                    tvRole.text = it.role
+
+                    it.profile.photo.let {
+                        Glide.with(requireContext())
+                            .load("$IMAGE_URL/$it")
+                            .into(binding.imgProfile)
+                    }
                 }
             }
         }
