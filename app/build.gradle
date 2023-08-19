@@ -90,7 +90,7 @@ dependencies {
     implementation 'androidx.webkit:webkit:1.7.0'
 
     // SlideShow
-    implementation 'com.github.denzcoskun:ImageSlideShow:0.1.0'
+    implementation 'com.github.denzcoskun:ImageSlideShow:0.1.2'
 
     // Compose
     implementation "androidx.activity:activity-compose:1.7.2"
@@ -108,9 +108,6 @@ dependencies {
 
     // Swipe to refresh
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
-
-    // Gallery layout
-    implementation 'com.github.stfalcon-studio:StfalconImageViewer:v1.0.1'
 
     // Shimmer
     implementation 'com.facebook.shimmer:shimmer:0.5.0'

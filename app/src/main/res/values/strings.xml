@@ -10,6 +10,7 @@
     <string name="selamat_pagi">Selamat pagi,</string>
     <string name="selamat_siang">Selamat siang,</string>
     <string name="selamat_sore">Selamat sore,</string>
+    <string name="selamat_malam">Selamat malam,</string>
     <string name="full_name">Ahmad Nur Halim</string>
     <string name="icon_notification">icon notification</string>
     <string name="image_banner">image banner</string>
@@ -43,7 +44,7 @@
     <string name="back_to_dashboard">back to dashboard</string>
     <string name="profil_sbr">Profil SBR</string>
     <string name="jadwal">Jadwal</string>
-    <string name="aktifitas">Aktifitas</string>
+    <string name="aktivitas">Aktivitas</string>
     <string name="interaksi">Interaksi</string>
     <string name="galeri">Galeri</string>
     <string name="kontak">Kontak</string>
@@ -214,6 +215,8 @@
     <string name="masukkan_konfirmasi_password_baru_anda">Masukkan konfirmasi password baru anda</string>
     <string name="masukkan_no_hp_baru_anda">Masukkan No. HP baru anda</string>
     <string name="password_required">Password*</string>
+    <string name="tidak_ada_interaksi">tidak ada interaksi</string>
+    <string name="tidak_ada_data">Tidak ada data</string>
 
     <string-array name="spinner_gender">
         <item>Laki-laki</item>

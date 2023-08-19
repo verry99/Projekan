@@ -1,4 +1,4 @@
-package com.test.test.presentation.dashboard.schedule.viewpager
+package com.test.test.presentation.dashboard.activities
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,26 +10,25 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.test.test.R
-import com.test.test.databinding.FragmentScheduleInactiveBinding
+import com.test.test.databinding.FragmentActivitiesBinding
+import com.test.test.presentation.adapter.ActivitiesAdapter
 import com.test.test.presentation.adapter.LoadingStateAdapter
-import com.test.test.presentation.adapter.ScheduleAdapter
-import com.test.test.presentation.dashboard.schedule.ScheduleViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ScheduleInactiveFragment : Fragment(), View.OnClickListener {
+class ActivitiesFragment : Fragment(), View.OnClickListener {
 
-    private var _binding: FragmentScheduleInactiveBinding? = null
+    private var _binding: FragmentActivitiesBinding? = null
+    private val viewModel: ActivitiesViewModel by viewModels()
     private val binding get() = _binding!!
-    private val viewModel: ScheduleViewModel by viewModels({ requireParentFragment() })
-    private lateinit var adapter: ScheduleAdapter
+    private lateinit var adapter: ActivitiesAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentScheduleInactiveBinding.inflate(inflater, container, false)
+        _binding = FragmentActivitiesBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -43,10 +42,10 @@ class ScheduleInactiveFragment : Fragment(), View.OnClickListener {
     }
 
     private fun setUpRecyclerView() {
-        binding.rvSchedule.layoutManager =
+        binding.rvActivities.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
-        adapter = ScheduleAdapter()
+        adapter = ActivitiesAdapter()
 
         adapter.addLoadStateListener { loadState ->
             if (loadState.source.refresh is LoadState.NotLoading && loadState.append.endOfPaginationReached && adapter.itemCount < 1) {
@@ -62,36 +61,36 @@ class ScheduleInactiveFragment : Fragment(), View.OnClickListener {
                 }
             } else {
                 binding.apply {
-                    rvSchedule.visibility = View.VISIBLE
+                    rvActivities.visibility = View.VISIBLE
                     rvShimmer.stopShimmer()
                     rvShimmer.visibility = View.GONE
                 }
             }
         }
 
-        binding.rvSchedule.adapter = adapter.withLoadStateFooter(
+        binding.rvActivities.adapter = adapter.withLoadStateFooter(
             footer = LoadingStateAdapter {
                 adapter.retry()
             })
     }
 
+    private fun setUpLiveDataObserver() {
+        viewModel.apply {
+            activities.observe(viewLifecycleOwner) {
+                adapter.submitData(lifecycle, it)
+            }
+        }
+    }
+
     private fun setUpActionListeners() {
         binding.apply {
-
+            btnBack.setOnClickListener(this@ActivitiesFragment)
         }
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.btn_back -> findNavController().navigateUp()
-        }
-    }
-
-    private fun setUpLiveDataObserver() {
-        viewModel.apply {
-            inactiveSchedule?.observe(viewLifecycleOwner) {
-                adapter.submitData(lifecycle, it)
-            }
         }
     }
 

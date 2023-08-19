@@ -32,9 +32,10 @@ fun getGreetingText(context: Context): String {
     val currentTime = Calendar.getInstance().time
     val greetingText =
         when (SimpleDateFormat("HH", Locale.getDefault()).format(currentTime).toInt()) {
-            in 0..11 -> context.getString(R.string.selamat_pagi)
-            in 12..16 -> context.getString(R.string.selamat_siang)
-            else -> context.getString(R.string.selamat_sore)
+            in 0..10 -> context.getString(R.string.selamat_pagi)
+            in 11..14 -> context.getString(R.string.selamat_siang)
+            in 15..18 -> context.getString(R.string.selamat_sore)
+            else -> context.getString(R.string.selamat_malam)
         }
     return greetingText
 }

@@ -16,6 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ScheduleFragment : Fragment(), View.OnClickListener {
+
     private var _binding: FragmentScheduleBinding? = null
     private val binding get() = _binding!!
     private val args: ScheduleFragmentArgs by navArgs()
@@ -55,7 +56,6 @@ class ScheduleFragment : Fragment(), View.OnClickListener {
     }
 
     private fun setUpActionListener() {
-
         binding.apply {
             btnBack.setOnClickListener(this@ScheduleFragment)
         }

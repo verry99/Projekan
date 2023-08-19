@@ -344,7 +344,7 @@ interface DashboardService {
         @Field("old_password") oldPassword: String,
         @Field("password") password: String,
         @Field("password_confirmation") passwordConfirmation: String,
-    ) : UpdatePasswordResponse
+    ): UpdatePasswordResponse
 
     @FormUrlEncoded
     @POST("phone-update")

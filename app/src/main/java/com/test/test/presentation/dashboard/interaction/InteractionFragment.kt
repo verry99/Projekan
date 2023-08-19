@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.test.test.R
 import com.test.test.databinding.FragmentInteractionBinding
@@ -46,6 +47,28 @@ class InteractionFragment : Fragment(), View.OnClickListener {
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
         adapter = InteractionAdapter(viewModel.token)
+
+        adapter.addLoadStateListener { loadState ->
+            if (loadState.source.refresh is LoadState.NotLoading && loadState.append.endOfPaginationReached && adapter.itemCount < 1) {
+                binding.apply {
+                    rvShimmer.stopShimmer()
+                    tvEmpty.visibility = View.VISIBLE
+                    rvShimmer.visibility = View.GONE
+                }
+            } else if (loadState.source.refresh is LoadState.Loading) {
+                binding.rvShimmer.apply {
+                    startShimmer()
+                    visibility = View.VISIBLE
+                }
+            } else {
+                binding.apply {
+                    rvInteraction.visibility = View.VISIBLE
+                    rvShimmer.stopShimmer()
+                    rvShimmer.visibility = View.GONE
+                }
+            }
+        }
+
         binding.rvInteraction.adapter = adapter.withLoadStateFooter(
             footer = LoadingStateAdapter {
                 adapter.retry()
