@@ -187,7 +187,14 @@ class DashboardFragment : Fragment(), View.OnClickListener {
                 findNavController().navigate(action)
             }
 
-            R.id.btn_aktifitas -> findNavController().navigate(R.id.action_dashboardFragment_to_activityFragment)
+            R.id.btn_aktifitas -> {
+                val action =
+                    DashboardFragmentDirections.actionDashboardFragmentToActivitiesFragment(
+                        viewModel.user.value!!.accessToken
+                    )
+                findNavController().navigate(action)
+            }
+
             R.id.btn_interaksi -> {
                 val action =
                     DashboardFragmentDirections.actionDashboardFragmentToInteractionFragment(

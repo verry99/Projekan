@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.test.test.R
 import com.test.test.databinding.FragmentPostDashboardBinding
@@ -20,6 +21,7 @@ class OpinionDashboardFragment : Fragment(), View.OnClickListener {
     private var _binding: FragmentPostDashboardBinding? = null
     private val binding get() = _binding!!
     private val viewModel: OpinionDashboardViewModel by viewModels()
+    private lateinit var adapter: AllOpinionAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,16 +47,39 @@ class OpinionDashboardFragment : Fragment(), View.OnClickListener {
             rvPost.layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         }
+
+        adapter = AllOpinionAdapter()
+
+        adapter.addLoadStateListener { loadState ->
+            if (loadState.source.refresh is LoadState.NotLoading && loadState.append.endOfPaginationReached && adapter.itemCount < 1) {
+                binding.apply {
+                    rvShimmer.stopShimmer()
+                    tvEmpty.visibility = View.VISIBLE
+                    rvShimmer.visibility = View.GONE
+                }
+            } else if (loadState.source.refresh is LoadState.Loading) {
+                binding.rvShimmer.apply {
+                    startShimmer()
+                    visibility = View.VISIBLE
+                }
+            } else {
+                binding.apply {
+                    rvPost.visibility = View.VISIBLE
+                    rvShimmer.stopShimmer()
+                    rvShimmer.visibility = View.GONE
+                }
+            }
+        }
+
+        binding.rvPost.adapter = adapter.withLoadStateFooter(
+            footer = LoadingStateAdapter {
+                adapter.retry()
+            })
     }
 
     private fun setUpLiveDataObserver() {
         viewModel.apply {
             opinion.observe(viewLifecycleOwner) {
-                val adapter = AllOpinionAdapter()
-                binding.rvPost.adapter = adapter.withLoadStateFooter(
-                    footer = LoadingStateAdapter {
-                        adapter.retry()
-                    })
                 adapter.submitData(lifecycle, it)
             }
         }

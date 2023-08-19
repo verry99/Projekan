@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.test.test.R
 import com.test.test.databinding.FragmentScheduleAllBinding
@@ -42,11 +43,33 @@ class ScheduleAllFragment : Fragment(), View.OnClickListener {
     }
 
     private fun setUpRecyclerView() {
-        binding.rvInteraction.layoutManager =
+        binding.rvSchedule.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
         adapter = ScheduleAdapter()
-        binding.rvInteraction.adapter = adapter.withLoadStateFooter(
+
+        adapter.addLoadStateListener { loadState ->
+            if (loadState.source.refresh is LoadState.NotLoading && loadState.append.endOfPaginationReached && adapter.itemCount < 1) {
+                binding.apply {
+                    rvShimmer.stopShimmer()
+                    tvEmpty.visibility = View.VISIBLE
+                    rvShimmer.visibility = View.GONE
+                }
+            } else if (loadState.source.refresh is LoadState.Loading) {
+                binding.rvShimmer.apply {
+                    startShimmer()
+                    visibility = View.VISIBLE
+                }
+            } else {
+                binding.apply {
+                    rvSchedule.visibility = View.VISIBLE
+                    rvShimmer.stopShimmer()
+                    rvShimmer.visibility = View.GONE
+                }
+            }
+        }
+
+        binding.rvSchedule.adapter = adapter.withLoadStateFooter(
             footer = LoadingStateAdapter {
                 adapter.retry()
             })

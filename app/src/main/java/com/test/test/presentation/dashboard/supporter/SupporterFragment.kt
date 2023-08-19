@@ -10,10 +10,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.test.test.R
 import com.test.test.databinding.FragmentSupporterBinding
-import com.test.test.presentation.adapter.LoadingStateAdapter
 import com.test.test.presentation.adapter.SupporterAdapter
 import com.test.test.presentation.utils.formatNumber
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,6 +24,7 @@ class SupporterFragment : Fragment(), View.OnClickListener {
     private var _binding: FragmentSupporterBinding? = null
     private val binding get() = _binding!!
     private val viewModel: SupporterViewModel by viewModels()
+    private lateinit var adapter: SupporterAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,17 +53,10 @@ class SupporterFragment : Fragment(), View.OnClickListener {
                 val supporterName = s.toString()
                 if (supporterName.isNotEmpty()) {
                     viewModel.searchSupporter(supporterName).observe(viewLifecycleOwner) {
-                        val adapter = SupporterAdapter()
                         adapter.submitData(lifecycle, it)
-                        binding.rvSupporter.adapter = adapter
                     }
                 } else {
                     viewModel.supporter.observe(viewLifecycleOwner) {
-                        val adapter = SupporterAdapter()
-                        binding.rvSupporter.adapter = adapter.withLoadStateFooter(
-                            footer = LoadingStateAdapter {
-                                adapter.retry()
-                            })
                         adapter.submitData(lifecycle, it)
                     }
                 }
@@ -75,6 +69,31 @@ class SupporterFragment : Fragment(), View.OnClickListener {
     private fun setUpRecyclerView() {
         binding.rvSupporter.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
+        adapter = SupporterAdapter()
+
+        adapter.addLoadStateListener { loadState ->
+            if (loadState.source.refresh is LoadState.NotLoading && loadState.append.endOfPaginationReached && adapter.itemCount < 1) {
+                binding.apply {
+                    rvShimmer.stopShimmer()
+                    tvEmpty.visibility = View.VISIBLE
+                    rvShimmer.visibility = View.GONE
+                }
+            } else if (loadState.source.refresh is LoadState.Loading) {
+                binding.rvShimmer.apply {
+                    startShimmer()
+                    visibility = View.VISIBLE
+                }
+            } else {
+                binding.apply {
+                    rvSupporter.visibility = View.VISIBLE
+                    rvShimmer.stopShimmer()
+                    rvShimmer.visibility = View.GONE
+                }
+            }
+        }
+
+        binding.rvSupporter.adapter = adapter
     }
 
     private fun setUpActionListeners() {
@@ -97,17 +116,12 @@ class SupporterFragment : Fragment(), View.OnClickListener {
             supporterSummary.observe(viewLifecycleOwner) {
                 binding.apply {
                     tvSupporterNumberTotal.text = formatNumber(it.totalSupporter.toLong())
-                    tvSupporterNumberMale.text = formatNumber(it.gender.l.toLong())
-                    tvSupporterNumberFemale.text = formatNumber(it.gender.p.toLong())
+//                    tvSupporterNumberMale.text = formatNumber(it.gender.l.toLong())
+//                    tvSupporterNumberFemale.text = formatNumber(it.gender.p.toLong())
                 }
             }
 
             supporter.observe(viewLifecycleOwner) {
-                val adapter = SupporterAdapter()
-                binding.rvSupporter.adapter = adapter.withLoadStateFooter(
-                    footer = LoadingStateAdapter {
-                        adapter.retry()
-                    })
                 adapter.submitData(lifecycle, it)
             }
 

@@ -25,8 +25,8 @@
             android:id="@+id/action_dashboardFragment_to_realCountFragment"
             app:destination="@id/realCountFragment" />
         <action
-            android:id="@+id/action_dashboardFragment_to_activityFragment"
-            app:destination="@id/activityFragment" />
+            android:id="@+id/action_dashboardFragment_to_activitiesFragment"
+            app:destination="@id/activitiesFragment" />
         <action
             android:id="@+id/action_dashboardFragment_to_contactFragment"
             app:destination="@id/contactFragment" />
@@ -146,7 +146,7 @@
         android:id="@+id/realCountFragment"
         android:name="com.test.test.presentation.dashboard.real_count.RealCountFragment"
         android:label="fragment_real_count"
-        tools:layout="@layout/fragment_real_count" >
+        tools:layout="@layout/fragment_real_count">
         <action
             android:id="@+id/action_realCountFragment_to_addRealCountFragment"
             app:destination="@id/addRealCountFragment" />
@@ -205,10 +205,15 @@
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
-        android:id="@+id/activityFragment"
-        android:name="com.test.test.presentation.dashboard.activity.ActivityFragment"
-        android:label="fragment_activity"
-        tools:layout="@layout/fragment_activity" />
+        android:id="@+id/activitiesFragment"
+        android:name="com.test.test.presentation.dashboard.activities.ActivitiesFragment"
+        android:label="fragment_activities"
+        tools:layout="@layout/fragment_activities">
+        <argument android:name="token" />
+        <action
+            android:id="@+id/action_activitiesFragment_to_detailActivitiesFragment"
+            app:destination="@id/detailActivitiesFragment" />
+    </fragment>
     <fragment
         android:id="@+id/contactFragment"
         android:name="com.test.test.presentation.dashboard.contact.ContactFragment"
@@ -406,8 +411,14 @@
         android:id="@+id/detailRealCountFragment"
         android:name="com.test.test.presentation.dashboard.real_count.detail.DetailRealCountFragment"
         android:label="fragment_detail_real_count"
-        tools:layout="@layout/fragment_detail_real_count" >
+        tools:layout="@layout/fragment_detail_real_count">
         <argument android:name="id" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailActivitiesFragment"
+        android:name="com.test.test.presentation.dashboard.activities.detail.DetailActivitiesFragment"
+        android:label="DetailActivitiesFragment">
+        <argument android:name="slug" />
     </fragment>
 
 </navigation>

@@ -90,9 +90,7 @@
                             android:background="@color/dark_gray" />
                     </LinearLayout>
 
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
 
             </com.facebook.shimmer.ShimmerFrameLayout>
 
@@ -302,7 +300,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="@string/aktifitas"
+                    android:text="@string/aktivitas"
                     android:textSize="12sp" />
 
             </LinearLayout>
