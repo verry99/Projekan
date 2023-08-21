@@ -1,5 +1,6 @@
 package com.test.test.presentation.dashboard.supporter.detail_supporter
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,8 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class DetailSupporterFragment : Fragment(), View.OnClickListener {
 
-    private var _binding: FragmentDetailSupporterBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentDetailSupporterBinding
     private val viewModel: DetailSupporterViewModel by viewModels()
 
     override fun onCreateView(
@@ -27,7 +27,7 @@ class DetailSupporterFragment : Fragment(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentDetailSupporterBinding.inflate(inflater, container, false)
+        binding = FragmentDetailSupporterBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -39,8 +39,20 @@ class DetailSupporterFragment : Fragment(), View.OnClickListener {
         setUpLiveDataObserver()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setUpLiveDataObserver() {
         viewModel.apply {
+
+            isLoading.observe(viewLifecycleOwner) {
+                binding.apply {
+                    if (it) {
+                        progressBar.visibility = View.VISIBLE
+
+                    } else {
+                        progressBar.visibility = View.GONE
+                    }
+                }
+            }
 
             supporter.observe(viewLifecycleOwner) {
                 binding.apply {
@@ -59,7 +71,7 @@ class DetailSupporterFragment : Fragment(), View.OnClickListener {
                     tvTps.text = it.tps
 
                     it.age?.let {
-                        tvAge.text = it
+                        tvAge.text = "$it thn"
                         tvUsia.text = it
                     }
 
@@ -95,10 +107,5 @@ class DetailSupporterFragment : Fragment(), View.OnClickListener {
         when (v?.id) {
             R.id.btn_back -> findNavController().navigateUp()
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

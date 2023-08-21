@@ -24,8 +24,8 @@ class AnalysisViewModel @Inject constructor(
     private val _user = MutableLiveData<UserPref>()
     val user: LiveData<UserPref> = _user
 
-    private val _data = MutableLiveData<AnalysisResponse>()
-    val data: LiveData<AnalysisResponse> = _data
+    private val _analysisData = MutableLiveData<AnalysisResponse>()
+    val analysisData: LiveData<AnalysisResponse> = _analysisData
 
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
@@ -42,11 +42,12 @@ class AnalysisViewModel @Inject constructor(
 
     fun fetchAnalysisData() {
         viewModelScope.launch {
-            getAnalysisUseCase("Bearer" + _user.value!!.accessToken).onEach {
+            val userAccessToken = _user.value?.accessToken
+            getAnalysisUseCase("Bearer $userAccessToken").onEach {
                 when (it) {
                     is Resource.Success -> {
                         it.data?.let { response ->
-                            _data.value = response
+                            _analysisData.value = response
                         }
                         _isLoading.value = false
                     }

@@ -19,8 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ScheduleAllFragment : Fragment(), View.OnClickListener {
 
-    private var _binding: FragmentScheduleAllBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentScheduleAllBinding
     private val viewModel: ScheduleViewModel by viewModels({ requireParentFragment() })
     private lateinit var adapter: ScheduleAdapter
 
@@ -29,7 +28,7 @@ class ScheduleAllFragment : Fragment(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentScheduleAllBinding.inflate(inflater, container, false)
+        binding = FragmentScheduleAllBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -91,10 +90,5 @@ class ScheduleAllFragment : Fragment(), View.OnClickListener {
                 adapter.submitData(lifecycle, it)
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

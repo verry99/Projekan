@@ -18,8 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class DetailScheduleFragment : Fragment(), View.OnClickListener {
 
-    private var _binding: FragmentDetailScheduleBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentDetailScheduleBinding
     private val viewModel: DetailScheduleViewModel by viewModels()
 
     override fun onCreateView(
@@ -27,7 +26,7 @@ class DetailScheduleFragment : Fragment(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentDetailScheduleBinding.inflate(inflater, container, false)
+        binding = FragmentDetailScheduleBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -41,6 +40,18 @@ class DetailScheduleFragment : Fragment(), View.OnClickListener {
 
     private fun setUpLiveObserver() {
         viewModel.apply {
+
+            isLoading.observe(viewLifecycleOwner) {
+                binding.apply {
+                    if (it) {
+                        progressBar.visibility = View.VISIBLE
+                        content.visibility = View.GONE
+                    } else {
+                        progressBar.visibility = View.GONE
+                        content.visibility = View.VISIBLE
+                    }
+                }
+            }
 
             errorMessage.observe(viewLifecycleOwner) {
                 if (it.isNotEmpty()) {
@@ -77,15 +88,9 @@ class DetailScheduleFragment : Fragment(), View.OnClickListener {
         }
     }
 
-
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.btn_back -> findNavController().navigateUp()
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

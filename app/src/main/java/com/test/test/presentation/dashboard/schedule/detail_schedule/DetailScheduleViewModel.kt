@@ -28,8 +28,10 @@ class DetailScheduleViewModel @Inject constructor(
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
 
-    private val id: String = state["id"]!!
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> = _isLoading
 
+    private val id: String = state["id"]!!
 
     init {
         viewModelScope.launch {
@@ -37,16 +39,20 @@ class DetailScheduleViewModel @Inject constructor(
                 getDetailScheduleUseCase("Bearer $token", id.toInt()).onEach {
                     when (it) {
                         is Resource.Success -> {
+                            _isLoading.value = false
                             it.data?.let { response ->
                                 _schedule.value = response
                             }
                         }
 
                         is Resource.Error -> {
+                            _isLoading.value = false
                             _errorMessage.value = it.message!!
                         }
 
-                        is Resource.Loading -> {}
+                        is Resource.Loading -> {
+                            _isLoading.value = true
+                        }
                     }
                 }.launchIn(viewModelScope)
             }

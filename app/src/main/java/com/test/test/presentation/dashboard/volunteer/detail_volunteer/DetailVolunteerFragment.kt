@@ -51,8 +51,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class DetailVolunteerFragment : Fragment(), View.OnClickListener {
 
-    private var _binding: FragmentDetailVolunteerBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentDetailVolunteerBinding
     private val viewModel: DetailVolunteerViewModel by viewModels()
 
     override fun onCreateView(
@@ -60,7 +59,7 @@ class DetailVolunteerFragment : Fragment(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentDetailVolunteerBinding.inflate(inflater, container, false)
+        binding = FragmentDetailVolunteerBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -89,75 +88,91 @@ class DetailVolunteerFragment : Fragment(), View.OnClickListener {
 
     private fun setUpLiveDataObserver() {
 
-        viewModel.volunteer.observe(viewLifecycleOwner) { volunteer ->
-            volunteer?.let {
+        viewModel.apply {
+
+            isLoading.observe(viewLifecycleOwner) {
                 binding.apply {
-                    btnViewProfile.visibility = View.VISIBLE
-                    tvFullName.text = it.name
-                    tvTotalRecruits.text = it.supporterCount.toString()
-
-                    it.profile?.age?.let {
-                        tvAge.text = it
-                    }
-
-                    it.profile?.photo?.let {
-                        Glide.with(binding.root).load(Constants.IMAGE_URL + it)
-                            .into(binding.imgProfile)
-                    }
-
-                    if (it.area.isNullOrEmpty()) {
-                        showDemographyChart(0, 0, 0)
+                    if (it) {
+                        progressBar.visibility = View.VISIBLE
+                        profileContainer.visibility = View.GONE
+                        chartContainer.visibility = View.GONE
                     } else {
-                        val supporterMaleTotal: Int =
-                            it.area.fold(0) { acc, area -> acc + (area?.gender?.l ?: 0) }
-                        val supporterFemaleTotal: Int =
-                            it.supporterCount?.minus(supporterMaleTotal)!!
-                        showDemographyChart(
-                            supporterMaleTotal,
-                            supporterFemaleTotal,
-                            it.supporterCount
-                        )
-
-                        rvSupporterNumber.adapter = AreaAdapter(it.area)
+                        progressBar.visibility = View.GONE
+                        profileContainer.visibility = View.VISIBLE
+                        chartContainer.visibility = View.VISIBLE
                     }
+                }
+            }
 
-                    it.supporter?.let {
-                        binding.rvSupporter.adapter = VolunteerDetailSupporterAdapter(it)
-                    }
+            volunteer.observe(viewLifecycleOwner) { volunteer ->
+                volunteer?.let {
+                    binding.apply {
+                        tvFullName.text = it.name
+                        tvTotalRecruits.text = it.supporterCount.toString()
 
-                    it.age?.let {
-                        val xValues =
-                            listOf(
-                                "<20",
-                                "20-29",
-                                "30-39",
-                                "40-49",
-                                "50-59",
-                                "60-69",
-                                "70-79",
-                                "80>"
+                        it.profile?.age?.let {
+                            tvAge.text = it
+                        }
+
+                        it.profile?.photo?.let {
+                            Glide.with(binding.root).load(Constants.IMAGE_URL + it)
+                                .into(binding.imgProfile)
+                        }
+
+                        if (it.area.isNullOrEmpty()) {
+                            showDemographyChart(0, 0, 0)
+                        } else {
+                            val supporterMaleTotal: Int =
+                                it.area.fold(0) { acc, area -> acc + (area?.gender?.l ?: 0) }
+                            val supporterFemaleTotal: Int =
+                                it.supporterCount?.minus(supporterMaleTotal)!!
+                            showDemographyChart(
+                                supporterMaleTotal,
+                                supporterFemaleTotal,
+                                it.supporterCount
                             )
-                        val yMaleValues = listOf(
-                            it.x20.l!!.toFloat(),
-                            it.x2029.l!!.toFloat(),
-                            it.x3039.l!!.toFloat(),
-                            it.x4049.l!!.toFloat(),
-                            it.x5059.l!!.toFloat(),
-                            it.x6069.l!!.toFloat(),
-                            it.x7079.l!!.toFloat(),
-                            it.x80.l!!.toFloat()
-                        )
-                        val yFemaleValues = listOf(
-                            it.x20.p!!.toFloat(),
-                            it.x2029.p!!.toFloat(),
-                            it.x3039.p!!.toFloat(),
-                            it.x4049.p!!.toFloat(),
-                            it.x5059.p!!.toFloat(),
-                            it.x6069.p!!.toFloat(),
-                            it.x7079.p!!.toFloat(),
-                            it.x80.p!!.toFloat()
-                        )
-                        setUpBarChart(xValues, yMaleValues, yFemaleValues)
+
+                            rvSupporterNumber.adapter = AreaAdapter(it.area)
+                        }
+
+                        it.supporter?.let {
+                            binding.rvSupporter.adapter = VolunteerDetailSupporterAdapter(it)
+                        }
+
+                        it.age?.let {
+                            val xValues =
+                                listOf(
+                                    "<20",
+                                    "20-29",
+                                    "30-39",
+                                    "40-49",
+                                    "50-59",
+                                    "60-69",
+                                    "70-79",
+                                    "80>"
+                                )
+                            val yMaleValues = listOf(
+                                it.x20.l!!.toFloat(),
+                                it.x2029.l!!.toFloat(),
+                                it.x3039.l!!.toFloat(),
+                                it.x4049.l!!.toFloat(),
+                                it.x5059.l!!.toFloat(),
+                                it.x6069.l!!.toFloat(),
+                                it.x7079.l!!.toFloat(),
+                                it.x80.l!!.toFloat()
+                            )
+                            val yFemaleValues = listOf(
+                                it.x20.p!!.toFloat(),
+                                it.x2029.p!!.toFloat(),
+                                it.x3039.p!!.toFloat(),
+                                it.x4049.p!!.toFloat(),
+                                it.x5059.p!!.toFloat(),
+                                it.x6069.p!!.toFloat(),
+                                it.x7079.p!!.toFloat(),
+                                it.x80.p!!.toFloat()
+                            )
+                            setUpBarChart(xValues, yMaleValues, yFemaleValues)
+                        }
                     }
                 }
             }
@@ -341,10 +356,5 @@ class DetailVolunteerFragment : Fragment(), View.OnClickListener {
                 }
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

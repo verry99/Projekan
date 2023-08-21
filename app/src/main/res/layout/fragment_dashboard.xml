@@ -116,8 +116,17 @@
             android:layout_marginTop="80dp"
             android:background="@drawable/main_content_background"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/carouselView_container" />
+            app:layout_constraintTop_toBottomOf="@id/carouselView_container">
 
+        <ImageView
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/img_pdip"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
         <!--  First Row  -->
         <LinearLayout
             android:id="@+id/first_row_menus"

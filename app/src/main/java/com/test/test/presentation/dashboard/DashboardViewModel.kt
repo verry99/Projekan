@@ -41,7 +41,9 @@ class DashboardViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             getUserPreferenceUseCase().let { _user.value = it }
-            getDashboardUseCase("Bearer" + _user.value!!.accessToken).onEach {
+
+            val userAccessToken = _user.value?.accessToken
+            getDashboardUseCase("Bearer $userAccessToken").onEach {
                 when (it) {
                     is Resource.Success -> {
                         it.data?.let { response ->

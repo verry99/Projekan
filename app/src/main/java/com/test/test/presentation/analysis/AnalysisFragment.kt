@@ -54,8 +54,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class AnalysisFragment : Fragment(), View.OnClickListener {
 
-    private var _binding: FragmentAnalysisBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentAnalysisBinding
     private val viewModel: AnalysisViewModel by viewModels()
 
     override fun onCreateView(
@@ -63,7 +62,7 @@ class AnalysisFragment : Fragment(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentAnalysisBinding.inflate(inflater, container, false)
+        binding = FragmentAnalysisBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -82,11 +81,7 @@ class AnalysisFragment : Fragment(), View.OnClickListener {
         binding.swipeToRefresh.apply {
             setOnRefreshListener {
                 viewModel.fetchAnalysisData()
-                viewModel.isLoading.observe(viewLifecycleOwner) {
-                    if (!it) {
-                        this.isRefreshing = false
-                    }
-                }
+                isRefreshing = false
             }
         }
     }
@@ -113,76 +108,108 @@ class AnalysisFragment : Fragment(), View.OnClickListener {
     @SuppressLint("SetTextI18n")
     private fun setUpLiveDataObserver() {
 
-        viewModel.data.observe(viewLifecycleOwner) { response ->
-            response.data?.let { data ->
+        viewModel.apply {
+
+            isLoading.observe(viewLifecycleOwner) {
                 binding.apply {
-                    tvTotalNumber.text = formatNumber(data.totalSupporter!!.toLong())
-                    tvSupporterGrowthPercentage.text =
-                        "${data.percentageSupporter.toString()}%"
-                    tvSupporterGrowthNumber.text =
-                        "${formatNumber(data.growthSupporter!!.toLong())} dukungan"
-                }
-
-                data.genderSupporter?.let { gender ->
-                    showDemographyChart(
-                        gender.l?.toInt() ?: 0,
-                        gender.p?.toInt() ?: 0
-                    )
-                }
-
-                data.area?.let {
-                    val supporterMaleTotal: Int =
-                        it.fold(0) { acc, area -> acc + (area?.gender?.l ?: 0) }
-                    val supporterFemaleTotal: Int =
-                        it.fold(0) { acc, area -> acc + (area?.gender?.p ?: 0) }
-                    val supporterTotal = supporterMaleTotal + supporterFemaleTotal
-
-                    binding.apply {
-                        tableLastItem.visibility = View.VISIBLE
-                        rvSupporterNumber.adapter = AreaAdapter(it)
-                        tvTotalSupporterNumberMale.text = formatNumber(supporterMaleTotal.toLong())
-                        tvTotalSupporterNumberFemale.text =
-                            formatNumber(supporterFemaleTotal.toLong())
-                        tvTotalAllSupporterNumber.text = formatNumber(supporterTotal.toLong())
+                    if (it) {
+                        analysisShimmer.apply {
+                            visibility = View.VISIBLE
+                            startShimmer()
+                        }
+                        container.visibility = View.GONE
+                    } else {
+                        analysisShimmer.apply {
+                            visibility = View.GONE
+                            stopShimmer()
+                        }
+                        container.visibility = View.VISIBLE
                     }
                 }
+            }
 
-                data.supporter?.let {
-                    val xValues = it.xValues
-                    val yValues = it.yValues.map { yValue -> yValue.toFloat() }
-                    setUpLineChartSupporter(xValues, yValues)
-                }
+            analysisData.observe(viewLifecycleOwner) { response ->
+                response.data?.let { data ->
+                    binding.apply {
+                        tvTotalNumber.text = formatNumber(data.totalSupporter!!.toLong())
+                        tvSupporterGrowthPercentage.text =
+                            "${data.percentageSupporter.toString()}%"
+                        tvSupporterGrowthNumber.text =
+                            "${formatNumber(data.growthSupporter!!.toLong())} dukungan"
+                    }
 
-                data.volunteer?.let {
-                    val xValues = it.xValues
-                    val yValues = it.yValues.map { yValue -> yValue.toFloat() }
-                    setUpLineChartVolunteer(xValues, yValues)
-                }
+                    data.genderSupporter?.let { gender ->
+                        showDemographyChart(
+                            gender.l?.toInt() ?: 0,
+                            gender.p?.toInt() ?: 0
+                        )
+                    }
 
-                data.age?.let {
-                    val xValues =
-                        listOf("<20", "20-29", "30-39", "40-49", "50-59", "60-69", "70-79", "80>")
-                    val yMaleValues = listOf(
-                        it.x20.l!!.toFloat(),
-                        it.x2029.l!!.toFloat(),
-                        it.x3039.l!!.toFloat(),
-                        it.x4049.l!!.toFloat(),
-                        it.x5059.l!!.toFloat(),
-                        it.x6069.l!!.toFloat(),
-                        it.x7079.l!!.toFloat(),
-                        it.x80.l!!.toFloat()
-                    )
-                    val yFemaleValues = listOf(
-                        it.x20.p!!.toFloat(),
-                        it.x2029.p!!.toFloat(),
-                        it.x3039.p!!.toFloat(),
-                        it.x4049.p!!.toFloat(),
-                        it.x5059.p!!.toFloat(),
-                        it.x6069.p!!.toFloat(),
-                        it.x7079.p!!.toFloat(),
-                        it.x80.p!!.toFloat()
-                    )
-                    setUpBarChart(xValues, yMaleValues, yFemaleValues)
+                    data.area?.let {
+                        val supporterMaleTotal: Int =
+                            it.fold(0) { acc, area -> acc + (area?.gender?.l ?: 0) }
+                        val supporterFemaleTotal: Int =
+                            it.fold(0) { acc, area -> acc + (area?.gender?.p ?: 0) }
+                        val supporterTotal = supporterMaleTotal + supporterFemaleTotal
+
+                        binding.apply {
+                            tableLastItem.visibility = View.VISIBLE
+                            rvSupporterNumber.visibility = View.VISIBLE
+                            rvSupporterNumber.adapter = AreaAdapter(it)
+                            tvTotalSupporterNumberMale.text =
+                                formatNumber(supporterMaleTotal.toLong())
+                            tvTotalSupporterNumberFemale.text =
+                                formatNumber(supporterFemaleTotal.toLong())
+                            tvTotalAllSupporterNumber.text = formatNumber(supporterTotal.toLong())
+                        }
+                    }
+
+                    data.supporter?.let {
+                        val xValues = it.xValues
+                        val yValues = it.yValues.map { yValue -> yValue.toFloat() }
+                        setUpLineChartSupporter(xValues, yValues)
+                    }
+
+                    data.volunteer?.let {
+                        val xValues = it.xValues
+                        val yValues = it.yValues.map { yValue -> yValue.toFloat() }
+                        setUpLineChartVolunteer(xValues, yValues)
+                    }
+
+                    data.age?.let {
+                        val xValues =
+                            listOf(
+                                "<20",
+                                "20-29",
+                                "30-39",
+                                "40-49",
+                                "50-59",
+                                "60-69",
+                                "70-79",
+                                "80>"
+                            )
+                        val yMaleValues = listOf(
+                            it.x20.l!!.toFloat(),
+                            it.x2029.l!!.toFloat(),
+                            it.x3039.l!!.toFloat(),
+                            it.x4049.l!!.toFloat(),
+                            it.x5059.l!!.toFloat(),
+                            it.x6069.l!!.toFloat(),
+                            it.x7079.l!!.toFloat(),
+                            it.x80.l!!.toFloat()
+                        )
+                        val yFemaleValues = listOf(
+                            it.x20.p!!.toFloat(),
+                            it.x2029.p!!.toFloat(),
+                            it.x3039.p!!.toFloat(),
+                            it.x4049.p!!.toFloat(),
+                            it.x5059.p!!.toFloat(),
+                            it.x6069.p!!.toFloat(),
+                            it.x7079.p!!.toFloat(),
+                            it.x80.p!!.toFloat()
+                        )
+                        setUpBarChart(xValues, yMaleValues, yFemaleValues)
+                    }
                 }
             }
         }
@@ -428,10 +455,5 @@ class AnalysisFragment : Fragment(), View.OnClickListener {
         val data = LineData(lineDataSet)
         lineChart.data = data
         lineChart.animateXY(1000, 1000)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

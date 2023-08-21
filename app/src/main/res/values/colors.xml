@@ -9,7 +9,7 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="red">#C21010</color>
-    <color name="light_red">#1ac21010</color>
+    <color name="light_red">#FFCECE</color>
     <color name="edit_text_background_color">#E0E0E0</color>
     <color name="blue_link">#0092E4</color>
     <color name="gray">#E3E3E3</color>

@@ -217,6 +217,7 @@
     <string name="password_required">Password*</string>
     <string name="tidak_ada_interaksi">tidak ada interaksi</string>
     <string name="tidak_ada_data">Tidak ada data</string>
+    <string name="detail_notifikasi">Detail Notifikasi</string>
 
     <string-array name="spinner_gender">
         <item>Laki-laki</item>
@@ -248,7 +249,6 @@
 
     <string-array name="spinner_area_type">
         <item>Pilh Tipe Wilayah</item>
-        <item>Provinsi</item>
         <item>Kabupaten</item>
         <item>Kecamatan</item>
         <item>TPS</item>

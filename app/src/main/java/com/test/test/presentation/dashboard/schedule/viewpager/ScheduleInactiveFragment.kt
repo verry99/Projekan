@@ -19,8 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ScheduleInactiveFragment : Fragment(), View.OnClickListener {
 
-    private var _binding: FragmentScheduleInactiveBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentScheduleInactiveBinding
     private val viewModel: ScheduleViewModel by viewModels({ requireParentFragment() })
     private lateinit var adapter: ScheduleAdapter
 
@@ -29,7 +28,7 @@ class ScheduleInactiveFragment : Fragment(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentScheduleInactiveBinding.inflate(inflater, container, false)
+        binding = FragmentScheduleInactiveBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -93,10 +92,5 @@ class ScheduleInactiveFragment : Fragment(), View.OnClickListener {
                 adapter.submitData(lifecycle, it)
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

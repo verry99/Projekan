@@ -21,8 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class DetailInteractionFragment : Fragment(), View.OnClickListener {
 
-    private var _binding: FragmentDetailInteractionBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentDetailInteractionBinding
     private val viewModel: DetailInteractionViewModel by viewModels()
     private val adapter = InteractionCommentAdapter()
 
@@ -31,7 +30,7 @@ class DetailInteractionFragment : Fragment(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentDetailInteractionBinding.inflate(inflater, container, false)
+        binding = FragmentDetailInteractionBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -57,6 +56,18 @@ class DetailInteractionFragment : Fragment(), View.OnClickListener {
 
     private fun setUpLiveObserver() {
         viewModel.apply {
+
+            isLoading.observe(viewLifecycleOwner) {
+                binding.apply {
+                    if (it) {
+                        progressBar.visibility = View.VISIBLE
+                        content.visibility = View.GONE
+                    } else {
+                        progressBar.visibility = View.GONE
+                        content.visibility = View.VISIBLE
+                    }
+                }
+            }
 
             interaction.observe(viewLifecycleOwner) {
                 binding.apply {
@@ -124,7 +135,6 @@ class DetailInteractionFragment : Fragment(), View.OnClickListener {
         }
     }
 
-
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.btn_back -> findNavController().navigateUp()
@@ -147,10 +157,5 @@ class DetailInteractionFragment : Fragment(), View.OnClickListener {
         }
 
         viewModel.addComment(commentBody)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

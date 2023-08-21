@@ -24,8 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class DashboardFragment : Fragment(), View.OnClickListener {
 
-    private var _binding: FragmentDashboardBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentDashboardBinding
     private val viewModel: DashboardViewModel by viewModels()
 
     override fun onCreateView(
@@ -33,7 +32,7 @@ class DashboardFragment : Fragment(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentDashboardBinding.inflate(inflater, container, false)
+        binding = FragmentDashboardBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -241,10 +240,5 @@ class DashboardFragment : Fragment(), View.OnClickListener {
     override fun onResume() {
         super.onResume()
         viewModel.refreshUserPreference()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

@@ -31,8 +31,7 @@ import java.io.OutputStream
 @AndroidEntryPoint
 class AddInteractionFragment : Fragment(), View.OnClickListener {
 
-    private var _binding: FragmentAddInteractionBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentAddInteractionBinding
     private val viewModel: AddInteractionViewModel by viewModels()
     private var getFile: File? = null
 
@@ -41,7 +40,7 @@ class AddInteractionFragment : Fragment(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentAddInteractionBinding.inflate(inflater, container, false)
+        binding = FragmentAddInteractionBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -202,10 +201,5 @@ class AddInteractionFragment : Fragment(), View.OnClickListener {
             title,
             description
         )
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

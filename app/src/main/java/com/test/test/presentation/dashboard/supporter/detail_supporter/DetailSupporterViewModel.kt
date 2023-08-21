@@ -32,6 +32,9 @@ class DetailSupporterViewModel @Inject constructor(
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
 
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> = _isLoading
+
     init {
         viewModelScope.launch {
             getUserPreferenceUseCase().let { _user.value = it }
@@ -42,16 +45,20 @@ class DetailSupporterViewModel @Inject constructor(
             getDetailSupporterUseCase(token, id.toInt()).onEach {
                 when (it) {
                     is Resource.Success -> {
+                        _isLoading.value = false
                         it.data?.let { response ->
                             _supporter.value = response.data
                         }
                     }
 
                     is Resource.Error -> {
+                        _isLoading.value = false
                         _errorMessage.value = it.message!!
                     }
 
-                    is Resource.Loading -> {}
+                    is Resource.Loading -> {
+                        _isLoading.value = true
+                    }
                 }
             }.launchIn(viewModelScope)
         }

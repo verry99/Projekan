@@ -22,8 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class AnalysisAreaFragment : Fragment(), View.OnClickListener,
     AdapterView.OnItemSelectedListener {
 
-    private var _binding: FragmentAnalysisAreaBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentAnalysisAreaBinding
     private val viewModel: AnalysisAreaViewModel by viewModels()
 
     override fun onCreateView(
@@ -31,7 +30,7 @@ class AnalysisAreaFragment : Fragment(), View.OnClickListener,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentAnalysisAreaBinding.inflate(inflater, container, false)
+        binding = FragmentAnalysisAreaBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -161,10 +160,5 @@ class AnalysisAreaFragment : Fragment(), View.OnClickListener,
         when (v?.id) {
             R.id.btn_back -> findNavController().navigateUp()
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

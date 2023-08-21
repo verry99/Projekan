@@ -212,7 +212,7 @@
         <argument android:name="token" />
         <action
             android:id="@+id/action_activitiesFragment_to_detailActivitiesFragment"
-            app:destination="@id/detailActivitiesFragment" />
+            app:destination="@id/detailPostDashboardFragment" />
     </fragment>
     <fragment
         android:id="@+id/contactFragment"

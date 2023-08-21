@@ -16,8 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class DetailPostDashboardFragment : Fragment(), View.OnClickListener {
 
-    private var _binding: FragmentDetailPostDashboardBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentDetailPostDashboardBinding
     private val viewModel: DetailPostDashboardViewModel by viewModels()
 
     override fun onCreateView(
@@ -25,7 +24,7 @@ class DetailPostDashboardFragment : Fragment(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentDetailPostDashboardBinding.inflate(inflater, container, false)
+        binding = FragmentDetailPostDashboardBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -52,6 +51,18 @@ class DetailPostDashboardFragment : Fragment(), View.OnClickListener {
                 }
             }
 
+            isLoading.observe(viewLifecycleOwner) {
+                binding.apply {
+                    if (it) {
+                        progressBar.visibility = View.VISIBLE
+                        content.visibility = View.GONE
+                    } else {
+                        progressBar.visibility = View.GONE
+                        content.visibility = View.VISIBLE
+                    }
+                }
+            }
+
             errorMessage.observe(viewLifecycleOwner) {
                 Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
             }
@@ -66,10 +77,5 @@ class DetailPostDashboardFragment : Fragment(), View.OnClickListener {
         when (v?.id) {
             R.id.btn_back -> findNavController().navigateUp()
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

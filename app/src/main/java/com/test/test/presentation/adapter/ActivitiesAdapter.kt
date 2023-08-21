@@ -10,7 +10,6 @@ import com.bumptech.glide.Glide
 import com.test.test.data.remote.dto.post.PostResponseItem
 import com.test.test.databinding.ItemActivitiesBinding
 import com.test.test.presentation.dashboard.activities.ActivitiesFragmentDirections
-import com.test.test.presentation.dashboard.post.news.NewsDashboardFragmentDirections
 
 class ActivitiesAdapter :
     PagingDataAdapter<PostResponseItem, ActivitiesAdapter.ItemViewHolder>(DIFF_CALLBACK) {

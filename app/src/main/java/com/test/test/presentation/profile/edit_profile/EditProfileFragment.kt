@@ -43,12 +43,10 @@ import java.util.Locale
 @AndroidEntryPoint
 class EditProfileFragment : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedListener {
 
-    private var _binding: FragmentEditProfileBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentEditProfileBinding
     private val viewModel: EditProfileViewModel by viewModels()
     private var getFile: File? = null
     private var userBirthDate: String? = null
-    private var userProvince: String? = null
     private var userRegency: String? = null
     private var userSubDistrict: String? = null
     private var userVillage: String? = null
@@ -58,7 +56,7 @@ class EditProfileFragment : Fragment(), View.OnClickListener, AdapterView.OnItem
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentEditProfileBinding.inflate(inflater, container, false)
+        binding = FragmentEditProfileBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -197,6 +195,7 @@ class EditProfileFragment : Fragment(), View.OnClickListener, AdapterView.OnItem
             spinnerJenisKelamin.adapter = adapterGender
             spinnerAgama.adapter = adapterReligion
             spinnerStatusPerkawinan.adapter = adapterStatus
+            spinnerProvinsi.isEnabled = false
         }
     }
 
@@ -227,13 +226,6 @@ class EditProfileFragment : Fragment(), View.OnClickListener, AdapterView.OnItem
                     ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, itemList)
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 binding.spinnerProvinsi.adapter = adapter
-                if (userProvince != null) {
-                    val selectedIndex = itemList.indexOfFirst { it == userProvince }
-                    if (selectedIndex != -1) {
-                        binding.spinnerProvinsi.setSelection(selectedIndex)
-                        userProvince = null
-                    }
-                }
             }
 
             regency.observe(viewLifecycleOwner) {
@@ -310,15 +302,11 @@ class EditProfileFragment : Fragment(), View.OnClickListener, AdapterView.OnItem
                         tvTanggalLahir.text = convertToDayFirst(it)
                     }
 
-                    var selectedProvinceIndex =
-                        viewModel.province.value!!.indexOfFirst { itemList -> itemList.name == it.province }
-                    if (selectedProvinceIndex == -1) selectedProvinceIndex = 0
-                    binding.spinnerProvinsi.setSelection(selectedProvinceIndex)
 
                     it.religion?.let {
-                        val selectedReligionIndex =
+                        var selectedReligionIndex =
                             resources.getStringArray(R.array.spinner_religion).indexOf(it)
-                        if (selectedReligionIndex == -1) selectedProvinceIndex = 0
+                        if (selectedReligionIndex == -1) selectedReligionIndex = 0
                         binding.spinnerAgama.setSelection(
                             selectedReligionIndex
                         )
@@ -331,6 +319,10 @@ class EditProfileFragment : Fragment(), View.OnClickListener, AdapterView.OnItem
                         binding.spinnerStatusPerkawinan.setSelection(selectedStatusIndex)
                     }
 
+                    var selectedProvinceIndex =
+                        viewModel.province.value!!.indexOfFirst { itemList -> itemList.name == "DI YOGYAKARTA" }
+                    if (selectedProvinceIndex == -1) selectedProvinceIndex = 0
+                    binding.spinnerProvinsi.setSelection(selectedProvinceIndex)
                     userRegency = it.regency
                     userSubDistrict = it.subDistrict
                     userVillage = it.village
@@ -503,10 +495,5 @@ class EditProfileFragment : Fragment(), View.OnClickListener, AdapterView.OnItem
             religion,
             maritalStatus
         )
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }
