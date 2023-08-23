@@ -152,7 +152,8 @@ class VolunteerRepositoryImpl @Inject constructor(
             subDistrict,
             village,
             religion,
-            maritalStatus
+            maritalStatus,
+            "PUT"
         )
     }
 

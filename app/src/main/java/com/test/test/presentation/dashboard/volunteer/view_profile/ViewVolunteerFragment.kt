@@ -42,12 +42,10 @@ import java.util.Locale
 class ViewVolunteerFragment : Fragment(), View.OnClickListener,
     AdapterView.OnItemSelectedListener {
 
-    private var _binding: FragmentViewVolunteerBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentViewVolunteerBinding
     private val viewModel: ViewVolunteerViewModel by viewModels()
     private var getFile: File? = null
     private var userBirthDate: String? = null
-    private var userProvince: String? = null
     private var userRegency: String? = null
     private var userSubDistrict: String? = null
     private var userVillage: String? = null
@@ -57,7 +55,7 @@ class ViewVolunteerFragment : Fragment(), View.OnClickListener,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentViewVolunteerBinding.inflate(inflater, container, false)
+        binding = FragmentViewVolunteerBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -244,30 +242,11 @@ class ViewVolunteerFragment : Fragment(), View.OnClickListener,
                         tvTanggalLahir.text = it.profile?.dateOfBirth
                     }
 
-                    var selectedProvinceIndex =
-                        viewModel.province.value!!.indexOfFirst { itemList -> itemList.name == it.profile?.province }
-                    if (selectedProvinceIndex == -1) selectedProvinceIndex = 0
-                    binding.spinnerProvinsi.setSelection(selectedProvinceIndex)
-
-                    it.profile?.religion?.let {
-                        val selectedReligionIndex =
-                            resources.getStringArray(R.array.spinner_religion).indexOf(it)
-                        if (selectedReligionIndex == -1) selectedProvinceIndex = 0
-                        binding.spinnerAgama.setSelection(
-                            selectedReligionIndex
-                        )
-                    }
-
-                    it.profile?.maritalStatus?.let {
-                        var selectedStatusIndex =
-                            resources.getStringArray(R.array.spinner_marital_status).indexOf(it)
-                        if (selectedStatusIndex == -1) selectedStatusIndex = 0
-                        binding.spinnerStatusPerkawinan.setSelection(selectedStatusIndex)
-                    }
-
-                    userRegency = it.profile?.regency
-                    userSubDistrict = it.profile?.subdistrict
                     userVillage = it.profile?.village
+                    userSubDistrict = it.profile?.subdistrict
+                    userRegency = it.profile?.regency
+
+                    viewModel.setSelectedProvince("DI YOGYAKARTA")
                 }
             }
 
@@ -277,13 +256,6 @@ class ViewVolunteerFragment : Fragment(), View.OnClickListener,
                     ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, itemList)
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 binding.spinnerProvinsi.adapter = adapter
-                if (userProvince != null) {
-                    val selectedIndex = itemList.indexOfFirst { it == userProvince }
-                    if (selectedIndex != -1) {
-                        binding.spinnerProvinsi.setSelection(selectedIndex)
-                        userProvince = null
-                    }
-                }
             }
 
             regency.observe(viewLifecycleOwner) {
@@ -364,11 +336,6 @@ class ViewVolunteerFragment : Fragment(), View.OnClickListener,
     }
 
     private fun addVolunteer() {
-        if (binding.spinnerProvinsi.selectedItem == "Pilih Provinsi") {
-            Toast.makeText(requireContext(), "Pilih provinsi terlebih dahulu.", Toast.LENGTH_SHORT)
-                .show()
-            return
-        }
 
         if (binding.spinnerKabupaten.selectedItem == "Pilih Kabupaten") {
             Toast.makeText(requireContext(), "Pilih kabupaten terlebih dahulu.", Toast.LENGTH_SHORT)
@@ -377,19 +344,13 @@ class ViewVolunteerFragment : Fragment(), View.OnClickListener,
         }
 
         if (binding.spinnerKecamatan.selectedItem == "Pilih Kecamatan") {
-            Toast.makeText(requireContext(), "Pilih kabupaten terlebih dahulu.", Toast.LENGTH_SHORT)
+            Toast.makeText(requireContext(), "Pilih kecamatan terlebih dahulu.", Toast.LENGTH_SHORT)
                 .show()
             return
         }
 
-        if (binding.spinnerDesa.selectedItem == "Pilih Desa") {
-            Toast.makeText(requireContext(), "Pilih desa terlebih dahulu.", Toast.LENGTH_SHORT)
-                .show()
-            return
-        }
-
-        if (binding.spinnerAgama.selectedItem == "Pilih Agama") {
-            Toast.makeText(requireContext(), "Pilih agama terlebih dahulu.", Toast.LENGTH_SHORT)
+        if (binding.spinnerDesa.selectedItem == "Pilih Kelurahan") {
+            Toast.makeText(requireContext(), "Pilih kelurahan terlebih dahulu.", Toast.LENGTH_SHORT)
                 .show()
             return
         }
@@ -480,10 +441,5 @@ class ViewVolunteerFragment : Fragment(), View.OnClickListener,
             religion,
             maritalStatus
         )
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

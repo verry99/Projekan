@@ -35,6 +35,9 @@ class DashboardViewModel @Inject constructor(
     private val _banners = MutableLiveData<List<Banner>>()
     val banners: LiveData<List<Banner>> = _banners
 
+    private val _notification = MutableLiveData<Int>()
+    val notification: LiveData<Int> = _notification
+
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
 
@@ -53,6 +56,9 @@ class DashboardViewModel @Inject constructor(
                                 response.data.posts?.berita?.map { news -> news.toModel() }
                             _opinion.value =
                                 response.data.posts?.opini?.map { opinion -> opinion.toModel() }
+                            response.data.notification?.let {
+                                _notification.value = it
+                            }
                         }
                     }
 

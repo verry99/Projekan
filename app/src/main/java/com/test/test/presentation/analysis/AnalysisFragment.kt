@@ -102,6 +102,8 @@ class AnalysisFragment : Fragment(), View.OnClickListener {
         binding.apply {
             rvSupporterNumber.layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            rvSupporterNumberRelawan.layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         }
     }
 
@@ -161,6 +163,26 @@ class AnalysisFragment : Fragment(), View.OnClickListener {
                             tvTotalSupporterNumberFemale.text =
                                 formatNumber(supporterFemaleTotal.toLong())
                             tvTotalAllSupporterNumber.text = formatNumber(supporterTotal.toLong())
+                        }
+                    }
+
+                    data.areaVolunteer?.let {
+                        val supporterMaleTotal: Int =
+                            it.fold(0) { acc, area -> acc + (area?.gender?.l ?: 0) }
+                        val supporterFemaleTotal: Int =
+                            it.fold(0) { acc, area -> acc + (area?.gender?.p ?: 0) }
+                        val supporterTotal = supporterMaleTotal + supporterFemaleTotal
+
+                        binding.apply {
+                            tableLastItemRelawan.visibility = View.VISIBLE
+                            rvSupporterNumberRelawan.visibility = View.VISIBLE
+                            rvSupporterNumberRelawan.adapter = AreaAdapter(it)
+                            tvTotalSupporterNumberMaleRelawan.text =
+                                formatNumber(supporterMaleTotal.toLong())
+                            tvTotalSupporterNumberFemaleRelawan.text =
+                                formatNumber(supporterFemaleTotal.toLong())
+                            tvTotalAllSupporterNumberRelawan.text =
+                                formatNumber(supporterTotal.toLong())
                         }
                     }
 

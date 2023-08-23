@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "806384048948",
+    "project_id": "tes-push-notif-497bb",
+    "storage_bucket": "tes-push-notif-497bb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:806384048948:android:651709121b5e837b692361",
+        "android_client_info": {
+          "package_name": "com.test.test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "806384048948-oa69jjcdclubrepvci9a037ej033re55.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDafnvK8dUNPdaJ6AyBYgnqGJcVOSytmkI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "806384048948-oa69jjcdclubrepvci9a037ej033re55.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

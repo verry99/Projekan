@@ -3,6 +3,7 @@ package com.test.test.presentation.dashboard
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -91,6 +92,16 @@ class DashboardFragment : Fragment(), View.OnClickListener {
                 binding.tvFullName.text = it.name
             }
 
+            notification.observe(viewLifecycleOwner) {
+                if (it > 0) {
+                    binding.badgeNotif.visibility = View.VISIBLE
+                    binding.badgeNotif.text = it.toString()
+                    Log.d("#dashboar", "$it")
+                } else {
+                    binding.badgeNotif.visibility = View.GONE
+                }
+            }
+
             banners.observe(viewLifecycleOwner) {
                 if (!it.isNullOrEmpty()) {
                     val imageList = ArrayList<SlideModel>()
@@ -172,7 +183,14 @@ class DashboardFragment : Fragment(), View.OnClickListener {
                 findNavController().navigate(action)
             }
 
-            R.id.btn_notification -> findNavController().navigate(R.id.action_dashboardFragment_to_notificationFragment)
+            R.id.btn_notification -> {
+                val action =
+                    DashboardFragmentDirections.actionDashboardFragmentToNotificationFragment(
+                        viewModel.user.value!!.accessToken
+                    )
+                findNavController().navigate(action)
+            }
+
             R.id.btn_quick_count -> {
                 val action =
                     DashboardFragmentDirections.actionDashboardFragmentToRealCountFragment(viewModel.user.value!!.accessToken)

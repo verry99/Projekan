@@ -7,5 +7,7 @@ data class Data(
     @SerializedName("banners")
     val banners: List<BannerDTO>?,
     @SerializedName("posts")
-    val posts: Posts?
+    val posts: Posts?,
+    @SerializedName("notifications")
+    val notification: Int?,
 )

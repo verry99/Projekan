@@ -116,6 +116,7 @@ class AddSupporterViewModel @Inject constructor(
                         }
                     }
                 _province.value = listOf(Province(id = "0", "Pilih Provinsi")) + province
+                setSelectedProvince("DI YOGYAKARTA")
 
                 getUserPreferenceUseCase().let {
                     _user.value = it

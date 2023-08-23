@@ -237,7 +237,8 @@
                             android:paddingHorizontal="12dp"
                             android:text="@string/agama"
                             android:textColor="@color/text_gray"
-                            android:textSize="10sp" />
+                            android:textSize="10sp"
+                            android:visibility="gone" />
 
                         <TextView
                             android:id="@+id/tv_agama"
@@ -246,13 +247,15 @@
                             android:ellipsize="end"
                             android:maxLines="1"
                             android:paddingHorizontal="12dp"
+                            android:visibility="gone"
                             tools:text="Islam" />
 
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:layout_marginVertical="4dp"
-                            android:background="@color/light_gray" />
+                            android:background="@color/light_gray"
+                            android:visibility="gone" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -260,7 +263,8 @@
                             android:paddingHorizontal="12dp"
                             android:text="@string/status_perkawinan"
                             android:textColor="@color/text_gray"
-                            android:textSize="10sp" />
+                            android:textSize="10sp"
+                            android:visibility="gone" />
 
                         <TextView
                             android:id="@+id/tv_status"
@@ -269,13 +273,15 @@
                             android:ellipsize="end"
                             android:maxLines="1"
                             android:paddingHorizontal="12dp"
-                            android:text="@string/empty_placeholder" />
+                            android:text="@string/empty_placeholder"
+                            android:visibility="gone" />
 
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:layout_marginVertical="4dp"
-                            android:background="@color/light_gray" />
+                            android:background="@color/light_gray"
+                            android:visibility="gone" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -352,7 +358,8 @@
                             android:paddingHorizontal="12dp"
                             android:text="@string/provinsi"
                             android:textColor="@color/text_gray"
-                            android:textSize="10sp" />
+                            android:textSize="10sp"
+                            android:visibility="gone" />
 
                         <TextView
                             android:id="@+id/tv_provinsi"
@@ -361,13 +368,15 @@
                             android:ellipsize="end"
                             android:maxLines="1"
                             android:paddingHorizontal="12dp"
+                            android:visibility="gone"
                             tools:text="JAWA TENGAH" />
 
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:layout_marginVertical="4dp"
-                            android:background="@color/light_gray" />
+                            android:background="@color/light_gray"
+                            android:visibility="gone" />
 
                         <TextView
                             android:layout_width="wrap_content"

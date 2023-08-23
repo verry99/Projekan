@@ -156,9 +156,8 @@ class EditProfileFragment : Fragment(), View.OnClickListener, AdapterView.OnItem
         val selectedItem = parent?.getItemAtPosition(position).toString()
 
         when (selectedSpinnerId) {
-            R.id.spinner_provinsi -> viewModel.selectedProvince.value = selectedItem
-            R.id.spinner_kabupaten -> viewModel.selectedRegency.value = selectedItem
-            R.id.spinner_kecamatan -> viewModel.selectedDistrict.value = selectedItem
+            R.id.spinner_kabupaten -> viewModel.setSelectedRegency(selectedItem)
+            R.id.spinner_kecamatan -> viewModel.setSelectedSubDistrict(selectedItem)
         }
     }
 
@@ -195,7 +194,6 @@ class EditProfileFragment : Fragment(), View.OnClickListener, AdapterView.OnItem
             spinnerJenisKelamin.adapter = adapterGender
             spinnerAgama.adapter = adapterReligion
             spinnerStatusPerkawinan.adapter = adapterStatus
-            spinnerProvinsi.isEnabled = false
         }
     }
 
@@ -238,8 +236,10 @@ class EditProfileFragment : Fragment(), View.OnClickListener, AdapterView.OnItem
                     val selectedIndex = itemList.indexOfFirst { it == userRegency }
                     if (selectedIndex != -1) {
                         binding.spinnerKabupaten.setSelection(selectedIndex)
-                        userRegency = null
+                    } else {
+                        binding.spinnerKabupaten.setSelection(itemList.indexOfFirst { it == "KOTA YOGYAKARTA" })
                     }
+                    userRegency = null
                 }
             }
 
@@ -302,41 +302,21 @@ class EditProfileFragment : Fragment(), View.OnClickListener, AdapterView.OnItem
                         tvTanggalLahir.text = convertToDayFirst(it)
                     }
 
-
-                    it.religion?.let {
-                        var selectedReligionIndex =
-                            resources.getStringArray(R.array.spinner_religion).indexOf(it)
-                        if (selectedReligionIndex == -1) selectedReligionIndex = 0
-                        binding.spinnerAgama.setSelection(
-                            selectedReligionIndex
-                        )
-                    }
-
-                    it.maritalStatus?.let {
-                        var selectedStatusIndex =
-                            resources.getStringArray(R.array.spinner_marital_status).indexOf(it)
-                        if (selectedStatusIndex == -1) selectedStatusIndex = 0
-                        binding.spinnerStatusPerkawinan.setSelection(selectedStatusIndex)
-                    }
-
-                    var selectedProvinceIndex =
-                        viewModel.province.value!!.indexOfFirst { itemList -> itemList.name == "DI YOGYAKARTA" }
-                    if (selectedProvinceIndex == -1) selectedProvinceIndex = 0
-                    binding.spinnerProvinsi.setSelection(selectedProvinceIndex)
-                    userRegency = it.regency
-                    userSubDistrict = it.subDistrict
                     userVillage = it.village
+                    userSubDistrict = it.subDistrict
+                    userRegency = it.regency
+
+                    viewModel.setSelectedProvince("DI YOGYAKARTA")
                 }
             }
 
             isLoading.observe(viewLifecycleOwner) {
-                if (it) {
-                    binding.apply {
+                binding.apply {
+                    if (it) {
                         progressBar.visibility = View.VISIBLE
                         btnSimpan.isEnabled = false
-                    }
-                } else {
-                    binding.apply {
+
+                    } else {
                         btnSimpan.isEnabled = true
                         progressBar.visibility = View.GONE
                     }
@@ -376,12 +356,6 @@ class EditProfileFragment : Fragment(), View.OnClickListener, AdapterView.OnItem
             return
         }
 
-        if (binding.spinnerProvinsi.selectedItem == "Pilih Provinsi") {
-            Toast.makeText(requireContext(), "Pilih provinsi terlebih dahulu.", Toast.LENGTH_SHORT)
-                .show()
-            return
-        }
-
         if (binding.spinnerKabupaten.selectedItem == "Pilih Kabupaten") {
             Toast.makeText(requireContext(), "Pilih kabupaten terlebih dahulu.", Toast.LENGTH_SHORT)
                 .show()
@@ -389,19 +363,13 @@ class EditProfileFragment : Fragment(), View.OnClickListener, AdapterView.OnItem
         }
 
         if (binding.spinnerKecamatan.selectedItem == "Pilih Kecamatan") {
-            Toast.makeText(requireContext(), "Pilih kabupaten terlebih dahulu.", Toast.LENGTH_SHORT)
+            Toast.makeText(requireContext(), "Pilih kecamatan terlebih dahulu.", Toast.LENGTH_SHORT)
                 .show()
             return
         }
 
-        if (binding.spinnerDesa.selectedItem == "Pilih Desa") {
-            Toast.makeText(requireContext(), "Pilih desa terlebih dahulu.", Toast.LENGTH_SHORT)
-                .show()
-            return
-        }
-
-        if (binding.spinnerAgama.selectedItem == "Pilih Agama") {
-            Toast.makeText(requireContext(), "Pilih agama terlebih dahulu.", Toast.LENGTH_SHORT)
+        if (binding.spinnerDesa.selectedItem == "Pilih Kelurahan") {
+            Toast.makeText(requireContext(), "Pilih kelurahan terlebih dahulu.", Toast.LENGTH_SHORT)
                 .show()
             return
         }

@@ -49,9 +49,21 @@ class EditProfileViewModel @Inject constructor(
     private val _province = MutableLiveData<List<Province>>()
     val province: LiveData<List<Province>> = _province
 
-    val selectedProvince = MutableLiveData<String>()
-    val selectedRegency = MutableLiveData<String>()
-    val selectedDistrict = MutableLiveData<String>()
+    private val _selectedProvince = MutableLiveData<String>()
+    private val _selectedRegency = MutableLiveData<String>()
+    private val _selectedSubdistrict = MutableLiveData<String>()
+
+    fun setSelectedProvince(province: String) {
+        _selectedProvince.value = province
+    }
+
+    fun setSelectedRegency(regency: String) {
+        _selectedRegency.value = regency
+    }
+
+    fun setSelectedSubDistrict(subDistrict: String) {
+        _selectedSubdistrict.value = subDistrict
+    }
 
     private val _user = MutableLiveData<UserPref>()
 
@@ -66,7 +78,7 @@ class EditProfileViewModel @Inject constructor(
     private val _profile = MutableLiveData<Profile>()
     val profile: LiveData<Profile> = _profile
 
-    val regency: LiveData<List<Regency>> = selectedProvince.switchMap {
+    val regency: LiveData<List<Regency>> = _selectedProvince.switchMap {
         liveData {
             var regency: List<Regency> = listOf()
             try {
@@ -80,7 +92,7 @@ class EditProfileViewModel @Inject constructor(
         }
     }
 
-    val subDistrict: LiveData<List<SubDistrict>> = selectedRegency.switchMap {
+    val subDistrict: LiveData<List<SubDistrict>> = _selectedRegency.switchMap {
         liveData {
             var subDistrict: List<SubDistrict> = listOf()
             if (it != "Pilih Kabupaten") subDistrict =
@@ -90,7 +102,7 @@ class EditProfileViewModel @Inject constructor(
         }
     }
 
-    val village: LiveData<List<Village>> = selectedDistrict.switchMap {
+    val village: LiveData<List<Village>> = _selectedSubdistrict.switchMap {
         liveData {
             var village: List<Village> = listOf()
             if (it != "Pilih Kecamatan") village =
@@ -111,6 +123,7 @@ class EditProfileViewModel @Inject constructor(
                             emptyList()
                         }
                     }
+
                 _province.value = listOf(Province(id = "0", "Pilih Provinsi")) + province
 
                 getUserPreferenceUseCase().let { userPref ->

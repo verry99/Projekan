@@ -38,8 +38,7 @@ import java.util.Locale
 @AndroidEntryPoint
 class AddVolunteerFragment : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedListener {
 
-    private var _binding: FragmentAddVolunteerBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentAddVolunteerBinding
     private val viewModel: AddVolunteerViewModel by viewModels()
     private var getFile: File? = null
     private var birthDate: String? = null
@@ -49,7 +48,7 @@ class AddVolunteerFragment : Fragment(), View.OnClickListener, AdapterView.OnIte
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentAddVolunteerBinding.inflate(inflater, container, false)
+        binding = FragmentAddVolunteerBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -225,6 +224,9 @@ class AddVolunteerFragment : Fragment(), View.OnClickListener, AdapterView.OnIte
                     ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, itemList)
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 binding.spinnerKabupaten.adapter = adapter
+
+                val selectedIndex = itemList.indexOfFirst { it == "KOTA YOGYAKARTA" }
+                binding.spinnerKabupaten.setSelection(selectedIndex)
             }
 
             subDistrict.observe(viewLifecycleOwner) {
@@ -276,11 +278,6 @@ class AddVolunteerFragment : Fragment(), View.OnClickListener, AdapterView.OnIte
     }
 
     private fun addVolunteer() {
-        if (binding.spinnerProvinsi.selectedItem == "Pilih Provinsi") {
-            Toast.makeText(requireContext(), "Pilih provinsi terlebih dahulu.", Toast.LENGTH_SHORT)
-                .show()
-            return
-        }
 
         if (binding.spinnerKabupaten.selectedItem == "Pilih Kabupaten") {
             Toast.makeText(requireContext(), "Pilih kabupaten terlebih dahulu.", Toast.LENGTH_SHORT)
@@ -289,19 +286,13 @@ class AddVolunteerFragment : Fragment(), View.OnClickListener, AdapterView.OnIte
         }
 
         if (binding.spinnerKecamatan.selectedItem == "Pilih Kecamatan") {
-            Toast.makeText(requireContext(), "Pilih kabupaten terlebih dahulu.", Toast.LENGTH_SHORT)
+            Toast.makeText(requireContext(), "Pilih kecamatan terlebih dahulu.", Toast.LENGTH_SHORT)
                 .show()
             return
         }
 
-        if (binding.spinnerDesa.selectedItem == "Pilih Desa") {
-            Toast.makeText(requireContext(), "Pilih desa terlebih dahulu.", Toast.LENGTH_SHORT)
-                .show()
-            return
-        }
-
-        if (binding.spinnerAgama.selectedItem == "Pilih Agama") {
-            Toast.makeText(requireContext(), "Pilih agama terlebih dahulu.", Toast.LENGTH_SHORT)
+        if (binding.spinnerDesa.selectedItem == "Pilih Kelurahan") {
+            Toast.makeText(requireContext(), "Pilih kelurahan terlebih dahulu.", Toast.LENGTH_SHORT)
                 .show()
             return
         }
@@ -392,10 +383,5 @@ class AddVolunteerFragment : Fragment(), View.OnClickListener, AdapterView.OnIte
             religion,
             maritalStatus
         )
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

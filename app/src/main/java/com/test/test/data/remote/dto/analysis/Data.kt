@@ -9,6 +9,8 @@ data class Data(
     val age: Age?,
     @SerializedName("area")
     val area: List<Area?>?,
+    @SerializedName("volunteerArea")
+    val areaVolunteer: List<Area?>?,
     @SerializedName("genderSuppoter")
     val genderSupporter: GenderSuppoter?,
     @SerializedName("pertumbuhanSupporter")

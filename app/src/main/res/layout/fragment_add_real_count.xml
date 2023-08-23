@@ -172,7 +172,7 @@
                         style="@style/MyEditTextLabelStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/desa_kelurahan_required" />
+                        android:text="@string/kelurahan_required" />
 
                     <EditText
                         android:id="@+id/edt_desa"

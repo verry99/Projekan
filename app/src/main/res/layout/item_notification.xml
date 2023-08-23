@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/screen_background"
     android:orientation="vertical">
 
     <LinearLayout
@@ -18,12 +19,11 @@
             app:cardCornerRadius="4dp">
 
             <ImageView
-                android:id="@+id/img_opinion"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:contentDescription="@string/gambar_opinion"
+                android:id="@+id/imgNotification"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:scaleType="centerCrop"
-                tools:src="@tools:sample/backgrounds/scenic" />
+                android:src="@drawable/ic_notification_item" />
 
         </androidx.cardview.widget.CardView>
 
@@ -41,13 +41,15 @@
                 android:ellipsize="end"
                 android:fontFamily="@font/inter_medium"
                 android:maxLines="2"
+                android:textColor="@color/text_dark_gray"
                 tools:text="Judul Notification" />
 
             <TextView
                 android:id="@+id/tv_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="2dp"
+                android:textColor="@color/text_dark_gray"
                 android:textSize="10sp"
                 tools:ignore="SmallSp"
                 tools:text="Selasa, 18 Jul 2023 20:34 WIB" />
@@ -55,10 +57,5 @@
         </LinearLayout>
 
     </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.1dp"
-        android:background="#3C4951" />
 
 </LinearLayout>

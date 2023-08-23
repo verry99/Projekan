@@ -1,9 +1,14 @@
 package com.test.test.presentation
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.test.test.R
 import com.test.test.databinding.ActivityMainBinding
@@ -20,6 +25,28 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setUpBottomNavigationView()
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        if (intent?.data != null) {
+            handleDeepLink(intent.data!!)
+        }
+        Log.e("#act", "$intent")
+    }
+
+    private fun handleDeepLink(deepLink: Uri) {
+//        val navController = findNavController(binding.navHostFragment)
+//        val navOptions = NavOptions.Builder()
+//            .setLaunchSingleTop(true)
+//            .setEnterAnim(R.anim.nav_default_enter_anim)
+//            .setExitAnim(R.anim.nav_default_exit_anim)
+//            .setPopEnterAnim(R.anim.nav_default_pop_enter_anim)
+//            .setPopExitAnim(R.anim.nav_default_pop_exit_anim)
+//            .build()
+//
+//        val deepLinkUri = deepLink.toString()
+//        navController.navigate(deepLinkUri, null, navOptions)
     }
 
     private fun setUpBottomNavigationView() {

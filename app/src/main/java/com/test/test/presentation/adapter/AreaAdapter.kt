@@ -36,9 +36,9 @@ class AreaAdapter(private val data: List<Area?>?) :
             binding.apply {
                 tvRegion.text =
                     area.name?.lowercase()!!.split(" ").joinToString(" ") { it.capitalize() }
-                tvSupporterNumberFemale.text =
-                    formatNumber((area.gender!!.l?.toString() ?: "0").toLong())
                 tvSupporterNumberMale.text =
+                    formatNumber((area.gender!!.l?.toString() ?: "0").toLong())
+                tvSupporterNumberFemale.text =
                     formatNumber((area.gender.p?.toString() ?: "0").toLong())
                 tvSupporterNumberTotal.text = formatNumber(area.total!!.toLong())
             }

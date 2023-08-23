@@ -123,9 +123,8 @@ class ViewVolunteerViewModel @Inject constructor(
                         emptyList()
                     }
                 }
-            _province.value = listOf(Province(id = "0", "Pilih Provinsi")) + province
 
-            Log.e("#viewvolvm", "${_province.value}")
+            _province.value = listOf(Province(id = "0", "Pilih Provinsi")) + province
 
             getUserPreferenceUseCase().let {
                 _user.value = it

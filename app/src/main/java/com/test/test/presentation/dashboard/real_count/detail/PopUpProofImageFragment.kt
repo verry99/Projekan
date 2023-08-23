@@ -16,7 +16,7 @@ class PopUpProofImageFragment : DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_popup_proof_image, container, false)
-        imageview = view.findViewById<ImageView>(R.id.img)
+        imageview = view.findViewById(R.id.img)
         return view
     }
 

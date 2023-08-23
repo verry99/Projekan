@@ -8,6 +8,8 @@ import com.test.test.data.remote.dto.interaction.InteractionResponse
 import com.test.test.data.remote.dto.interaction.add_interaction.AddInteractionResponse
 import com.test.test.data.remote.dto.interaction.detail_interaction.DetailInteractionResponse
 import com.test.test.data.remote.dto.interaction.detail_interaction.add_comment.AddCommentResponse
+import com.test.test.data.remote.dto.notification.NotificationResponse
+import com.test.test.data.remote.dto.notification.detail.DetailNotificationResponse
 import com.test.test.data.remote.dto.post.PostResponse
 import com.test.test.data.remote.dto.post.detail.DetailPostResponse
 import com.test.test.data.remote.dto.profile.ProfileResponse
@@ -62,6 +64,18 @@ interface DashboardService {
         @Header("Authorization") token: String,
         @Path("slug") slug: String
     ): DetailPostResponse
+
+    @GET("notification")
+    suspend fun getAllNotification(
+        @Header("Authorization") token: String,
+        @Query("page") page: Int
+    ): NotificationResponse
+
+    @GET("notification/{id}")
+    suspend fun getDetailNotification(
+        @Header("Authorization") token: String,
+        @Path("id") id: Int
+    ): DetailNotificationResponse
 
     @GET("volunteer")
     suspend fun getAllVolunteer(
@@ -133,7 +147,8 @@ interface DashboardService {
         @Part("subdistrict") subDistrict: RequestBody,
         @Part("village") village: RequestBody,
         @Part("religion") religion: RequestBody,
-        @Part("marial_state") maritalStatus: RequestBody
+        @Part("marial_state") maritalStatus: RequestBody,
+        @Query("method") method: String = "PUT",
     ): AddVolunteerResponse
 
     @GET("request-upgrade")

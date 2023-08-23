@@ -101,7 +101,8 @@
     <string name="icon_analysis">icon analysis</string>
     <string name="lihat_profil">Lihat Profil</string>
     <string name="lokasi_wilayah">Lokasi Wilayah</string>
-    <string name="sebaran_wilayah">Sebaran Wilayah</string>
+    <string name="sebaran_wilayah_pendukung">Sebaran Wilayah Pendukung</string>
+    <string name="sebaran_wilayah_relawan">Sebaran Wilayah Relawan</string>
     <string name="demografi_rekrutan">Demografi Rekrutan</string>
     <string name="gambar_susanto">Gambar Susanto</string>
     <string name="nomor_handphone">Nomor Handphone</string>
@@ -122,7 +123,8 @@
     <string name="p">P</string>
     <string name="total">Total</string>
     <string name="daftar_rekrutan">Daftar Rekrutan</string>
-    <string name="demografi_usia">Demografi Usia</string>
+    <string name="demografi_usia_pendukung">Demografi Usia Pendukung</string>
+    <string name="demografi_usia_relawan">Demografi Usia Relawan</string>
     <string name="_0">0</string>
     <string name="laki_laki">Laki-laki</string>
     <string name="perempuan">Perempuan</string>
@@ -140,7 +142,7 @@
     <string name="provinsi_required">Provinsi*</string>
     <string name="kabupaten_required">Kabupaten*</string>
     <string name="kecamatan_required">Kecamatan*</string>
-    <string name="desa_kelurahan_required">Desa/Kelurahan*</string>
+    <string name="kelurahan_required">Kelurahan*</string>
     <string name="agama_required">Agama*</string>
     <string name="empty_placeholder">--</string>
     <string name="dd_mm_yyyy">dd-mm-yyyy</string>
@@ -218,6 +220,7 @@
     <string name="tidak_ada_interaksi">tidak ada interaksi</string>
     <string name="tidak_ada_data">Tidak ada data</string>
     <string name="detail_notifikasi">Detail Notifikasi</string>
+    <string name="selanjutnya">Selanjutnya</string>
 
     <string-array name="spinner_gender">
         <item>Laki-laki</item>

@@ -183,6 +183,60 @@
                 android:inputType="textMultiLine"
                 android:lines="4" />
 
+            <TextView
+                style="@style/MyEditTextLabelStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/provinsi_required"
+                android:visibility="gone" />
+
+            <Spinner
+                android:id="@+id/spinner_provinsi"
+                style="@style/PurpleEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="12dp"
+                android:visibility="gone" />
+
+            <TextView
+                style="@style/MyEditTextLabelStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/kabupaten_required" />
+
+            <Spinner
+                android:id="@+id/spinner_kabupaten"
+                style="@style/PurpleEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="12dp" />
+
+            <TextView
+                style="@style/MyEditTextLabelStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/kecamatan_required" />
+
+            <Spinner
+                android:id="@+id/spinner_kecamatan"
+                style="@style/PurpleEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="12dp" />
+
+            <TextView
+                style="@style/MyEditTextLabelStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/kelurahan_required" />
+
+            <Spinner
+                android:id="@+id/spinner_desa"
+                style="@style/PurpleEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="12dp" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -264,62 +318,11 @@
 
             </LinearLayout>
 
-            <TextView
-                style="@style/MyEditTextLabelStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/provinsi_required" />
-
-            <Spinner
-                android:id="@+id/spinner_provinsi"
-                style="@style/PurpleEditTextStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="12dp" />
-
-            <TextView
-                style="@style/MyEditTextLabelStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/kabupaten_required" />
-
-            <Spinner
-                android:id="@+id/spinner_kabupaten"
-                style="@style/PurpleEditTextStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="12dp" />
-
-            <TextView
-                style="@style/MyEditTextLabelStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/kecamatan_required" />
-
-            <Spinner
-                android:id="@+id/spinner_kecamatan"
-                style="@style/PurpleEditTextStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="12dp" />
-
-            <TextView
-                style="@style/MyEditTextLabelStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/desa_kelurahan_required" />
-
-            <Spinner
-                android:id="@+id/spinner_desa"
-                style="@style/PurpleEditTextStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="12dp" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -348,7 +351,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <TextView
                         style="@style/MyEditTextLabelStyle"

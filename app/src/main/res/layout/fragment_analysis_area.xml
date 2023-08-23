@@ -36,7 +36,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_bold"
                     android:paddingEnd="24dp"
-                    android:text="@string/sebaran_wilayah"
+                    android:text="@string/sebaran_wilayah_pendukung"
                     android:textAlignment="center"
                     tools:ignore="RtlSymmetry" />
 
@@ -77,7 +77,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="13dp"
-                android:text="@string/sebaran_wilayah" />
+                android:text="@string/sebaran_wilayah_pendukung" />
 
             <LinearLayout
                 android:id="@+id/table_header"

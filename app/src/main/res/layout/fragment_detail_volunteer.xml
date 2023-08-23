@@ -72,9 +72,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="132dp"
-                    tools:text="@string/thn"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_full_name" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_full_name"
+                    tools:text="@string/thn" />
 
                 <!-- ALl Chart -->
                 <LinearLayout
@@ -160,7 +160,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
-                        android:text="@string/sebaran_wilayah"
+                        android:text="@string/sebaran_wilayah_pendukung"
                         android:textAllCaps="true" />
 
                     <!-- Tabel Sebaran Wilayah -->
@@ -241,7 +241,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
-                        android:text="@string/demografi_usia"
+                        android:text="@string/demografi_usia_pendukung"
                         android:textAllCaps="true" />
 
                     <com.github.mikephil.charting.charts.BarChart
@@ -305,7 +305,6 @@
                     android:text="@string/lihat_profil"
                     android:textAllCaps="false"
                     android:textSize="12sp"
-                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/img_profile" />
 

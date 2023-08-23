@@ -16,8 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class RegisterFragment : Fragment(), View.OnClickListener {
 
-    private var _binding: FragmentRegisterBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentRegisterBinding
     private val viewModel: RegisterViewModel by viewModels()
 
     override fun onCreateView(
@@ -25,7 +24,7 @@ class RegisterFragment : Fragment(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentRegisterBinding.inflate(inflater, container, false)
+        binding = FragmentRegisterBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -65,7 +64,7 @@ class RegisterFragment : Fragment(), View.OnClickListener {
 
             isValid.observe(viewLifecycleOwner) {
                 if (it) {
-                    findNavController().navigate(R.id.action_registerFragment_to_dashboardFragment)
+                    findNavController().navigate(R.id.action_registerFragment_to_onBoardingFragment)
                 }
             }
 
@@ -91,11 +90,6 @@ class RegisterFragment : Fragment(), View.OnClickListener {
                 tvLogin.isEnabled = true
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     override fun onClick(v: View?) {
