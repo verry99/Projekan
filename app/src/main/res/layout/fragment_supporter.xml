@@ -7,6 +7,7 @@
     tools:context=".presentation.dashboard.supporter.SupporterFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/red">
@@ -208,4 +209,48 @@
         app:iconTint="@color/white"
         app:shapeAppearance="@style/Widget.Material3.CircularProgressIndicator.ExtraSmall" />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/restriction"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:id="@+id/btn_back_restriction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/icon_back"
+                android:src="@drawable/ic_back" />
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_bold"
+                android:paddingEnd="24dp"
+                android:text="@string/pendukung"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                tools:ignore="RtlSymmetry" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_restriction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/anda_tidak_memiliki_akses"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

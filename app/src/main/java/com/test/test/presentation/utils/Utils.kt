@@ -18,6 +18,7 @@ import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+import java.util.TimeZone
 import kotlin.math.round
 
 private const val FILENAME_FORMAT = "dd-MMM-yyyy"
@@ -81,10 +82,23 @@ fun convertToYearFirst(inputDate: String): String {
     return date.format(outputFormat)
 }
 
+fun convertToJakartaTime(originalDateTimeString: String): String {
+    val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'")
+    inputFormat.timeZone = TimeZone.getTimeZone("UTC")
+    val date = inputFormat.parse(originalDateTimeString)
+
+    inputFormat.timeZone = TimeZone.getTimeZone("Asia/Jakarta")
+
+    return inputFormat.format(date)
+}
+
 @SuppressLint("SimpleDateFormat")
 fun convertToHumanReadableDate(inputDate: String): String {
+    val jakartaDate = convertToJakartaTime(inputDate)
+
     val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-    val date = inputFormat.parse(inputDate)!!
+
+    val date = inputFormat.parse(jakartaDate)!!
 
     return DateUtils.getRelativeTimeSpanString(
         date.time,

@@ -12,7 +12,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="0dp"
         android:layout_weight="1"
-        android:text="@string/nama_lengkap" />
+        android:maxLines="1"
+        android:text="@string/nama_lengkap"
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/tv_suara"
@@ -21,6 +23,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="0dp"
-        android:layout_weight="1"
-        android:text="@string/suara" />
+        android:layout_weight="2"
+        android:maxLines="1"
+        android:text="@string/suara"
+        android:textSize="14sp" />
 </LinearLayout>

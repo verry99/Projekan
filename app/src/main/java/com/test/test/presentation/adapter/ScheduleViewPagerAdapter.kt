@@ -9,8 +9,6 @@ import com.test.test.presentation.dashboard.schedule.viewpager.ScheduleActiveFra
 import com.test.test.presentation.dashboard.schedule.viewpager.ScheduleAllFragment
 import com.test.test.presentation.dashboard.schedule.viewpager.ScheduleInactiveFragment
 
-const val NUM_TABS = 3
-
 class ScheduleViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
     FragmentStateAdapter(fragmentManager, lifecycle) {
     override fun getItemCount(): Int {
@@ -23,5 +21,9 @@ class ScheduleViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Life
             1 -> return ScheduleActiveFragment()
         }
         return ScheduleInactiveFragment()
+    }
+
+    companion object {
+        const val NUM_TABS = 3
     }
 }

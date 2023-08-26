@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:fontFamily="@font/inter_semibold"
-                android:text="SUSANTO BUDI RAHARJO, S.H., M.HM"
+                android:text="@string/susanto_budi_raharjo_s_h_m_hm"
                 android:textAlignment="center"
                 android:textSize="14sp" />
 

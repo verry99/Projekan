@@ -41,10 +41,10 @@ class ProfileFragment : Fragment(), View.OnClickListener {
         viewModel.apply {
             profile.observe(viewLifecycleOwner) {
                 binding.apply {
-                    tvFullName.text = it.name
+                    tvFullName.text = it.profile?.name
                     tvRole.text = it.role
 
-                    it.profile.photo.let {
+                    it.profile?.photo?.let {
                         Glide.with(requireContext())
                             .load("$IMAGE_URL/$it")
                             .into(binding.imgProfile)
@@ -56,10 +56,18 @@ class ProfileFragment : Fragment(), View.OnClickListener {
                 if (it) {
                     binding.apply {
                         progressBar.visibility = View.VISIBLE
+                        btnEditProfile.isEnabled = false
+                        btnUbahEmail.isEnabled = false
+                        btnUbahPassword.isEnabled = false
+                        btnUbahNoHp.isEnabled = false
                     }
                 } else {
                     binding.apply {
                         progressBar.visibility = View.GONE
+                        btnEditProfile.isEnabled = true
+                        btnUbahEmail.isEnabled = true
+                        btnUbahPassword.isEnabled = true
+                        btnUbahNoHp.isEnabled = true
                     }
                 }
             }
@@ -73,6 +81,7 @@ class ProfileFragment : Fragment(), View.OnClickListener {
     private fun setUpActionListeners() {
         binding.apply {
             btnEditProfile.setOnClickListener(this@ProfileFragment)
+            btnUbahEmail.setOnClickListener(this@ProfileFragment)
             btnUbahPassword.setOnClickListener(this@ProfileFragment)
             btnUbahNoHp.setOnClickListener(this@ProfileFragment)
             tvKeluar.setOnClickListener(this@ProfileFragment)
@@ -82,6 +91,7 @@ class ProfileFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.btn_edit_profile -> findNavController().navigate(R.id.action_profileFragment_to_editProfileFragment)
+            R.id.btn_ubah_email -> findNavController().navigate(R.id.action_profileFragment_to_changeEmailFragment)
             R.id.btn_ubah_password -> findNavController().navigate(R.id.action_profileFragment_to_changePasswordFragment)
             R.id.btn_ubah_no_hp -> findNavController().navigate(R.id.action_profileFragment_to_changePhoneNumberFragment)
             R.id.tv_keluar -> {
@@ -104,7 +114,7 @@ class ProfileFragment : Fragment(), View.OnClickListener {
                     tvFullName.text = it.name
                     tvRole.text = it.role
 
-                    it.profile.photo.let {
+                    it.profile?.photo?.let {
                         Glide.with(requireContext())
                             .load("$IMAGE_URL/$it")
                             .into(binding.imgProfile)

@@ -65,71 +65,29 @@
 
             </androidx.cardview.widget.CardView>
 
-            <!--    <TextView-->
-            <!--        android:layout_width="wrap_content"-->
-            <!--        android:layout_height="wrap_content"-->
-            <!--        android:layout_marginTop="4dp"-->
-            <!--        android:text="@string/foto_maks_5_mb"-->
-            <!--        android:textColor="@color/dark_gray"-->
-            <!--        android:textSize="12sp" />-->
-
-            <!--Suara SBR & TPS -->
-            <LinearLayout
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:baselineAligned="false"
-                android:orientation="horizontal">
+                android:layout_marginTop="32dp"
+                android:fontFamily="@font/inter_bold"
+                android:text="@string/informasi_tps"
+                android:textSize="16sp" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="4dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+            <TextView
+                style="@style/MyEditTextLabelStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tps_required" />
 
-                    <TextView
-                        style="@style/MyEditTextLabelStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/suara_sbr_required" />
-
-                    <EditText
-                        android:id="@+id/edt_suara_sbr"
-                        style="@style/PurpleEditTextStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/suara_sbr"
-                        android:importantForAutofill="no"
-                        android:inputType="number" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        style="@style/MyEditTextLabelStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/tps_required" />
-
-                    <EditText
-                        android:id="@+id/edt_tps"
-                        style="@style/PurpleEditTextStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/tps"
-                        android:importantForAutofill="no"
-                        android:inputType="number" />
-
-                </LinearLayout>
-            </LinearLayout>
-
+            <EditText
+                android:id="@+id/edt_tps"
+                style="@style/PurpleEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/tps"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:textSize="14sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -157,7 +115,8 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/kecamatan"
                         android:importantForAutofill="no"
-                        android:inputType="text" />
+                        android:inputType="text"
+                        android:textSize="14sp" />
 
                 </LinearLayout>
 
@@ -179,20 +138,21 @@
                         style="@style/PurpleEditTextStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/desa_kelurahan"
+                        android:hint="@string/kelurahan_required"
                         android:importantForAutofill="no"
-                        android:inputType="text" />
+                        android:inputType="text"
+                        android:textSize="14sp" />
 
                 </LinearLayout>
             </LinearLayout>
-
-            <!-- Dynamic Edit Text -->
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:text="@string/suara_rival_required" />
+                android:fontFamily="@font/inter_bold"
+                android:text="@string/perolehan_suara"
+                android:textSize="16sp" />
 
             <LinearLayout
                 android:id="@+id/pair_edit_text_container"
@@ -201,10 +161,55 @@
                 android:layout_marginTop="8dp"
                 android:orientation="vertical">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/caleg" />
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:text="@string/suara_required" />
+
+                </LinearLayout>
+
                 <include
-                    android:id="@+id/suara_rival"
+                    android:id="@+id/suara_rival1"
                     layout="@layout/edittext_pair_layout" />
 
+                <include
+                    android:id="@+id/suara_rival2"
+                    layout="@layout/edittext_pair_layout" />
+
+                <include
+                    android:id="@+id/suara_rival3"
+                    layout="@layout/edittext_pair_layout" />
+
+                <include
+                    android:id="@+id/suara_rival4"
+                    layout="@layout/edittext_pair_layout" />
+
+                <include
+                    android:id="@+id/suara_rival5"
+                    layout="@layout/edittext_pair_layout" />
+
+                <include
+                    android:id="@+id/suara_rival6"
+                    layout="@layout/edittext_pair_layout" />
+
+                <include
+                    android:id="@+id/suara_rival7"
+                    layout="@layout/edittext_pair_layout" />
             </LinearLayout>
 
             <androidx.appcompat.widget.AppCompatButton
@@ -220,7 +225,8 @@
                 android:fontFamily="@font/inter_medium"
                 android:padding="14dp"
                 android:text="@string/tambah_rival"
-                android:textColor="@color/text_dark_gray" />
+                android:textColor="@color/text_dark_gray"
+                android:visibility="gone" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_kirim"

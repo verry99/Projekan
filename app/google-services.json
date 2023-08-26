@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "806384048948",
-    "project_id": "tes-push-notif-497bb",
-    "storage_bucket": "tes-push-notif-497bb.appspot.com"
+    "project_number": "608644429486",
+    "project_id": "e-susanto-dev",
+    "storage_bucket": "e-susanto-dev.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:806384048948:android:651709121b5e837b692361",
+        "mobilesdk_app_id": "1:608644429486:android:385b9da1dfd6d75808df3f",
         "android_client_info": {
           "package_name": "com.test.test"
         }
       },
       "oauth_client": [
         {
-          "client_id": "806384048948-oa69jjcdclubrepvci9a037ej033re55.apps.googleusercontent.com",
+          "client_id": "608644429486-vi506si4t4ns3qdd357t0at5ittn1o14.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDafnvK8dUNPdaJ6AyBYgnqGJcVOSytmkI"
+          "current_key": "AIzaSyCcUKoS1Rn8jxdgnrMwhwhxTCq37HbeN4w"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "806384048948-oa69jjcdclubrepvci9a037ej033re55.apps.googleusercontent.com",
+              "client_id": "608644429486-vi506si4t4ns3qdd357t0at5ittn1o14.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -1,5 +1,6 @@
 package com.test.test.domain.repository
 
+import com.test.test.data.remote.dto.auth.ForgotPasswordResponse
 import com.test.test.data.remote.dto.auth.LoginResponse
 import com.test.test.data.remote.dto.auth.RegisterResponse
 
@@ -18,4 +19,8 @@ interface AuthRepository {
         password: String,
         deviceToken: String
     ): LoginResponse
+
+    suspend fun forgotPassword(
+        email: String,
+    ): ForgotPasswordResponse
 }

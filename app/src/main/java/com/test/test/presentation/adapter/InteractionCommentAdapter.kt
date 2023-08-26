@@ -1,6 +1,7 @@
 package com.test.test.presentation.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -44,6 +45,12 @@ class InteractionCommentAdapter :
                         tvDate.text = convertToHumanReadableDate(it.createdAt!!)
                     } catch (e: Exception) {
                         tvDate.text = it.createdAt
+                    }
+
+                    it.user?.isVerified?.let { isVerified ->
+                        if (isVerified) {
+                            tvIsVerified.visibility = View.VISIBLE
+                        }
                     }
                 }
             }

@@ -24,5 +24,7 @@ data class RealCountResponseItem(
     @SerializedName("user_id")
     val userId: String?,
     @SerializedName("vilage")
-    val village: String?
+    val village: String?,
+    @SerializedName("user")
+    val user: User?
 )

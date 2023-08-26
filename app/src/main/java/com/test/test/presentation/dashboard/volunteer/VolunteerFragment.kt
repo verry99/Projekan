@@ -99,6 +99,7 @@ class VolunteerFragment : Fragment(), View.OnClickListener {
                     startShimmer()
                     visibility = View.VISIBLE
                 }
+                binding.rvVolunteer.visibility = View.GONE
             } else {
                 binding.apply {
                     rvVolunteer.visibility = View.VISIBLE

@@ -20,7 +20,8 @@ class InteractionPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, InteractionResponseItem> {
         return try {
             val position = params.key ?: INITIAL_PAGE_INDEX
-            val responseData = dashboardService.getAllInteraction(token, position).data!!.interaction!!
+            val responseData =
+                dashboardService.getAllInteraction(token, position).data!!.interaction!!
             LoadResult.Page(
                 data = responseData,
                 prevKey = if (position == INITIAL_PAGE_INDEX) null else position - 1,

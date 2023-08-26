@@ -4,6 +4,7 @@ import com.test.test.data.remote.dto.analysis.AnalysisResponse
 import com.test.test.data.remote.dto.analysis.get_area.AnalysisGetAreaResponse
 import com.test.test.data.remote.dto.analysis.get_item_by_area.AnalysisDataByAreaResponse
 import com.test.test.data.remote.dto.dashboard.DashboardResponse
+import com.test.test.data.remote.dto.gallery.GalleryResponse
 import com.test.test.data.remote.dto.interaction.InteractionResponse
 import com.test.test.data.remote.dto.interaction.add_interaction.AddInteractionResponse
 import com.test.test.data.remote.dto.interaction.detail_interaction.DetailInteractionResponse
@@ -14,6 +15,7 @@ import com.test.test.data.remote.dto.post.PostResponse
 import com.test.test.data.remote.dto.post.detail.DetailPostResponse
 import com.test.test.data.remote.dto.profile.ProfileResponse
 import com.test.test.data.remote.dto.profile.UpdateProfileResponse
+import com.test.test.data.remote.dto.profile.update_email.UpdateEmailResponse
 import com.test.test.data.remote.dto.profile.update_password.UpdatePasswordResponse
 import com.test.test.data.remote.dto.profile.update_phone.UpdatePhoneResponse
 import com.test.test.data.remote.dto.real_counts.RealCountsResponse
@@ -307,6 +309,12 @@ interface DashboardService {
         @Part("suara") voice: RequestBody,
     ): AddRealCountResponse
 
+    @GET("galery")
+    suspend fun getAllGallery(
+        @Header("Authorization") token: String,
+        @Query("page") page: Int
+    ): GalleryResponse
+
     @GET("analyst")
     suspend fun getAnalysis(
         @Header("Authorization") token: String
@@ -321,7 +329,9 @@ interface DashboardService {
     suspend fun getAnalysisDataByArea(
         @Header("Authorization") token: String,
         @Query("area") area: String,
-        @Query("type") type: String
+        @Query("type") type: String,
+        @Query("role") role: String,
+        @Query("page") page: Int
     ): AnalysisDataByAreaResponse
 
     @GET("user-profile")
@@ -368,4 +378,12 @@ interface DashboardService {
         @Field("password") password: String,
         @Field("phone") phone: String,
     ): UpdatePhoneResponse
+
+    @FormUrlEncoded
+    @POST("email-update")
+    suspend fun updateEmail(
+        @Header("Authorization") token: String,
+        @Field("password") password: String,
+        @Field("email") email: String,
+    ): UpdateEmailResponse
 }

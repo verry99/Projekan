@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.test.test.R
@@ -24,6 +25,7 @@ class SupporterFragment : Fragment(), View.OnClickListener {
     private lateinit var binding: FragmentSupporterBinding
     private val viewModel: SupporterViewModel by viewModels()
     private lateinit var adapter: SupporterAdapter
+    private val args: SupporterFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,6 +42,15 @@ class SupporterFragment : Fragment(), View.OnClickListener {
 
         setUpActionListeners()
         setUpRecyclerView()
+
+        if (args.role == "user") {
+            binding.apply {
+                content.visibility = View.GONE
+                fabAddSupporter.visibility = View.GONE
+                restriction.visibility = View.VISIBLE
+            }
+            return
+        }
         setUpEdtSearch()
         setUpLiveDataObserver()
     }
@@ -98,6 +109,7 @@ class SupporterFragment : Fragment(), View.OnClickListener {
     private fun setUpActionListeners() {
         binding.apply {
             btnBack.setOnClickListener(this@SupporterFragment)
+            btnBackRestriction.setOnClickListener(this@SupporterFragment)
             fabAddSupporter.setOnClickListener(this@SupporterFragment)
         }
     }
@@ -105,6 +117,7 @@ class SupporterFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.btn_back -> findNavController().navigateUp()
+            R.id.btn_back_restriction -> findNavController().navigateUp()
             R.id.fab_add_supporter -> findNavController().navigate(R.id.action_supporterFragment_to_addSupporterFragment)
         }
     }
@@ -115,8 +128,6 @@ class SupporterFragment : Fragment(), View.OnClickListener {
             supporterSummary.observe(viewLifecycleOwner) {
                 binding.apply {
                     tvSupporterNumberTotal.text = formatNumber(it.totalSupporter.toLong())
-//                    tvSupporterNumberMale.text = formatNumber(it.gender.l.toLong())
-//                    tvSupporterNumberFemale.text = formatNumber(it.gender.p.toLong())
                 }
             }
 

@@ -19,7 +19,7 @@ data class ProfileResponse(
     @SerializedName("phone")
     val phone: String,
     @SerializedName("profile")
-    val profile: Profile,
+    val profile: Profile?,
     @SerializedName("role")
     val role: String,
     @SerializedName("updated_at")

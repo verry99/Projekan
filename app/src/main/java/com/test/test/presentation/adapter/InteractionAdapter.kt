@@ -1,5 +1,6 @@
 package com.test.test.presentation.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
@@ -46,6 +47,7 @@ class InteractionAdapter(private val token: String) :
                         tvDate.text = convertToHumanReadableDate(it.createdAt!!)
                     } catch (e: Exception) {
                         tvDate.text = it.createdAt!!
+                        Log.e("#interadap", "${e.message}")
                     }
 
                     tvDescription.text = it.description

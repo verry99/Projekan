@@ -75,7 +75,7 @@
     <string name="provinsi">Provinsi</string>
     <string name="kabupaten">Kabupaten</string>
     <string name="kecamatan">Kecamatan</string>
-    <string name="desa_kelurahan">Desa/Kelurahan</string>
+    <string name="kelurahan">Kelurahan</string>
     <string name="agama">Agama</string>
     <string name="status_perkawinan">Status Perkawinan</string>
     <string name="simpan">Simpan</string>
@@ -221,6 +221,21 @@
     <string name="tidak_ada_data">Tidak ada data</string>
     <string name="detail_notifikasi">Detail Notifikasi</string>
     <string name="selanjutnya">Selanjutnya</string>
+    <string name="informasi_tps">Informasi TPS</string>
+    <string name="perolehan_suara">Perolehan Suara</string>
+    <string name="suara_required">Suara*</string>
+    <string name="caleg">Caleg*</string>
+    <string name="lihat_hasil">Lihat Hasil</string>
+    <string name="hasil_real_count_caleg">Hasil Real Count\nCaleg</string>
+    <string name="hasil">Hasil</string>
+    <string name="rival">Rival</string>
+    <string name="berhasil_lupa_password">Berhasil lupa password. Silahkan cek email Anda terutama bagian Spam.</string>
+    <string name="susanto_budi_raharjo_s_h_m_hm">SUSANTO BUDI RAHARJO, S.H., M.HM</string>
+    <string name="anda_tidak_memiliki_akses">Anda tidak memiliki akses.</string>
+    <string name="masukkan_email_baru_anda">Masukkan email baru anda</string>
+    <string name="email_baru_required">Email Baru*</string>
+    <string name="ubah_email">Ubah Email</string>
+    <string name="verified">VERIFIED</string>
 
     <string-array name="spinner_gender">
         <item>Laki-laki</item>

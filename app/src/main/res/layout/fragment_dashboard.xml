@@ -43,13 +43,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:contentDescription="@string/icon_notification"
                 android:src="@drawable/ic_notification"
                 app:tint="@color/white" />
@@ -57,16 +58,16 @@
             <TextView
                 android:id="@+id/badge_notif"
                 style="@style/TextAppearance.MaterialComponents.Caption"
-                android:layout_width="10dp"
-                android:layout_height="10dp"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
                 android:layout_gravity="top|end"
                 android:layout_marginTop="2dp"
                 android:layout_marginEnd="2dp"
                 android:background="@drawable/badge_notification"
                 android:fontFamily="@font/inter_semibold"
                 android:gravity="center"
-                android:textColor="@color/white"
-                android:textSize="5sp"
+                android:textColor="@color/black"
+                android:textSize="8sp"
                 android:visibility="gone"
                 tools:ignore="SmallSp"
                 tools:text="5" />
@@ -218,7 +219,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/btn_quick_count"
+                android:id="@+id/btn_real_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

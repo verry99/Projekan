@@ -89,12 +89,23 @@ class AnalysisFragment : Fragment(), View.OnClickListener {
     private fun setUpActionListener() {
         binding.apply {
             tvTableSelengkapnya.setOnClickListener(this@AnalysisFragment)
+            tvRelawanSelengkapnya.setOnClickListener(this@AnalysisFragment)
         }
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.tv_table_selengkapnya -> findNavController().navigate(R.id.action_analysisFragment_to_analysisRegionFragment)
+            R.id.tv_table_selengkapnya -> {
+                val action =
+                    AnalysisFragmentDirections.actionAnalysisFragmentToAnalysisRegionFragment("supporter")
+                findNavController().navigate(action)
+            }
+
+            R.id.tv_relawan_selengkapnya -> {
+                val action =
+                    AnalysisFragmentDirections.actionAnalysisFragmentToAnalysisRegionFragment("volunteer")
+                findNavController().navigate(action)
+            }
         }
     }
 

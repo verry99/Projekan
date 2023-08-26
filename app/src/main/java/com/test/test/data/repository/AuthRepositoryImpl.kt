@@ -1,6 +1,7 @@
 package com.test.test.data.repository
 
 import com.test.test.data.remote.api.AuthService
+import com.test.test.data.remote.dto.auth.ForgotPasswordResponse
 import com.test.test.data.remote.dto.auth.LoginResponse
 import com.test.test.data.remote.dto.auth.RegisterResponse
 import com.test.test.domain.repository.AuthRepository
@@ -26,5 +27,9 @@ class AuthRepositoryImpl @Inject constructor(
         deviceToken: String
     ): LoginResponse {
         return authService.login(email, password, deviceToken)
+    }
+
+    override suspend fun forgotPassword(email: String): ForgotPasswordResponse {
+        return authService.forgotPassword(email)
     }
 }

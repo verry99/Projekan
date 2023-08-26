@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.test.test.R
 import com.test.test.databinding.FragmentVolunteerApprovalBinding
@@ -17,16 +18,16 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class RequestUpgradeVolunteerFragment : Fragment(), View.OnClickListener {
 
-    private var _binding: FragmentVolunteerApprovalBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentVolunteerApprovalBinding
     private val viewModel: RequestUpgradeVolunteerViewModel by viewModels()
+    private lateinit var adapter: RequestUpgradeVolunteerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentVolunteerApprovalBinding.inflate(inflater, container, false)
+        binding = FragmentVolunteerApprovalBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -42,17 +43,41 @@ class RequestUpgradeVolunteerFragment : Fragment(), View.OnClickListener {
     private fun setUpRecyclerView() {
         binding.rvVolunteer.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
+        adapter = RequestUpgradeVolunteerAdapter()
+
+        adapter.addLoadStateListener { loadState ->
+            if (loadState.source.refresh is LoadState.NotLoading && loadState.append.endOfPaginationReached && adapter.itemCount < 1) {
+                binding.apply {
+                    rvShimmer.stopShimmer()
+                    tvEmpty.visibility = View.VISIBLE
+                    rvShimmer.visibility = View.GONE
+                }
+            } else if (loadState.source.refresh is LoadState.Loading) {
+                binding.rvShimmer.apply {
+                    startShimmer()
+                    visibility = View.VISIBLE
+                }
+                binding.rvVolunteer.visibility = View.GONE
+            } else {
+                binding.apply {
+                    rvVolunteer.visibility = View.VISIBLE
+                    rvShimmer.stopShimmer()
+                    rvShimmer.visibility = View.GONE
+                }
+            }
+        }
+
+        binding.rvVolunteer.adapter = adapter.withLoadStateFooter(
+            footer = LoadingStateAdapter {
+                adapter.retry()
+            })
     }
 
     private fun setUpLiveDataObserver() {
         viewModel.apply {
 
             volunteer.observe(viewLifecycleOwner) {
-                val adapter = RequestUpgradeVolunteerAdapter()
-                binding.rvVolunteer.adapter = adapter.withLoadStateFooter(
-                    footer = LoadingStateAdapter {
-                        adapter.retry()
-                    })
                 adapter.submitData(lifecycle, it)
             }
         }
@@ -75,10 +100,5 @@ class RequestUpgradeVolunteerFragment : Fragment(), View.OnClickListener {
         viewModel.apply {
             fetchData()
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

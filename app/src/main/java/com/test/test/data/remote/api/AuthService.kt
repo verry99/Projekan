@@ -1,5 +1,6 @@
 package com.test.test.data.remote.api
 
+import com.test.test.data.remote.dto.auth.ForgotPasswordResponse
 import com.test.test.data.remote.dto.auth.LoginResponse
 import com.test.test.data.remote.dto.auth.RegisterResponse
 import retrofit2.http.Field
@@ -25,4 +26,10 @@ interface AuthService {
         @Field("password") password: String,
         @Field("device_token") deviceToken: String
     ): LoginResponse
+
+    @FormUrlEncoded
+    @POST("forgot-password")
+    suspend fun forgotPassword(
+        @Field("email") email: String,
+    ): ForgotPasswordResponse
 }

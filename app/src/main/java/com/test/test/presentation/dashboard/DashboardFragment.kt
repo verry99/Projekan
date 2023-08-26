@@ -1,13 +1,18 @@
 package com.test.test.presentation.dashboard
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -28,6 +33,10 @@ class DashboardFragment : Fragment(), View.OnClickListener {
     private lateinit var binding: FragmentDashboardBinding
     private val viewModel: DashboardViewModel by viewModels()
 
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) {}
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -38,6 +47,7 @@ class DashboardFragment : Fragment(), View.OnClickListener {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.tvGreeting.text = getGreetingText(requireContext())
@@ -46,6 +56,19 @@ class DashboardFragment : Fragment(), View.OnClickListener {
         setUpActionListener()
         setUpRecyclerView()
         setUpLiveDataObserver()
+
+        when (PackageManager.PERMISSION_GRANTED) {
+            ContextCompat.checkSelfPermission(
+                requireContext(), Manifest.permission.POST_NOTIFICATIONS
+            ) -> {
+            }
+
+            else -> {
+                requestPermissionLauncher.launch(
+                    Manifest.permission.POST_NOTIFICATIONS
+                )
+            }
+        }
     }
 
     private fun setUpShimmer() {
@@ -62,7 +85,7 @@ class DashboardFragment : Fragment(), View.OnClickListener {
             btnNotification.setOnClickListener(this@DashboardFragment)
             btnRelawan.setOnClickListener(this@DashboardFragment)
             btnPendukung.setOnClickListener(this@DashboardFragment)
-            btnQuickCount.setOnClickListener(this@DashboardFragment)
+            btnRealCount.setOnClickListener(this@DashboardFragment)
             btnProfilSbr.setOnClickListener(this@DashboardFragment)
             btnJadwal.setOnClickListener(this@DashboardFragment)
             btnAktifitas.setOnClickListener(this@DashboardFragment)
@@ -96,7 +119,6 @@ class DashboardFragment : Fragment(), View.OnClickListener {
                 if (it > 0) {
                     binding.badgeNotif.visibility = View.VISIBLE
                     binding.badgeNotif.text = it.toString()
-                    Log.d("#dashboar", "$it")
                 } else {
                     binding.badgeNotif.visibility = View.GONE
                 }
@@ -179,7 +201,10 @@ class DashboardFragment : Fragment(), View.OnClickListener {
 
             R.id.btn_pendukung -> {
                 val action =
-                    DashboardFragmentDirections.actionDashboardFragmentToSupporterFragment(viewModel.user.value!!.accessToken)
+                    DashboardFragmentDirections.actionDashboardFragmentToSupporterFragment(
+                        viewModel.user.value!!.accessToken,
+                        viewModel.user.value!!.role
+                    )
                 findNavController().navigate(action)
             }
 
@@ -191,9 +216,12 @@ class DashboardFragment : Fragment(), View.OnClickListener {
                 findNavController().navigate(action)
             }
 
-            R.id.btn_quick_count -> {
+            R.id.btn_real_count -> {
                 val action =
-                    DashboardFragmentDirections.actionDashboardFragmentToRealCountFragment(viewModel.user.value!!.accessToken)
+                    DashboardFragmentDirections.actionDashboardFragmentToRealCountFragment(
+                        viewModel.user.value!!.accessToken,
+                        viewModel.user.value!!.role
+                    )
                 findNavController().navigate(action)
             }
 
@@ -220,7 +248,14 @@ class DashboardFragment : Fragment(), View.OnClickListener {
                 findNavController().navigate(action)
             }
 
-            R.id.btn_galeri -> findNavController().navigate(R.id.action_dashboardFragment_to_galleryFragment)
+            R.id.btn_galeri -> {
+                val action =
+                    DashboardFragmentDirections.actionDashboardFragmentToGalleryFragment(
+                        viewModel.user.value!!.accessToken
+                    )
+                findNavController().navigate(action)
+            }
+
             R.id.btn_kontak -> findNavController().navigate(R.id.action_dashboardFragment_to_contactFragment)
             R.id.btn_cek_dpt -> openInChrome()
             R.id.tv_berita_selengkapnya -> {

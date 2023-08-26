@@ -97,6 +97,9 @@
         <action
             android:id="@+id/action_profileFragment_to_changePhoneNumberFragment"
             app:destination="@id/changePhoneNumberFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_changeEmailFragment"
+            app:destination="@id/changeEmailFragment" />
     </fragment>
 
     <fragment
@@ -144,6 +147,7 @@
         <action
             android:id="@+id/action_supporterFragment_to_detailSupporterFragment"
             app:destination="@id/detailSupporterFragment" />
+        <argument android:name="role" />
     </fragment>
 
     <fragment
@@ -158,6 +162,12 @@
         <action
             android:id="@+id/action_realCountFragment_to_detailRealCountFragment"
             app:destination="@id/detailRealCountFragment" />
+        <action
+            android:id="@+id/action_realCountFragment_to_realCountResultFragment"
+            app:destination="@id/realCountResultFragment" />
+        <argument
+            android:name="role"
+            app:argType="string" />
     </fragment>
 
     <fragment
@@ -172,7 +182,9 @@
             app:destination="@id/forgotPasswordFragment" />
         <action
             android:id="@+id/action_loginFragment_to_onBoardingFragment"
-            app:destination="@id/onBoardingFragment" />
+            app:destination="@id/onBoardingFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -186,8 +198,11 @@
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_registerFragment_to_onBoardingFragment"
-            app:destination="@id/onBoardingFragment" />
+            app:destination="@id/onBoardingFragment"
+            app:popUpTo="@id/registerFragment"
+            app:popUpToInclusive="true" />
     </fragment>
+
     <fragment
         android:id="@+id/addVolunteerFragment"
         android:name="com.test.test.presentation.dashboard.volunteer.add_volunteer.AddVolunteerFragment"
@@ -229,7 +244,9 @@
         android:id="@+id/galleryFragment"
         android:name="com.test.test.presentation.dashboard.gallery.GalleryFragment"
         android:label="fragment_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_gallery">
+        <argument android:name="token" />
+    </fragment>
     <fragment
         android:id="@+id/interactionFragment"
         android:name="com.test.test.presentation.dashboard.interaction.InteractionFragment"
@@ -366,7 +383,11 @@
     <fragment
         android:id="@+id/analysisAreaFragment"
         android:name="com.test.test.presentation.analysis.area.AnalysisAreaFragment"
-        android:label="AnalysisRegionFragment" />
+        android:label="AnalysisRegionFragment">
+        <argument
+            android:name="role"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/detailScheduleFragment"
         android:name="com.test.test.presentation.dashboard.schedule.detail_schedule.DetailScheduleFragment"
@@ -383,6 +404,7 @@
             android:id="@+id/action_scheduleFragment_to_detailScheduleFragment"
             app:destination="@id/detailScheduleFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/requestUpgradeVolunteerFragment"
         android:name="com.test.test.presentation.dashboard.volunteer.request_upgrade.RequestUpgradeVolunteerFragment"
@@ -393,6 +415,7 @@
             android:id="@+id/action_volunteerApprovalFragment_to_DetailRequestUpgradeVolunteerFragment"
             app:destination="@id/DetailRequestUpgradeVolunteerFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/DetailRequestUpgradeVolunteerFragment"
         android:name="com.test.test.presentation.dashboard.volunteer.request_upgrade.detail.DetailRequestUpgradeVolunteerFragment"
@@ -400,6 +423,7 @@
         tools:layout="@layout/fragment_detail_volunteer_approval">
         <argument android:name="id" />
     </fragment>
+
     <fragment
         android:id="@+id/viewVolunteerFragment"
         android:name="com.test.test.presentation.dashboard.volunteer.view_profile.ViewVolunteerFragment"
@@ -408,11 +432,13 @@
             android:name="id"
             app:argType="string" />
     </fragment>
+
     <fragment
         android:id="@+id/addRealCountFragment"
         android:name="com.test.test.presentation.dashboard.real_count.add.AddRealCountFragment"
         android:label="fragment_add_real_count"
         tools:layout="@layout/fragment_add_real_count" />
+
     <fragment
         android:id="@+id/detailRealCountFragment"
         android:name="com.test.test.presentation.dashboard.real_count.detail.DetailRealCountFragment"
@@ -420,26 +446,44 @@
         tools:layout="@layout/fragment_detail_real_count">
         <argument android:name="id" />
     </fragment>
+
     <fragment
         android:id="@+id/detailActivitiesFragment"
         android:name="com.test.test.presentation.dashboard.activities.detail.DetailActivitiesFragment"
         android:label="DetailActivitiesFragment">
         <argument android:name="slug" />
     </fragment>
+
     <fragment
         android:id="@+id/onBoardingFragment"
         android:name="com.test.test.presentation.onboarding.OnBoardingFragment"
         android:label="fragment_on_boarding"
-        tools:layout="@layout/fragment_on_boarding" >
+        tools:layout="@layout/fragment_on_boarding">
         <action
             android:id="@+id/action_onBoardingFragment_to_dashboardFragment"
-            app:destination="@id/dashboardFragment" />
+            app:destination="@id/dashboardFragment"
+            app:popUpTo="@id/onBoardingFragment"
+            app:popUpToInclusive="true" />
     </fragment>
+
     <fragment
         android:id="@+id/detailNotificationFragment"
         android:name="com.test.test.presentation.dashboard.notification.detail.DetailNotificationFragment"
-        android:label="DetailNotificationFragment" >
+        android:label="DetailNotificationFragment">
         <argument android:name="id" />
     </fragment>
+
+    <fragment
+        android:id="@+id/realCountResultFragment"
+        android:name="com.test.test.presentation.dashboard.real_count.result.RealCountResultFragment"
+        android:label="fragment_real_count_result"
+        tools:layout="@layout/fragment_real_count_result">
+        <argument android:name="rivals" />
+    </fragment>
+    <fragment
+        android:id="@+id/changeEmailFragment"
+        android:name="com.test.test.presentation.profile.change_email.ChangeEmailFragment"
+        android:label="fragment_change_email"
+        tools:layout="@layout/fragment_change_email" />
 
 </navigation>

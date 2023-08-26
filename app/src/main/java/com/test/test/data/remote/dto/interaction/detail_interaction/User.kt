@@ -1,6 +1,5 @@
 package com.test.test.data.remote.dto.interaction.detail_interaction
 
-
 import com.google.gson.annotations.SerializedName
 
 data class User(
@@ -9,5 +8,7 @@ data class User(
     @SerializedName("id")
     val id: Int?,
     @SerializedName("name")
-    val name: String?
+    val name: String?,
+    @SerializedName("isVerified")
+    val isVerified: Boolean
 )

@@ -3,13 +3,12 @@ package com.test.test.data.repository
 import com.test.test.data.remote.api.DashboardService
 import com.test.test.data.remote.dto.profile.ProfileResponse
 import com.test.test.data.remote.dto.profile.UpdateProfileResponse
+import com.test.test.data.remote.dto.profile.update_email.UpdateEmailResponse
 import com.test.test.data.remote.dto.profile.update_password.UpdatePasswordResponse
 import com.test.test.data.remote.dto.profile.update_phone.UpdatePhoneResponse
 import com.test.test.domain.repository.ProfileRepository
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import retrofit2.http.Field
-import retrofit2.http.Header
 import javax.inject.Inject
 
 class ProfileRepositoryImpl @Inject constructor(
@@ -78,5 +77,13 @@ class ProfileRepositoryImpl @Inject constructor(
         phone: String,
     ): UpdatePhoneResponse {
         return dashboardService.updatePhone(token, password, phone)
+    }
+
+    override suspend fun updateEmail(
+        token: String,
+        password: String,
+        email: String,
+    ): UpdateEmailResponse {
+        return dashboardService.updateEmail(token, password, email)
     }
 }

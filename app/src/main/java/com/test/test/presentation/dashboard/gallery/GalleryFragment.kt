@@ -7,15 +7,20 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.test.test.R
 import com.test.test.databinding.FragmentGalleryBinding
 import com.test.test.presentation.adapter.GalleryAdapter
+import com.test.test.presentation.adapter.LoadingStateAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class GalleryFragment : Fragment(), View.OnClickListener {
 
     private lateinit var binding: FragmentGalleryBinding
     private val viewModel: GalleryViewModel by viewModels()
+    private lateinit var adapter: GalleryAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,24 +37,43 @@ class GalleryFragment : Fragment(), View.OnClickListener {
 
         setUpActionListeners()
         setUpRecyclerView()
+        setUpLiveDataObserver()
+    }
+
+    private fun setUpLiveDataObserver() {
+        viewModel.gallery.observe(viewLifecycleOwner) {
+            adapter.submitData(lifecycle, it)
+        }
     }
 
     private fun setUpRecyclerView() {
         binding.rvGallery.layoutManager =
             StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
-        val urls = listOf(
-            "https://images.unsplash.com/photo-1682685794761-c8e7b2347702?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80",
-            "https://images.unsplash.com/photo-1692526665228-ea6533af65ed?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80",
-            "https://images.unsplash.com/photo-1692062466883-0638432fe2f2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=723&q=80",
-            "https://images.unsplash.com/photo-1692375584849-0b0b1195f878?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80",
-            "https://images.unsplash.com/photo-1692317023059-499bf304ef55?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80",
-            "https://images.unsplash.com/photo-1692345083308-2ebd7a1063fd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80",
-            "https://images.unsplash.com/photo-1692364042693-bd5aed6360d3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=465&q=80",
-            "https://images.unsplash.com/photo-1692027569991-3ca637422603?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=435&q=80",
-            "https://images.unsplash.com/photo-1692533050174-a830ddbe455b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80",
-        )
-        binding.rvGallery.adapter = GalleryAdapter(urls)
+        adapter = GalleryAdapter(childFragmentManager )
+
+        adapter.addLoadStateListener { loadState ->
+            if (loadState.source.refresh is LoadState.NotLoading && loadState.append.endOfPaginationReached && adapter.itemCount < 1) {
+                binding.apply {
+                    tvEmpty.visibility = View.VISIBLE
+                    rvGallery.visibility = View.GONE
+                    progressBar.visibility = View.GONE
+                }
+            } else if (loadState.source.refresh is LoadState.Loading) {
+                binding.progressBar.visibility = View.VISIBLE
+                binding.rvGallery.visibility = View.GONE
+            } else {
+                binding.apply {
+                    rvGallery.visibility = View.VISIBLE
+                    progressBar.visibility = View.GONE
+                }
+            }
+        }
+
+        binding.rvGallery.adapter = adapter.withLoadStateFooter(
+            footer = LoadingStateAdapter {
+                adapter.retry()
+            })
     }
 
     private fun setUpActionListeners() {

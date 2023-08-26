@@ -330,7 +330,7 @@
                 style="@style/MyEditTextLabelStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/desa_kelurahan" />
+                android:text="@string/kelurahan" />
 
             <EditText
                 android:id="@+id/edt_desa"
@@ -416,7 +416,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:background="@drawable/button_green_background"
+                android:background="@drawable/green_background_radius"
                 android:fontFamily="@font/inter_semibold"
                 android:text="@string/terima"
                 android:textAllCaps="true"

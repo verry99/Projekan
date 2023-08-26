@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="12dp"
-            android:layout_weight="1.5"
+            android:layout_weight="1.7"
             android:orientation="vertical">
 
             <TextView
@@ -68,14 +68,16 @@
                 android:ellipsize="end"
                 android:fontFamily="@font/inter_semibold"
                 android:maxLines="1"
+                android:textAlignment="textEnd"
                 android:textSize="20sp"
                 tools:text="100000" />
 
             <TextView
                 android:id="@+id/tv_number_desc"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/dukungan"
+                android:textAlignment="textEnd"
                 android:textSize="12sp" />
 
         </LinearLayout>

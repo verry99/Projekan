@@ -24,6 +24,10 @@ class LoginViewModel @Inject constructor(
     private val _isValid = MutableLiveData(false)
     val isValid: LiveData<Boolean> = _isValid
 
+    fun setIsValid(valid: Boolean) {
+        _isValid.value = valid
+    }
+
     private val _errorMessage = MutableLiveData("")
     val errorMessage: LiveData<String> = _errorMessage
 
@@ -49,7 +53,6 @@ class LoginViewModel @Inject constructor(
                     }
                     _isLoading.value = false
                     _isValid.value = true
-
                 }
 
                 is Resource.Error -> {

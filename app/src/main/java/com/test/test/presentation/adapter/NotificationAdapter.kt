@@ -1,7 +1,6 @@
 package com.test.test.presentation.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -31,7 +30,6 @@ class NotificationAdapter(private val context: Context) :
 
     override fun onBindViewHolder(viewHolder: ItemViewHolder, position: Int) {
         val data = getItem(position)!!
-        Log.e("#notadap", "$data")
         viewHolder.bind(data)
     }
 
@@ -51,7 +49,6 @@ class NotificationAdapter(private val context: Context) :
                 tvDate.text = notification.message
 
                 val isRead = notification.isRead!!.toInt()
-                Log.d("#adapter", "${notification.title} - $isRead")
                 if (isRead == 0) {
                     val typeFace =
                         ResourcesCompat.getFont(context, R.font.inter_semibold)

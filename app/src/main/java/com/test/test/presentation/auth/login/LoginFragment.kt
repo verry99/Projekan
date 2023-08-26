@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.messaging.FirebaseMessaging
 import com.test.test.R
 import com.test.test.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -66,6 +67,7 @@ class LoginFragment : Fragment(), View.OnClickListener {
             isValid.observe(viewLifecycleOwner) {
                 if (it) {
                     findNavController().navigate(R.id.action_loginFragment_to_onBoardingFragment)
+                    setIsValid(false)
                 }
             }
 
@@ -98,11 +100,14 @@ class LoginFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.btn_login -> {
-                val email = binding.edtEmail.text.toString()
-                val password = binding.edtPassword.text.toString()
-                val deviceToken = "abc"
 
-                viewModel.login(email, password, deviceToken)
+                FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+                    val email = binding.edtEmail.text.toString()
+                    val password = binding.edtPassword.text.toString()
+                    val deviceToken = task.result
+
+                    viewModel.login(email, password, deviceToken)
+                }
             }
 
             R.id.tv_register -> findNavController().navigate(R.id.action_loginFragment_to_registerFragment)

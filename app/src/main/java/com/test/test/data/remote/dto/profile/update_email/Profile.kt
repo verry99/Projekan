@@ -1,21 +1,17 @@
-package com.test.test.data.remote.dto.analysis.get_item_by_area
+package com.test.test.data.remote.dto.profile.update_email
 
 
 import com.google.gson.annotations.SerializedName
 
-data class AreaSupporter(
-    @SerializedName("added_by")
-    val addedBy: String?,
+data class Profile(
     @SerializedName("address")
     val address: String?,
     @SerializedName("age")
-    val age: Any?,
+    val age: String?,
     @SerializedName("created_at")
     val createdAt: String?,
     @SerializedName("date_of_birth")
     val dateOfBirth: String?,
-    @SerializedName("email")
-    val email: Any?,
     @SerializedName("gender")
     val gender: String?,
     @SerializedName("id")
@@ -23,13 +19,11 @@ data class AreaSupporter(
     @SerializedName("isCompleted")
     val isCompleted: String?,
     @SerializedName("marial_state")
-    val maritalStatus: Any?,
+    val marialState: Any?,
     @SerializedName("name")
     val name: String?,
     @SerializedName("nik")
     val nik: String?,
-    @SerializedName("phone")
-    val phone: String?,
     @SerializedName("photo")
     val photo: String?,
     @SerializedName("place_of_birth")

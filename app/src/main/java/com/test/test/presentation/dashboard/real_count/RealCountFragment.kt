@@ -1,5 +1,6 @@
 package com.test.test.presentation.dashboard.real_count
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,10 +9,13 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.gson.Gson
 import com.test.test.R
 import com.test.test.databinding.FragmentRealCountBinding
+import com.test.test.domain.models.Rival
 import com.test.test.presentation.adapter.LoadingStateAdapter
 import com.test.test.presentation.adapter.RealCountAdapter
 import com.test.test.presentation.utils.formatNumber
@@ -22,6 +26,8 @@ class RealCountFragment : Fragment(), View.OnClickListener {
     private lateinit var binding: FragmentRealCountBinding
     private val viewModel: RealCountViewModel by viewModels()
     private lateinit var adapter: RealCountAdapter
+    private lateinit var rivals: List<Rival>
+    private val args: RealCountFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,6 +44,16 @@ class RealCountFragment : Fragment(), View.OnClickListener {
 
         setUpActionListener()
         setUpRecyclerView()
+
+        if (args.role == "user") {
+            binding.apply {
+                content.visibility = View.GONE
+                fabAdd.visibility = View.GONE
+                restriction.visibility = View.VISIBLE
+            }
+            return
+        }
+
         setUpLiveDataObserver()
     }
 
@@ -59,6 +75,7 @@ class RealCountFragment : Fragment(), View.OnClickListener {
                     startShimmer()
                     visibility = View.VISIBLE
                 }
+                binding.rvRealCount.visibility = View.GONE
             } else {
                 binding.apply {
                     rvRealCount.visibility = View.VISIBLE
@@ -74,16 +91,22 @@ class RealCountFragment : Fragment(), View.OnClickListener {
             })
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setUpLiveDataObserver() {
         viewModel.apply {
 
             realCountSummary.observe(viewLifecycleOwner) {
-                binding.apply {
-                    tvProgress.text = it.voterPercentage!!.toInt().toString() + "%"
-                    voicePercentage.progress = it.voterPercentage.toInt()
-                    tvNumberVoice.text = formatNumber(it.totalVote!!.toLong())
-                    tvTotalSupporter.text =
-                        formatNumber(it.supporter!!.toLong()) + " total dukungan"
+                it?.let {
+                    binding.apply {
+                        tvProgress.text = it.voterPercentage!!.toInt().toString() + "%"
+                        voicePercentage.progress = it.voterPercentage.toInt()
+                        tvNumberVoice.text = formatNumber(it.totalVote!!.toLong())
+                        tvTotalSupporter.text =
+                            formatNumber(it.supporter!!.toLong()) + " total dukungan"
+                        btnViewResult.visibility = View.VISIBLE
+                    }
+
+                    rivals = it.rivals
                 }
             }
 
@@ -102,6 +125,8 @@ class RealCountFragment : Fragment(), View.OnClickListener {
     private fun setUpActionListener() {
         binding.apply {
             btnBack.setOnClickListener(this@RealCountFragment)
+            btnBackRestriction.setOnClickListener(this@RealCountFragment)
+            btnViewResult.setOnClickListener(this@RealCountFragment)
             fabAdd.setOnClickListener(this@RealCountFragment)
         }
     }
@@ -110,6 +135,24 @@ class RealCountFragment : Fragment(), View.OnClickListener {
         when (v?.id) {
             R.id.btn_back -> {
                 findNavController().navigateUp()
+            }
+
+            R.id.btn_back_restriction -> {
+                findNavController().navigateUp()
+            }
+
+            R.id.btn_view_result -> {
+                val sbr = Rival(
+                    "SUSANTO BUDI RAHARJO, S.H., M.HM",
+                    viewModel.realCountSummary.value!!.totalVote!!
+                )
+                val result = listOf(sbr) + rivals
+
+                val action =
+                    RealCountFragmentDirections.actionRealCountFragmentToRealCountResultFragment(
+                        Gson().toJson(result.map { Rival(it.name.uppercase(), it.voice) })
+                    )
+                findNavController().navigate(action)
             }
 
             R.id.fab_add -> {

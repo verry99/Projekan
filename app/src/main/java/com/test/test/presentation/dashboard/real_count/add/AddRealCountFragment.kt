@@ -10,7 +10,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -32,21 +31,27 @@ import java.io.OutputStream
 
 @AndroidEntryPoint
 class AddRealCountFragment : Fragment(), View.OnClickListener {
-    private var _binding: FragmentAddRealCountBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentAddRealCountBinding
     private val viewModel: AddRealCountViewModel by viewModels()
     private val pairEditTextList = mutableListOf<LinearLayout>()
-    private val fullNameList = mutableListOf<String>()
-    private val voiceList = mutableListOf<Int>()
     private var getFile: File? = null
-    private var isDynamicTextField = false
+    private val voiceList = mutableListOf<Int>()
+    private val candidates = listOf(
+        "RB. DWI WAHYU B. S.Pd M.Si",
+        "EKO SUWANTO ST M.Si",
+        "NOVITA DWI ARINI",
+        "IMAM PRIYONO D. PUTRANTO S.E M.Si",
+        "SUSANTO BUDI RAHARJO S.H M.HM",
+        "AINUN MARDZIYAH S.A.P",
+        "FITRI HERTANTI"
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentAddRealCountBinding.inflate(inflater, container, false)
+        binding = FragmentAddRealCountBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -54,8 +59,21 @@ class AddRealCountFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setUpCandidateNames()
         setUpActionListener()
         setUpLiveDataObserver()
+    }
+
+    private fun setUpCandidateNames() {
+        binding.apply {
+            suaraRival1.edtNamaLengkap.setText(candidates[0])
+            suaraRival2.edtNamaLengkap.setText(candidates[1])
+            suaraRival3.edtNamaLengkap.setText(candidates[2])
+            suaraRival4.edtNamaLengkap.setText(candidates[3])
+            suaraRival5.edtNamaLengkap.setText(candidates[4])
+            suaraRival6.edtNamaLengkap.setText(candidates[5])
+            suaraRival7.edtNamaLengkap.setText(candidates[6])
+        }
     }
 
     private fun startGallery() {
@@ -101,7 +119,6 @@ class AddRealCountFragment : Fragment(), View.OnClickListener {
     private fun setUpActionListener() {
         binding.apply {
             btnBack.setOnClickListener(this@AddRealCountFragment)
-            btnAddName.setOnClickListener(this@AddRealCountFragment)
             btnKirim.setOnClickListener(this@AddRealCountFragment)
             btnLampiran.setOnClickListener(this@AddRealCountFragment)
         }
@@ -124,26 +141,32 @@ class AddRealCountFragment : Fragment(), View.OnClickListener {
     }
 
     private fun addRealCount() {
-        if (!retrieveAllNameAndVoice()) return
 
-        val stringList: String = if (fullNameList.isNotEmpty()) {
-            "${binding.suaraRival.edtNamaLengkap.text}, " + fullNameList.joinToString { it }
-        } else {
-            binding.suaraRival.edtNamaLengkap.text.toString()
-        }
+        val names = listOf(
+            binding.suaraRival1.edtNamaLengkap.text.toString(),
+            binding.suaraRival2.edtNamaLengkap.text.toString(),
+            binding.suaraRival3.edtNamaLengkap.text.toString(),
+            binding.suaraRival4.edtNamaLengkap.text.toString(),
+            binding.suaraRival6.edtNamaLengkap.text.toString(),
+            binding.suaraRival7.edtNamaLengkap.text.toString()
+        )
 
-        val intList: String = if (voiceList.isNotEmpty()) {
-            "${binding.suaraRival.edtSuara.text}, " + voiceList.joinToString { it.toString() }
-        } else {
-            binding.suaraRival.edtSuara.text.toString()
-        }
+        val voices =
+            listOf(
+                binding.suaraRival1.edtSuara.text.toString(),
+                binding.suaraRival2.edtSuara.text.toString(),
+                binding.suaraRival3.edtSuara.text.toString(),
+                binding.suaraRival4.edtSuara.text.toString(),
+                binding.suaraRival6.edtSuara.text.toString(),
+                binding.suaraRival7.edtSuara.text.toString()
+            )
 
         val image: MultipartBody.Part
 
-        if (binding.edtSuaraSbr.text.toString().isEmpty()) {
+        if (getFile == null) {
             Toast.makeText(
                 requireContext(),
-                "Lengkapi Suara SBR terlebih dahulu.",
+                "Lengkapi bukti terlebih dahulu.",
                 Toast.LENGTH_SHORT
             ).show()
 
@@ -180,30 +203,22 @@ class AddRealCountFragment : Fragment(), View.OnClickListener {
             return
         }
 
-        if (binding.suaraRival.edtNamaLengkap.text.toString().isEmpty()) {
-            Toast.makeText(
-                requireContext(),
-                "Lengkapi nama rival terlebih dahulu.",
-                Toast.LENGTH_SHORT
-            ).show()
+        for (voice in voices) {
+            if (voice.isEmpty()) {
+                Toast.makeText(
+                    requireContext(),
+                    "Lengkapi perolehan suara terlebih dahulu.",
+                    Toast.LENGTH_SHORT
+                ).show()
 
-            return
+                return
+            }
         }
 
-        if (binding.suaraRival.edtNamaLengkap.text.toString().isEmpty()) {
+        if (binding.suaraRival5.edtSuara.text.isEmpty()) {
             Toast.makeText(
                 requireContext(),
-                "Lengkapi suara rival terlebih dahulu.",
-                Toast.LENGTH_SHORT
-            ).show()
-
-            return
-        }
-
-        if (getFile == null) {
-            Toast.makeText(
-                requireContext(),
-                "Lengkapi bukti terlebih dahulu.",
+                "Lengkapi perolehan suara terlebih dahulu.",
                 Toast.LENGTH_SHORT
             ).show()
 
@@ -211,12 +226,14 @@ class AddRealCountFragment : Fragment(), View.OnClickListener {
         }
 
         val file = reduceFileImage(getFile as File)
+
         val requestImageFile = file.asRequestBody("image/jpeg".toMediaType())
         image = MultipartBody.Part.createFormData(
             "image", file.name, requestImageFile
         )
 
-        val count = binding.edtSuaraSbr.text.toString().toRequestBody("text/plain".toMediaType())
+        val count =
+            binding.suaraRival5.edtSuara.text.toString().toRequestBody("text/plain".toMediaType())
 
         val tps =
             binding.edtTps.text.toString().toRequestBody("text/plain".toMediaType())
@@ -227,8 +244,8 @@ class AddRealCountFragment : Fragment(), View.OnClickListener {
         val village =
             binding.edtDesa.text.toString().toRequestBody("text/plain".toMediaType())
 
-        val name = stringList.toRequestBody("text/plain".toMediaType())
-        val voice = intList.toRequestBody("text/plain".toMediaType())
+        val name = names.joinToString { it }.toRequestBody("text/plain".toMediaType())
+        val voice = voices.joinToString { it }.toRequestBody("text/plain".toMediaType())
 
         viewModel.addRealCount(
             image,
@@ -267,13 +284,11 @@ class AddRealCountFragment : Fragment(), View.OnClickListener {
                     binding.apply {
                         progressBar.visibility = View.VISIBLE
                         btnKirim.isEnabled = false
-                        btnAddName.isEnabled = false
                     }
                 } else {
                     binding.apply {
                         progressBar.visibility = View.GONE
                         btnKirim.isEnabled = true
-                        btnAddName.isEnabled = true
                     }
                 }
             }
@@ -293,49 +308,5 @@ class AddRealCountFragment : Fragment(), View.OnClickListener {
 
         binding.pairEditTextContainer.addView(pairLayout)
         pairEditTextList.add(pairLayout)
-    }
-
-    private fun retrieveAllNameAndVoice(): Boolean {
-        fullNameList.clear()
-        voiceList.clear()
-
-        for (pair in pairEditTextList) {
-            val editText1 = pair.getChildAt(0) as EditText
-            val editText2 = pair.getChildAt(1) as EditText
-
-            if (editText1.text.isEmpty() && editText2.text.isEmpty()) {
-                continue
-            } else if (editText1.text.isEmpty()) {
-                Toast.makeText(
-                    requireContext(),
-                    "Lengkapi nama rival atau kosongkan kolom suara terlebih dahulu.",
-                    Toast.LENGTH_SHORT
-                ).show()
-                fullNameList.clear()
-
-                return false
-            } else if (editText2.text.isEmpty()) {
-                Toast.makeText(
-                    requireContext(),
-                    "Lengkapi suara rival atau kosongkan nama terlebih dahulu.",
-                    Toast.LENGTH_SHORT
-                ).show()
-                voiceList.clear()
-
-                return false
-            }
-
-            val value1 = editText1.text.toString()
-            val value2 = editText2.text.toString().toInt()
-
-            fullNameList.add(value1)
-            voiceList.add(value2)
-        }
-        return true
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

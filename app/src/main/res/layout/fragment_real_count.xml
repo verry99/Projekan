@@ -6,6 +6,7 @@
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/red"
@@ -35,7 +36,6 @@
                 android:layout_gravity="center_vertical"
                 android:fontFamily="@font/inter_semibold"
                 android:text="@string/real_count"
-
                 android:textColor="@color/white"
                 android:textSize="20sp" />
 
@@ -130,14 +130,27 @@
             app:layout_constraintTop_toBottomOf="@id/percentage_container"
             tools:text="6.000 total dukungan" />
 
+        <TextView
+            android:id="@+id/btn_view_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="14dp"
+            android:fontFamily="@font/inter_semibold"
+            android:text="@string/lihat_hasil"
+            android:textColor="@color/white"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_total_supporter" />
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/main_content_background"
             android:padding="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_total_supporter">
+            app:layout_constraintTop_toBottomOf="@id/btn_view_result">
 
             <com.facebook.shimmer.ShimmerFrameLayout
                 android:id="@+id/rv_shimmer"
@@ -194,5 +207,50 @@
         app:icon="@drawable/ic_add"
         app:iconTint="@color/white"
         app:shapeAppearance="@style/Widget.Material3.CircularProgressIndicator.ExtraSmall" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/restriction"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:id="@+id/btn_back_restriction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/icon_back"
+                android:src="@drawable/ic_back" />
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_bold"
+                android:paddingEnd="24dp"
+                android:text="@string/real_count"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                tools:ignore="RtlSymmetry" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_restriction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/anda_tidak_memiliki_akses"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -9,8 +9,15 @@ import androidx.core.app.NotificationCompat
 import androidx.navigation.NavDeepLinkBuilder
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import com.test.test.domain.use_case.user_pref.get_user.GetUserPreferenceUseCase
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MyFirebaseMessagingService : FirebaseMessagingService() {
+
+    @Inject
+    lateinit var getUserPreferenceUseCase: GetUserPreferenceUseCase
     override fun onNewToken(token: String) {
         Log.d(TAG, "Refreshed token: $token")
 
@@ -47,7 +54,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
         val pendingIntent = NavDeepLinkBuilder(applicationContext)
             .setGraph(R.navigation.root_navigation)
-            .setDestination(R.id.contactFragment)
+            .setDestination(R.id.dashboardFragment)
 //            .setArguments(args)
             .createPendingIntent()
 
@@ -56,6 +63,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             .setContentTitle(title)
             .setContentText(body)
             .setAutoCancel(true)
+            .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setContentIntent(pendingIntent)
 
         val notificationManager =

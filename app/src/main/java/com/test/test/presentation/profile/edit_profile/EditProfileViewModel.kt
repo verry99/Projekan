@@ -134,8 +134,8 @@ class EditProfileViewModel @Inject constructor(
                                 _isLoading.value = false
 
                                 _profile.value = Profile(
-                                    urlToImage = it.data!!.profile.photo,
-                                    nik = it.data.profile.nik,
+                                    urlToImage = it.data!!.profile!!.photo,
+                                    nik = it.data.profile!!.nik,
                                     name = it.data.profile.name,
                                     phone = it.data.phone,
                                     birthPlace = it.data.profile.placeOfBirth,

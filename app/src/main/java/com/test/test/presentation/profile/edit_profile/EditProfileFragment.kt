@@ -299,7 +299,11 @@ class EditProfileFragment : Fragment(), View.OnClickListener, AdapterView.OnItem
                     edtTps.setText(it.tps)
 
                     it.birthDate?.let {
-                        tvTanggalLahir.text = convertToDayFirst(it)
+                        try {
+                            tvTanggalLahir.text = convertToDayFirst(it)
+                        } catch (e: Exception) {
+                            tvTanggalLahir.text = it
+                        }
                     }
 
                     userVillage = it.village

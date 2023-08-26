@@ -1,5 +1,6 @@
 package com.test.test.presentation.analysis.area
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,12 +11,13 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.test.test.R
 import com.test.test.databinding.FragmentAnalysisAreaBinding
 import com.test.test.presentation.adapter.AnalysisAreaSupporterAdapter
 import com.test.test.presentation.adapter.AreaAdapter
-import com.test.test.presentation.utils.formatNumber
+import com.test.test.presentation.adapter.LoadingStateAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,6 +26,8 @@ class AnalysisAreaFragment : Fragment(), View.OnClickListener,
 
     private lateinit var binding: FragmentAnalysisAreaBinding
     private val viewModel: AnalysisAreaViewModel by viewModels()
+    private val args by navArgs<AnalysisAreaFragmentArgs>()
+    private lateinit var adapter: AnalysisAreaSupporterAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,6 +39,7 @@ class AnalysisAreaFragment : Fragment(), View.OnClickListener,
         return binding.root
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -42,6 +47,14 @@ class AnalysisAreaFragment : Fragment(), View.OnClickListener,
         setUpActionListeners()
         setUpRecyclerView()
         setUpLiveDataObservers()
+
+        binding.apply {
+            if (args.role == "volunteer") {
+                tvTitle.text = "Sebaran Wilayah Relawan"
+                tvSebaranWilayahPendukung.text = "Sebaran Wilayah Relawan"
+                tvDaftarPendukung.text = "Daftar Relawan"
+            }
+        }
     }
 
     private fun setUpSpinners() {
@@ -74,39 +87,33 @@ class AnalysisAreaFragment : Fragment(), View.OnClickListener,
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             rvSupporter.layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
+            adapter = AnalysisAreaSupporterAdapter()
+
+            binding.rvSupporter.adapter = adapter.withLoadStateFooter(
+                footer = LoadingStateAdapter {
+                    adapter.retry()
+                })
         }
     }
 
     private fun setUpLiveDataObservers() {
         viewModel.apply {
 
-            areaToShow.observe(viewLifecycleOwner) {
+            areaSpinnerFiltered.observe(viewLifecycleOwner) {
                 val adapter =
                     ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, it)
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 binding.spinnerAreaItem.adapter = adapter
             }
 
-            areaDataResponse.observe(viewLifecycleOwner) { response ->
-                response.data!!.area.let {
-                    val supporterMaleTotal: Int =
-                        it.fold(0) { acc, area -> acc + (area.gender?.l ?: 0) }
-                    val supporterFemaleTotal: Int =
-                        it.fold(0) { acc, area -> acc + (area.gender?.p ?: 0) }
-                    val supporterTotal = supporterMaleTotal + supporterFemaleTotal
-
-                    binding.apply {
-                        tableLastItem.visibility = View.VISIBLE
-                        rvSupporterNumber.adapter = AreaAdapter(it)
-                        tvTotalSupporterNumberMale.text = formatNumber(supporterMaleTotal.toLong())
-                        tvTotalSupporterNumberFemale.text =
-                            formatNumber(supporterFemaleTotal.toLong())
-                        tvTotalAllSupporterNumber.text = formatNumber(supporterTotal.toLong())
-                    }
-
-                    binding.rvSupporter.adapter =
-                        AnalysisAreaSupporterAdapter(response.data.allSupporter.supporter)
+            summaryResponse.observe(viewLifecycleOwner) {
+                binding.apply {
+                    rvSupporterNumber.adapter = AreaAdapter(it.area)
                 }
+            }
+            dataByArea.observe(viewLifecycleOwner) {
+                adapter.submitData(lifecycle, it)
             }
 
             isLoading.observe(viewLifecycleOwner) {

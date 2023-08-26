@@ -7,7 +7,17 @@
         android:id="@+id/img"
         android:layout_width="400dp"
         android:layout_height="400dp"
-        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
         android:src="@color/text_dark_gray" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_description"
+        android:layout_below="@+id/img"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:text="HALO INI DESKRIPSI"
+        android:textAlignment="center" />
 
 </RelativeLayout>

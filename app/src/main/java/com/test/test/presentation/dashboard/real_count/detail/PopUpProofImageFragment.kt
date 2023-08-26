@@ -4,35 +4,37 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.fragment.app.DialogFragment
 import com.bumptech.glide.Glide
-import com.test.test.R
+import com.test.test.databinding.FragmentPopupProofImageBinding
 
 class PopUpProofImageFragment : DialogFragment() {
-    private lateinit var imageview: ImageView
+    private lateinit var binding: FragmentPopupProofImageBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_popup_proof_image, container, false)
-        imageview = view.findViewById(R.id.img)
-        return view
-    }
+    ): View {
+        binding = FragmentPopupProofImageBinding.inflate(inflater, container, false)
 
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val imageUrl = arguments?.getString(ARG_MESSAGE)
-        Glide.with(requireContext()).load(imageUrl).into(imageview)
+        val imageUrl = arguments?.getString(IMG_URL)
+        val desc = arguments?.getString(DESC) ?: ""
+        Glide.with(requireContext()).load(imageUrl).into(binding.img)
+        binding.tvDescription.text = desc
     }
 
     companion object {
-        private const val ARG_MESSAGE = "arg_message"
+        private const val IMG_URL = "imgUrl"
+        private const val DESC = "description"
 
-        fun newInstance(message: String): PopUpProofImageFragment {
+        fun newInstance(message: String, description: String?): PopUpProofImageFragment {
             val args = Bundle()
-            args.putString(ARG_MESSAGE, message)
+            args.putString(IMG_URL, message)
+            args.putString(DESC, description)
             val fragment = PopUpProofImageFragment()
             fragment.arguments = args
             return fragment

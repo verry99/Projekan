@@ -31,7 +31,7 @@
                     android:src="@drawable/ic_back" />
 
                 <TextView
-                    android:id="@+id/tv_tambah_relawan"
+                    android:id="@+id/tv_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_bold"
@@ -74,6 +74,7 @@
 
             <!-- Table -->
             <TextView
+                android:id="@+id/tv_sebaran_wilayah_pendukung"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="13dp"
@@ -216,6 +217,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/tv_daftar_pendukung"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"

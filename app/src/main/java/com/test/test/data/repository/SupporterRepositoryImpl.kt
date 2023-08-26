@@ -37,7 +37,6 @@ class SupporterRepositoryImpl(
     }
 
     override suspend fun getSupporterSummary(token: String): SupporterSummaryResponse {
-        Log.e("#suprepimpl", "${dashboardService.getSupporterSummary(token)}")
         return dashboardService.getSupporterSummary(token)
     }
 

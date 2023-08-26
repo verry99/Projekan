@@ -19,9 +19,8 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class DetailRealCountFragment : Fragment(), View.OnClickListener {
 
-    private var _binding: FragmentDetailRealCountBinding? = null
+    private lateinit var binding: FragmentDetailRealCountBinding
     private val viewModel: DetailRealCountViewModel by viewModels()
-    private val binding get() = _binding!!
     private lateinit var imageUrl: String
 
     override fun onCreateView(
@@ -29,12 +28,7 @@ class DetailRealCountFragment : Fragment(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding =
-            FragmentDetailRealCountBinding.inflate(
-                inflater,
-                container,
-                false
-            )
+        binding = FragmentDetailRealCountBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -68,11 +62,9 @@ class DetailRealCountFragment : Fragment(), View.OnClickListener {
                         imgLampiran.setOnClickListener(this@DetailRealCountFragment)
                     }
 
-                    tvSuaraSbr.text = it.data.count
                     tvTps.text = it.data.tps
                     tvKecamatan.text = it.data.subdistrict
                     tvDesa.text = it.data.vilage
-                    tvTotal.text = it.data.rivals.size.toString()
 
                     binding.rvSuaraRival.adapter = RivalAdapter(it.data.rivals)
                 }
@@ -108,15 +100,9 @@ class DetailRealCountFragment : Fragment(), View.OnClickListener {
         when (v?.id) {
             R.id.btn_back -> findNavController().navigateUp()
             R.id.img_lampiran -> {
-
-                val popupFragment = PopUpProofImageFragment.newInstance(imageUrl)
+                val popupFragment = PopUpProofImageFragment.newInstance(imageUrl, "")
                 popupFragment.show(requireActivity().supportFragmentManager, "my_popup")
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

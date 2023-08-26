@@ -1,13 +1,13 @@
-package com.test.test.data.remote.dto.analysis.get_item_by_area
+package com.test.test.data.remote.dto.gallery
 
 
 import com.google.gson.annotations.SerializedName
 
-data class AllSupporter(
+data class Data(
     @SerializedName("current_page")
     val currentPage: Int?,
     @SerializedName("data")
-    val supporter: List<AreaSupporter>,
+    val gallery: List<GalleryResponseItem>?,
     @SerializedName("first_page_url")
     val firstPageUrl: String?,
     @SerializedName("from")
@@ -19,7 +19,7 @@ data class AllSupporter(
     @SerializedName("links")
     val links: List<Link>?,
     @SerializedName("next_page_url")
-    val nextPageUrl: String?,
+    val nextPageUrl: Any?,
     @SerializedName("path")
     val path: String?,
     @SerializedName("per_page")

@@ -2,6 +2,7 @@ package com.test.test.domain.repository
 
 import com.test.test.data.remote.dto.profile.ProfileResponse
 import com.test.test.data.remote.dto.profile.UpdateProfileResponse
+import com.test.test.data.remote.dto.profile.update_email.UpdateEmailResponse
 import com.test.test.data.remote.dto.profile.update_password.UpdatePasswordResponse
 import com.test.test.data.remote.dto.profile.update_phone.UpdatePhoneResponse
 import okhttp3.MultipartBody
@@ -44,4 +45,10 @@ interface ProfileRepository {
         password: String,
         phone: String,
     ): UpdatePhoneResponse
+
+    suspend fun updateEmail(
+        token: String,
+        password: String,
+        email: String,
+    ): UpdateEmailResponse
 }

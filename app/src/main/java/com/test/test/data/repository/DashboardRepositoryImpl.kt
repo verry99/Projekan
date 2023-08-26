@@ -7,8 +7,10 @@ import androidx.paging.PagingData
 import androidx.paging.liveData
 import com.test.test.data.remote.api.DashboardService
 import com.test.test.data.remote.dto.dashboard.DashboardResponse
+import com.test.test.data.remote.dto.gallery.GalleryResponseItem
 import com.test.test.data.remote.dto.notification.NotificationResponseItem
 import com.test.test.data.remote.dto.notification.detail.DetailNotificationResponse
+import com.test.test.data.remote.paging_source.GalleryPagingSource
 import com.test.test.data.remote.paging_source.NotificationPagingSource
 import com.test.test.domain.repository.DashboardRepository
 import javax.inject.Inject
@@ -34,5 +36,16 @@ class DashboardRepositoryImpl @Inject constructor(
 
     override suspend fun getDetailNotification(token: String, id: Int): DetailNotificationResponse {
         return dashboardService.getDetailNotification(token, id)
+    }
+
+    override fun getAllGallery(token: String): LiveData<PagingData<GalleryResponseItem>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 10
+            ),
+            pagingSourceFactory = {
+                GalleryPagingSource(dashboardService, token)
+            }
+        ).liveData
     }
 }

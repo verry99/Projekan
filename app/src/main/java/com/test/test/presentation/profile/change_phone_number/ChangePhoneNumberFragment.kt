@@ -15,16 +15,15 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ChangePhoneNumberFragment : Fragment(), View.OnClickListener {
 
-    private var _binding: FragmentChangePhoneNumberBinding? = null
+    private lateinit var binding: FragmentChangePhoneNumberBinding
     private val viewModel: ChangePhoneNumberViewModel by viewModels()
-    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentChangePhoneNumberBinding.inflate(inflater, container, false)
+        binding = FragmentChangePhoneNumberBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -113,10 +112,5 @@ class ChangePhoneNumberFragment : Fragment(), View.OnClickListener {
             R.id.btn_back -> findNavController().navigateUp()
             R.id.btn_simpan -> updatePhone()
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

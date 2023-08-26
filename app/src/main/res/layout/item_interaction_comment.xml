@@ -32,6 +32,21 @@
                 tools:text="Nama Lengkap" />
 
             <TextView
+                android:id="@+id/tv_is_verified"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="4dp"
+                android:background="@drawable/green_background_radius"
+                android:fontFamily="@font/inter_semibold"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="2dp"
+                android:text="@string/verified"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                android:visibility="gone" />
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="4dp"
