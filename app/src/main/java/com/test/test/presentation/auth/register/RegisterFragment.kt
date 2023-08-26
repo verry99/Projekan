@@ -105,14 +105,17 @@ class RegisterFragment : Fragment(), View.OnClickListener {
                     val passwordConfirmation = binding.edtPasswordConfirm.text.toString()
                     val deviceToken = task.result
 
-                    viewModel.register(
-                        name,
-                        email,
-                        phone,
-                        password,
-                        passwordConfirmation,
-                        deviceToken
-                    )
+                    FirebaseMessaging.getInstance().subscribeToTopic("post").addOnCompleteListener {
+                        Log.e("#registerfrag", "successfully subscribe FCM topic post")
+                        viewModel.register(
+                            name,
+                            email,
+                            phone,
+                            password,
+                            passwordConfirmation,
+                            deviceToken
+                        )
+                    }
                 }
             }
 

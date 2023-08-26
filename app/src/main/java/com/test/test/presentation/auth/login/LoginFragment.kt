@@ -1,6 +1,7 @@
 package com.test.test.presentation.auth.login
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -106,7 +107,10 @@ class LoginFragment : Fragment(), View.OnClickListener {
                     val password = binding.edtPassword.text.toString()
                     val deviceToken = task.result
 
-                    viewModel.login(email, password, deviceToken)
+                    FirebaseMessaging.getInstance().subscribeToTopic("post").addOnCompleteListener {
+                        Log.e("#loginfrag", "successfully subscribe FCM topic post")
+                        viewModel.login(email, password, deviceToken)
+                    }
                 }
             }
 
