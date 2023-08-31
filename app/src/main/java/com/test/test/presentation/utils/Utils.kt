@@ -67,7 +67,7 @@ fun reduceFileImage(file: File): File {
 }
 
 fun convertToDayFirst(inputDate: String): String {
-    val inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+    val inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'")
     val outputFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy")
 
     val date = LocalDate.parse(inputDate, inputFormat)
@@ -96,7 +96,7 @@ fun convertToJakartaTime(originalDateTimeString: String): String {
 fun convertToHumanReadableDate(inputDate: String): String {
     val jakartaDate = convertToJakartaTime(inputDate)
 
-    val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+    val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
 
     val date = inputFormat.parse(jakartaDate)!!
 
@@ -110,7 +110,7 @@ fun convertToHumanReadableDate(inputDate: String): String {
 @SuppressLint("SimpleDateFormat")
 fun convertToNormalDate(inputDate: String): String {
 
-    val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+    val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     val date = inputFormat.parse(inputDate)!!
 
     val outputFormat = SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault())
@@ -119,8 +119,9 @@ fun convertToNormalDate(inputDate: String): String {
 
 @SuppressLint("SimpleDateFormat")
 fun convertToFullDate(inputDate: String): String {
-    val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-    val date = inputFormat.parse(inputDate)!!
+    val jakartaDate = convertToJakartaTime(inputDate)
+    val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    val date = inputFormat.parse(jakartaDate)!!
 
     val indonesianLocale = Locale("id", "ID")
     val dayFormat = SimpleDateFormat("EEEE", indonesianLocale)

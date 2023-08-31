@@ -67,8 +67,14 @@ class LoginFragment : Fragment(), View.OnClickListener {
 
             isValid.observe(viewLifecycleOwner) {
                 if (it) {
+                    val topics = listOf("post", viewModel.role.value!!)
+                    for (topic in topics) {
+                        FirebaseMessaging.getInstance().subscribeToTopic(topic)
+                            .addOnCompleteListener {
+                                Log.e("#loginfrag", "Subscribed to FCM topic: $topic")
+                            }
+                    }
                     findNavController().navigate(R.id.action_loginFragment_to_onBoardingFragment)
-                    setIsValid(false)
                 }
             }
 
@@ -101,15 +107,16 @@ class LoginFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.btn_login -> {
-
                 FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
-                    val email = binding.edtEmail.text.toString()
-                    val password = binding.edtPassword.text.toString()
-                    val deviceToken = task.result
-
-                    FirebaseMessaging.getInstance().subscribeToTopic("post").addOnCompleteListener {
-                        Log.e("#loginfrag", "successfully subscribe FCM topic post")
+                    if (task.isSuccessful) {
+                        val email = binding.edtEmail.text.toString()
+                        val password = binding.edtPassword.text.toString()
+                        val deviceToken = task.result
+                        Log.e("#logfrag", deviceToken)
                         viewModel.login(email, password, deviceToken)
+
+                    } else {
+                        println("Failed to get FCM token: ${task.exception}")
                     }
                 }
             }

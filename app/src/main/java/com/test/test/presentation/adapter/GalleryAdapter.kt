@@ -40,10 +40,6 @@ class GalleryAdapter(private val fragmentManager: FragmentManager) :
                     .with(itemView)
                     .load(gallery.image)
                     .into(img)
-
-                gallery.description?.let {
-
-                }
             }
 
             setUpActionListener(gallery)
@@ -53,7 +49,7 @@ class GalleryAdapter(private val fragmentManager: FragmentManager) :
             itemView.setOnClickListener {
                 val url = gallery.image ?: ""
                 val popupFragment =
-                    PopUpProofImageFragment.newInstance(url, gallery.description)
+                    PopUpProofImageFragment.newInstance(url, gallery.title)
                 popupFragment.show(fragmentManager, "my_popup")
             }
         }

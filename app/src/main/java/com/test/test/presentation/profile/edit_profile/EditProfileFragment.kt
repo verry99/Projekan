@@ -102,7 +102,7 @@ class EditProfileFragment : Fragment(), View.OnClickListener, AdapterView.OnItem
                         SimpleDateFormat("dd-MM-yyyy", Locale.US).format(Date(selectedDate))
                 }
 
-                datePicker.show(parentFragmentManager, "Edit Profile");
+                datePicker.show(parentFragmentManager, "Edit Profile")
             }
 
             R.id.btn_simpan -> {
@@ -447,7 +447,7 @@ class EditProfileFragment : Fragment(), View.OnClickListener, AdapterView.OnItem
             binding.spinnerStatusPerkawinan.selectedItem.toString()
                 .toRequestBody("text/plain".toMediaType())
         }
-        Log.e("#edproffrag", "${binding.spinnerStatusPerkawinan.selectedItem.toString()}")
+        Log.e("#edproffrag", "${binding.spinnerStatusPerkawinan.selectedItem}")
         viewModel.updateProfile(
             photo,
             nik,

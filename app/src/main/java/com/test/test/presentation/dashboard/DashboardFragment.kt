@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -126,6 +127,7 @@ class DashboardFragment : Fragment(), View.OnClickListener {
 
             banners.observe(viewLifecycleOwner) {
                 if (!it.isNullOrEmpty()) {
+                    Log.e("#dashfrag", "$it")
                     val imageList = ArrayList<SlideModel>()
                     for (banner in it) {
                         imageList.add(
@@ -142,27 +144,39 @@ class DashboardFragment : Fragment(), View.OnClickListener {
                         carouselShimmer.visibility = View.GONE
                         carouselView.visibility = View.VISIBLE
                     }
+                } else {
+                    binding.apply {
+                        carouselShimmer.stopShimmer()
+                        carouselShimmer.visibility = View.GONE
+                        carouselView.visibility = View.VISIBLE
+                    }
                 }
             }
 
             news.observe(viewLifecycleOwner) {
-                if (!it.isNullOrEmpty()) {
-                    binding.apply {
+                binding.apply {
+                    if (!it.isNullOrEmpty()) {
                         rvBerita.adapter = NewsAdapter(it)
                         rvBeritaShimmer.stopShimmer()
                         rvBeritaShimmer.visibility = View.GONE
                         rvBerita.visibility = View.VISIBLE
+                    } else {
+                        rvBeritaShimmer.stopShimmer()
+                        rvBeritaShimmer.visibility = View.GONE
                     }
                 }
             }
 
             opinion.observe(viewLifecycleOwner) {
-                if (!it.isNullOrEmpty()) {
-                    binding.apply {
+                binding.apply {
+                    if (!it.isNullOrEmpty()) {
                         rvOpini.adapter = OpinionAdapter(it)
                         rvOpiniShimmer.stopShimmer()
                         rvOpiniShimmer.visibility = View.GONE
                         rvOpini.visibility = View.VISIBLE
+                    } else {
+                        rvOpiniShimmer.stopShimmer()
+                        rvOpiniShimmer.visibility = View.GONE
                     }
                 }
             }

@@ -12,7 +12,7 @@ import com.test.test.common.Constants.IMAGE_URL
 import com.test.test.data.remote.dto.analysis.get_item_by_area.AnalysisDataByAreaResponseItem
 import com.test.test.databinding.ItemDataByAreaBinding
 
-class AnalysisAreaSupporterAdapter() :
+class AnalysisAreaSupporterAdapter :
     PagingDataAdapter<AnalysisDataByAreaResponseItem, AnalysisAreaSupporterAdapter.ItemViewHolder>(
         DIFF_CALLBACK
     ) {

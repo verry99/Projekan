@@ -1,6 +1,7 @@
 package com.test.test.presentation.splash
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,10 +48,13 @@ class SplashFragment : Fragment() {
                         val bottomNavigationView =
                             requireActivity().findViewById<BottomNavigationView>(R.id.nav_view)
                         bottomNavigationView.menu.clear()
-                        if (it.role != "admin") {
-                            bottomNavigationView.inflateMenu(R.menu.regular_user_bottom_nav_menu)
-                        } else {
-                            bottomNavigationView.inflateMenu(R.menu.bottom_nav_menu)
+                        Log.e("#splash", it.toString())
+                        if (it.role.isNotEmpty()) {
+                            if (it.role != "admin") {
+                                bottomNavigationView.inflateMenu(R.menu.regular_user_bottom_nav_menu)
+                            } else {
+                                bottomNavigationView.inflateMenu(R.menu.bottom_nav_menu)
+                            }
                         }
                         findNavController().navigate(R.id.action_splashFragment_to_dashboardFragment)
                     }

@@ -198,15 +198,19 @@ class AnalysisFragment : Fragment(), View.OnClickListener {
                     }
 
                     data.supporter?.let {
-                        val xValues = it.xValues
-                        val yValues = it.yValues.map { yValue -> yValue.toFloat() }
-                        setUpLineChartSupporter(xValues, yValues)
+                        if (it.xValues.isNotEmpty() && it.yValues.isNotEmpty()) {
+                            val xValues = it.xValues
+                            val yValues = it.yValues.map { yValue -> yValue.toFloat() }
+                            setUpLineChartSupporter(xValues, yValues)
+                        }
                     }
 
                     data.volunteer?.let {
-                        val xValues = it.xValues
-                        val yValues = it.yValues.map { yValue -> yValue.toFloat() }
-                        setUpLineChartVolunteer(xValues, yValues)
+                        if (it.xValues.isNotEmpty() && it.yValues.isNotEmpty()) {
+                            val xValues = it.xValues
+                            val yValues = it.yValues.map { yValue -> yValue.toFloat() }
+                            setUpLineChartVolunteer(xValues, yValues)
+                        }
                     }
 
                     data.age?.let {
@@ -402,7 +406,7 @@ class AnalysisFragment : Fragment(), View.OnClickListener {
             (0 + barChart.barData.getGroupWidth(groupSpace, barSpace) * xValues.size)
         barChart.axisLeft.axisMinimum = 0f
         barChart.groupBars(0f, groupSpace, barSpace)
-        barChart.setFitBars(true);
+        barChart.setFitBars(true)
         barChart.animateY(1000)
         barChart.invalidate()
     }

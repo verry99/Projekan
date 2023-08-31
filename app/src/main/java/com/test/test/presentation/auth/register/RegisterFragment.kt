@@ -66,6 +66,14 @@ class RegisterFragment : Fragment(), View.OnClickListener {
 
             isValid.observe(viewLifecycleOwner) {
                 if (it) {
+                    val topics = listOf("post", viewModel.role.value!!)
+
+                    for (topic in topics) {
+                        FirebaseMessaging.getInstance().subscribeToTopic(topic)
+                            .addOnCompleteListener {
+                                Log.e("#loginfrag", "Subscribed to FCM topic: $topic")
+                            }
+                    }
                     findNavController().navigate(R.id.action_registerFragment_to_onBoardingFragment)
                 }
             }
@@ -105,17 +113,14 @@ class RegisterFragment : Fragment(), View.OnClickListener {
                     val passwordConfirmation = binding.edtPasswordConfirm.text.toString()
                     val deviceToken = task.result
 
-                    FirebaseMessaging.getInstance().subscribeToTopic("post").addOnCompleteListener {
-                        Log.e("#registerfrag", "successfully subscribe FCM topic post")
-                        viewModel.register(
-                            name,
-                            email,
-                            phone,
-                            password,
-                            passwordConfirmation,
-                            deviceToken
-                        )
-                    }
+                    viewModel.register(
+                        name,
+                        email,
+                        phone,
+                        password,
+                        passwordConfirmation,
+                        deviceToken
+                    )
                 }
             }
 

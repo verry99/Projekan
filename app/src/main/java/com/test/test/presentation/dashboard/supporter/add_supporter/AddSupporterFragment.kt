@@ -196,7 +196,7 @@ class AddSupporterFragment : Fragment(), View.OnClickListener, AdapterView.OnIte
                         SimpleDateFormat("dd-MM-yyyy", Locale.US).format(Date(selectedDate))
                 }
 
-                datePicker.show(parentFragmentManager, "Edit Profile");
+                datePicker.show(parentFragmentManager, "Edit Profile")
             }
 
             R.id.btn_simpan -> {

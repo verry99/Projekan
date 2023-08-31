@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.test.test.R
 import com.test.test.common.Constants.IMAGE_URL
+import com.test.test.data.remote.dto.real_counts.detail.Rival
 import com.test.test.databinding.FragmentDetailRealCountBinding
 import com.test.test.presentation.adapter.RivalAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -65,8 +66,13 @@ class DetailRealCountFragment : Fragment(), View.OnClickListener {
                     tvTps.text = it.data.tps
                     tvKecamatan.text = it.data.subdistrict
                     tvDesa.text = it.data.vilage
-
-                    binding.rvSuaraRival.adapter = RivalAdapter(it.data.rivals)
+                    val susanto = Rival(
+                        "SUSANTO BUDI RAHARJO, S.H., M.HM",
+                        it.data.count!!.toInt()
+                    )
+                    val rivals: List<Rival> =
+                        listOf(susanto) + it.data.rivals
+                    binding.rvSuaraRival.adapter = RivalAdapter(rivals)
                 }
             }
 

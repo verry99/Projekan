@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.test.test.R
+import com.test.test.common.Constants.IMAGE_URL
 import com.test.test.databinding.FragmentDetailNotificationBinding
 import com.test.test.presentation.utils.convertToFullDate
 import dagger.hilt.android.AndroidEntryPoint
@@ -44,7 +45,7 @@ class DetailNotificationFragment : Fragment(), View.OnClickListener {
                     data.image?.let {
                         binding.cardContainer.visibility = View.VISIBLE
                         Glide.with(requireContext())
-                            .load(data.image)
+                            .load(IMAGE_URL + "/" + data.image)
                             .into(binding.img)
                     }
 

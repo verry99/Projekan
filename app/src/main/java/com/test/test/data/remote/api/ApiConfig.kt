@@ -1,26 +1,18 @@
 package com.test.test.data.remote.api
 
 import com.test.test.common.Constants
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.TimeUnit
 
 object ApiConfig {
     private val loggingInterceptor =
         HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
 
-    private fun createRetrofit(baseUrl: String, headersInterceptor: Interceptor? = null): Retrofit {
+    private fun createRetrofit(baseUrl: String): Retrofit {
         val client = OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
-            .apply {
-                headersInterceptor?.let { addInterceptor(it) }
-            }
-            .connectTimeout(30, TimeUnit.SECONDS) // Set connection timeout
-            .readTimeout(30, TimeUnit.SECONDS)    // Set read timeout
-            .writeTimeout(30, TimeUnit.SECONDS)   // Set write timeout
             .build()
 
         return Retrofit.Builder()

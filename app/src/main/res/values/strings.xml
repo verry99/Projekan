@@ -1,6 +1,6 @@
 <resources>
     <!--  General  -->
-    <string name="app_name">e-susanto</string>
+    <string name="app_name">e-Susanto</string>
     <string name="beranda">Beranda</string>
     <string name="analisis">Analisis</string>
     <string name="berita">Berita</string>
@@ -224,7 +224,8 @@
     <string name="informasi_tps">Informasi TPS</string>
     <string name="perolehan_suara">Perolehan Suara</string>
     <string name="suara_required">Suara*</string>
-    <string name="caleg">Caleg*</string>
+    <string name="caleg">Caleg</string>
+    <string name="caleg_required">Caleg*</string>
     <string name="lihat_hasil">Lihat Hasil</string>
     <string name="hasil_real_count_caleg">Hasil Real Count\nCaleg</string>
     <string name="hasil">Hasil</string>

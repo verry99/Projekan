@@ -1,9 +1,11 @@
 package com.test.test.presentation.dashboard.interaction.detail_interaction
 
+import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -96,6 +98,12 @@ class DetailInteractionFragment : Fragment(), View.OnClickListener {
 
             addCommentSuccess.observe(viewLifecycleOwner) {
                 if (it) {
+                    Toast.makeText(
+                        requireContext(),
+                        "Berhasil menambahkan komentar.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
                     binding.edtComment.setText("")
                     viewModel.fetchComment()
                     comment.observe(viewLifecycleOwner) {
@@ -117,6 +125,7 @@ class DetailInteractionFragment : Fragment(), View.OnClickListener {
                     binding.apply {
                         btnSendComment.visibility = View.GONE
                         progressBarAddComment.visibility = View.VISIBLE
+                        hideKeyboard()
                     }
                 } else {
                     binding.apply {
@@ -126,6 +135,12 @@ class DetailInteractionFragment : Fragment(), View.OnClickListener {
                 }
             }
         }
+    }
+
+    private fun hideKeyboard() {
+        val inputMethodManager =
+            requireActivity().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(binding.edtComment.windowToken, 0)
     }
 
     private fun setUpActionListeners() {

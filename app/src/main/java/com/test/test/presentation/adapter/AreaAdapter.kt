@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.test.test.data.remote.dto.volunteer.detail_volunteer.Area
 import com.test.test.databinding.ItemTableSupporterBinding
 import com.test.test.presentation.utils.formatNumber
+import java.util.Locale
 
 class AreaAdapter(private val data: List<Area?>?) :
     RecyclerView.Adapter<AreaAdapter.ItemViewHolder>() {
@@ -35,7 +36,11 @@ class AreaAdapter(private val data: List<Area?>?) :
         fun bind(area: Area) {
             binding.apply {
                 tvRegion.text =
-                    area.name?.lowercase()!!.split(" ").joinToString(" ") { it.capitalize() }
+                    area.name?.lowercase()!!.split(" ").joinToString(" ") { it.replaceFirstChar {
+                        if (it.isLowerCase()) it.titlecase(
+                            Locale.getDefault()
+                        ) else it.toString()
+                    } }
                 tvSupporterNumberMale.text =
                     formatNumber((area.gender!!.l?.toString() ?: "0").toLong())
                 tvSupporterNumberFemale.text =

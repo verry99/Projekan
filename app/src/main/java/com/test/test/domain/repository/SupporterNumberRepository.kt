@@ -1,5 +1,3 @@
 package com.test.test.domain.repository
 
-interface SupporterNumberRepository {
-
-}
+interface SupporterNumberRepository

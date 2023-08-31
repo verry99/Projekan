@@ -235,7 +235,7 @@ class DetailVolunteerFragment : Fragment(), View.OnClickListener {
             (0 + barChart.barData.getGroupWidth(groupSpace, barSpace) * xValues.size)
         barChart.axisLeft.axisMinimum = 0f
         barChart.groupBars(0f, groupSpace, barSpace)
-        barChart.setFitBars(true);
+        barChart.setFitBars(true)
         barChart.animateY(1000)
         barChart.invalidate()
     }

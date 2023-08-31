@@ -42,7 +42,7 @@ class VolunteerAdapter :
                         "${volunteer.profile.village?.uppercase()}, ${volunteer.profile.subdistrict?.uppercase()}, ${volunteer.profile.regency?.uppercase()}"
 
                     it.photo?.let {
-                        Glide.with(binding.root).load(IMAGE_URL + volunteer.profile.photo)
+                        Glide.with(binding.root).load(IMAGE_URL + "/" + volunteer.profile.photo)
                             .into(binding.imgProfile)
                     }
                 }

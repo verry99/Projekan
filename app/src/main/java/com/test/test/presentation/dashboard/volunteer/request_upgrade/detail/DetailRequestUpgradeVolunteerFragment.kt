@@ -12,13 +12,13 @@ import com.bumptech.glide.Glide
 import com.test.test.R
 import com.test.test.common.Constants.IMAGE_URL
 import com.test.test.databinding.FragmentDetailVolunteerApprovalBinding
+import com.test.test.presentation.utils.convertToDayFirst
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class DetailRequestUpgradeVolunteerFragment : Fragment(), View.OnClickListener {
 
-    private var _binding: FragmentDetailVolunteerApprovalBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentDetailVolunteerApprovalBinding
     private val viewModel: DetailRequestUpgradeVolunteerViewModel by viewModels()
 
     override fun onCreateView(
@@ -26,7 +26,7 @@ class DetailRequestUpgradeVolunteerFragment : Fragment(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentDetailVolunteerApprovalBinding.inflate(inflater, container, false)
+        binding = FragmentDetailVolunteerApprovalBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -115,9 +115,13 @@ class DetailRequestUpgradeVolunteerFragment : Fragment(), View.OnClickListener {
                         edtNik.setText(it.profile.nik)
                         edtNama.setText(it.profile.name)
                         edtNoHp.setText(it.user!!.phone)
-                        edtEmail.setText(it.user.email)
                         edtTempatLahir.setText(it.profile.placeOfBirth)
-                        tvTanggalLahir.text = it.profile.dateOfBirth
+                        edtEmail.setText(it.user.email)
+                        try {
+                            tvTanggalLahir.text = convertToDayFirst(it.profile.dateOfBirth!!)
+                        } catch (e: Exception) {
+                            tvTanggalLahir.text = it.profile.dateOfBirth
+                        }
                         edtAlamat.setText(it.profile.address)
                         edtRt.setText(it.profile.rt)
                         edtRw.setText(it.profile.rw)
@@ -127,17 +131,10 @@ class DetailRequestUpgradeVolunteerFragment : Fragment(), View.OnClickListener {
                         edtKabupaten.setText(it.profile.regency)
                         edtKecamatan.setText(it.profile.subdistrict)
                         edtDesa.setText(it.profile.village)
-                        edtAgama.setText(it.profile.religion)
-                        edtStatusPerkawinan.setText(it.profile.marialState)
                         edtAlasan.setText(it.reason)
                     }
                 }
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

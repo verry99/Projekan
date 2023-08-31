@@ -17,18 +17,18 @@ class GalleryPagingSource(
         }
     }
 
-    override suspend fun load(params: PagingSource.LoadParams<Int>): PagingSource.LoadResult<Int, GalleryResponseItem> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, GalleryResponseItem> {
         return try {
             val position = params.key ?: INITIAL_PAGE_INDEX
             val responseData =
                 dashboardService.getAllGallery(token, position).data!!.gallery!!
-            PagingSource.LoadResult.Page(
+            LoadResult.Page(
                 data = responseData,
                 prevKey = if (position == INITIAL_PAGE_INDEX) null else position - 1,
                 nextKey = if (responseData.isEmpty()) null else position + 1
             )
         } catch (exception: Exception) {
-            return PagingSource.LoadResult.Error(exception)
+            return LoadResult.Error(exception)
         }
     }
 

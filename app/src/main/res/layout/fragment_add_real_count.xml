@@ -171,14 +171,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/caleg" />
+                        android:text="@string/caleg_required" />
 
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:text="@string/suara_required" />
 
                 </LinearLayout>

@@ -53,9 +53,9 @@ class DashboardViewModel @Inject constructor(
                             _banners.value =
                                 response.data!!.banners?.map { banner -> banner.toModel() }
                             _news.value =
-                                response.data.posts?.berita?.map { news -> news.toModel() }
+                                response.data.berita?.map { news -> news.toModel() }
                             _opinion.value =
-                                response.data.posts?.opini?.map { opinion -> opinion.toModel() }
+                                response.data.opini?.map { opinion -> opinion.toModel() }
                             response.data.notification?.let {
                                 _notification.value = it
                             }
