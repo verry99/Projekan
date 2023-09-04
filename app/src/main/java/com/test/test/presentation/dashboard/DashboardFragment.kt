@@ -18,8 +18,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.denzcoskun.imageslider.constants.ScaleTypes
-import com.denzcoskun.imageslider.models.SlideModel
 import com.test.test.R
 import com.test.test.common.Constants
 import com.test.test.databinding.FragmentDashboardBinding
@@ -27,6 +25,7 @@ import com.test.test.presentation.adapter.NewsAdapter
 import com.test.test.presentation.adapter.OpinionAdapter
 import com.test.test.presentation.utils.getGreetingText
 import dagger.hilt.android.AndroidEntryPoint
+import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 
 @AndroidEntryPoint
 class DashboardFragment : Fragment(), View.OnClickListener {
@@ -57,6 +56,7 @@ class DashboardFragment : Fragment(), View.OnClickListener {
         setUpActionListener()
         setUpRecyclerView()
         setUpLiveDataObserver()
+        binding.carouselView.registerLifecycle(lifecycle)
 
         when (PackageManager.PERMISSION_GRANTED) {
             ContextCompat.checkSelfPermission(
@@ -126,22 +126,45 @@ class DashboardFragment : Fragment(), View.OnClickListener {
             }
 
             banners.observe(viewLifecycleOwner) {
+//                if (!it.isNullOrEmpty()) {
+//                    val imageList = ArrayList<SlideModel>()
+//                    for (banner in it) {
+//                        imageList.add(
+//                            SlideModel(
+//                                Constants.IMAGE_URL + "/" + banner.urlToImage,
+//                                banner.title
+//                            )
+//                        )
+//                    }
+//
+//                    binding.apply {
+//                        carouselView.setImageList(imageList, ScaleTypes.CENTER_CROP)
+//                        carouselShimmer.stopShimmer()
+//                        carouselShimmer.visibility = View.GONE
+//                        carouselView.visibility = View.VISIBLE
+//                    }
+//                } else {
+//                    binding.apply {
+//                        carouselShimmer.stopShimmer()
+//                        carouselShimmer.visibility = View.GONE
+//                        carouselView.visibility = View.VISIBLE
+//                    }
+//                }
+
                 if (!it.isNullOrEmpty()) {
-                    Log.e("#dashfrag", "$it")
-                    val imageList = ArrayList<SlideModel>()
+                    val imageList = mutableListOf<CarouselItem>()
                     for (banner in it) {
                         imageList.add(
-                            SlideModel(
+                            CarouselItem(
                                 Constants.IMAGE_URL + "/" + banner.urlToImage,
                                 banner.title
                             )
                         )
                     }
-
                     binding.apply {
-                        carouselView.setImageList(imageList, ScaleTypes.CENTER_CROP)
                         carouselShimmer.stopShimmer()
                         carouselShimmer.visibility = View.GONE
+                        carouselView.setData(imageList)
                         carouselView.visibility = View.VISIBLE
                     }
                 } else {
@@ -255,7 +278,9 @@ class DashboardFragment : Fragment(), View.OnClickListener {
             R.id.btn_profil_sbr -> findNavController().navigate(R.id.action_dashboardFragment_to_profileSBRFragment)
             R.id.btn_jadwal -> {
                 val action =
-                    DashboardFragmentDirections.actionDashboardFragmentToScheduleFragment(viewModel.user.value!!.accessToken)
+                    DashboardFragmentDirections.actionDashboardFragmentToScheduleFragment(
+                        viewModel.user.value!!.accessToken
+                    )
                 findNavController().navigate(action)
             }
 

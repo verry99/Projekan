@@ -37,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_bold"
                     android:paddingEnd="24dp"
-                    android:text="@string/tambah_real_count"
+                    android:text="@string/tambah_suara_partai"
                     android:textAlignment="center"
                     tools:ignore="RtlSymmetry" />
 

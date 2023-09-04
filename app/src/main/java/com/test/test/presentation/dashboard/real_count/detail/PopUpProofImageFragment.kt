@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.bumptech.glide.Glide
+import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.SimpleExoPlayer
 import com.test.test.R
 import com.test.test.databinding.FragmentPopupProofImageBinding
 
@@ -39,8 +41,27 @@ class PopUpProofImageFragment : DialogFragment() {
         val imageUrl = arguments?.getString(IMG_URL)
         val desc = arguments?.getString(DESC) ?: ""
 
-        Glide.with(requireContext()).load(imageUrl).into(binding.img)
+        if (imageUrl!!.endsWith(".mp4")) {
+            binding.img.visibility = View.GONE
+            setUpExoPlayer(imageUrl)
+        } else {
+            binding.playerView.visibility = View.GONE
+            Glide.with(requireContext()).load(imageUrl).into(binding.img)
+        }
         binding.tvDescription.text = desc
+    }
+
+    private fun setUpExoPlayer(videoUri: String) {
+        val player = SimpleExoPlayer.Builder(requireContext()).build()
+
+        val playerView = binding.playerView
+        playerView.player = player
+
+        val mediaItem = MediaItem.fromUri(videoUri)
+        player.setMediaItem(mediaItem)
+
+        player.prepare()
+        player.play()
     }
 
     companion object {

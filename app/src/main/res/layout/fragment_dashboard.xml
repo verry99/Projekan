@@ -118,18 +118,26 @@
 
             </com.facebook.shimmer.ShimmerFrameLayout>
 
-            <com.denzcoskun.imageslider.ImageSlider
+<!--            <com.denzcoskun.imageslider.ImageSlider-->
+<!--                android:id="@+id/carouselView"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:visibility="gone"-->
+<!--                app:iss_auto_cycle="true"-->
+<!--                app:iss_delay="0"-->
+<!--                app:iss_error_image="@color/gray"-->
+<!--                app:iss_period="3000"-->
+<!--                app:iss_placeholder="@color/gray"-->
+<!--                -->
+<!--                app:iss_selected_dot="@drawable/ic_selected_dot"-->
+<!--                app:iss_unselected_dot="@drawable/ic_unselected_dot" />-->
+
+            <org.imaginativeworld.whynotimagecarousel.ImageCarousel
                 android:id="@+id/carouselView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                app:showTopShadow="false"
                 android:visibility="gone"
-                app:iss_auto_cycle="true"
-                app:iss_delay="0"
-                app:iss_error_image="@color/gray"
-                app:iss_period="3000"
-                app:iss_placeholder="@color/gray"
-                app:iss_selected_dot="@drawable/ic_selected_dot"
-                app:iss_unselected_dot="@drawable/ic_unselected_dot" />
+                android:layout_height="match_parent" />
 
         </androidx.cardview.widget.CardView>
 
