@@ -185,6 +185,7 @@ class DashboardFragment : Fragment(), View.OnClickListener {
                 if (it.isNotEmpty()) {
                     if (it == "expired") {
                         viewModel.logout()
+                        Log.e("#dashfrag", "log out")
                     } else {
                         Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
                     }
