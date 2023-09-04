@@ -1,5 +1,6 @@
 package com.test.test.presentation.dashboard
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,6 +12,7 @@ import com.test.test.domain.models.Post
 import com.test.test.domain.models.UserPref
 import com.test.test.domain.use_case.dashboard.GetDashboardUseCase
 import com.test.test.domain.use_case.user_pref.get_user.GetUserPreferenceUseCase
+import com.test.test.domain.use_case.user_pref.remove_user.RemoveUserPreferenceUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -20,7 +22,8 @@ import javax.inject.Inject
 @HiltViewModel
 class DashboardViewModel @Inject constructor(
     private val getUserPreferenceUseCase: GetUserPreferenceUseCase,
-    private val getDashboardUseCase: GetDashboardUseCase
+    private val getDashboardUseCase: GetDashboardUseCase,
+    private val removeUserPreferenceUseCase: RemoveUserPreferenceUseCase,
 ) : ViewModel() {
 
     private val _user = MutableLiveData<UserPref>()
@@ -40,6 +43,9 @@ class DashboardViewModel @Inject constructor(
 
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
+
+    private val _logout = MutableLiveData<Boolean>()
+    val logout: LiveData<Boolean> = _logout
 
     init {
         viewModelScope.launch {
@@ -75,6 +81,17 @@ class DashboardViewModel @Inject constructor(
     fun refreshUserPreference() {
         viewModelScope.launch {
             getUserPreferenceUseCase().let { _user.value = it }
+        }
+    }
+
+    fun logout() {
+        viewModelScope.launch {
+            try {
+                removeUserPreferenceUseCase()
+                _logout.value = true
+            } catch (e: Exception) {
+                Log.e("#dashboardvm", "$e")
+            }
         }
     }
 }

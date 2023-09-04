@@ -21,10 +21,14 @@ class GetDashboardUseCase @Inject constructor(
         } catch (e: HttpException) {
             when (e.code()) {
                 in 400..499 -> {
-                    e.response()?.errorBody()?.string()?.let {
-                        val errorObj = JSONObject(it)
-                        val errorMessage = errorObj.optString("message", "Unknown Error")
-                        emit(Resource.Error(errorMessage))
+                    if (e.code() == 401) {
+                        emit(Resource.Error("expired"))
+                    } else {
+                        e.response()?.errorBody()?.string()?.let {
+                            val errorObj = JSONObject(it)
+                            val errorMessage = errorObj.optString("message", "Unknown Error")
+                            emit(Resource.Error(errorMessage))
+                        }
                     }
                 }
 

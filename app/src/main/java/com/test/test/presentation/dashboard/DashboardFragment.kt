@@ -183,7 +183,19 @@ class DashboardFragment : Fragment(), View.OnClickListener {
 
             errorMessage.observe(viewLifecycleOwner) {
                 if (it.isNotEmpty()) {
-                    Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+                    if (it == "expired") {
+                        viewModel.logout()
+                    } else {
+                        Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
+            logout.observe(viewLifecycleOwner) {
+                if (it) {
+                    findNavController().navigate(R.id.action_dashboardFragment_to_loginFragment)
+                    Toast.makeText(requireContext(), "Please login first!", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
         }

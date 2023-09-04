@@ -60,6 +60,11 @@
         <action
             android:id="@+id/action_dashboardFragment_to_volunteerVolunteerFragment"
             app:destination="@id/volunteerVolunteerFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/dashboardFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
