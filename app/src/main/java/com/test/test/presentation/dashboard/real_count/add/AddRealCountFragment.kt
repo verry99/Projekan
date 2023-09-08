@@ -10,6 +10,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -30,12 +32,11 @@ import java.io.InputStream
 import java.io.OutputStream
 
 @AndroidEntryPoint
-class AddRealCountFragment : Fragment(), View.OnClickListener {
+class AddRealCountFragment : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedListener {
     private lateinit var binding: FragmentAddRealCountBinding
     private val viewModel: AddRealCountViewModel by viewModels()
     private val pairEditTextList = mutableListOf<LinearLayout>()
     private var getFile: File? = null
-    private val voiceList = mutableListOf<Int>()
     private val candidates = listOf(
         "RB. DWI WAHYU B. S.Pd M.Si",
         "EKO SUWANTO ST M.Si",
@@ -121,6 +122,8 @@ class AddRealCountFragment : Fragment(), View.OnClickListener {
             btnBack.setOnClickListener(this@AddRealCountFragment)
             btnKirim.setOnClickListener(this@AddRealCountFragment)
             btnLampiran.setOnClickListener(this@AddRealCountFragment)
+            spinnerKecamatan.onItemSelectedListener = this@AddRealCountFragment
+            spinnerDesa.onItemSelectedListener = this@AddRealCountFragment
         }
     }
 
@@ -143,6 +146,7 @@ class AddRealCountFragment : Fragment(), View.OnClickListener {
     private fun addRealCount() {
 
         val names = listOf(
+            "PDI PERJUANGAN",
             binding.suaraRival1.edtNamaLengkap.text.toString(),
             binding.suaraRival2.edtNamaLengkap.text.toString(),
             binding.suaraRival3.edtNamaLengkap.text.toString(),
@@ -150,9 +154,9 @@ class AddRealCountFragment : Fragment(), View.OnClickListener {
             binding.suaraRival6.edtNamaLengkap.text.toString(),
             binding.suaraRival7.edtNamaLengkap.text.toString()
         )
-
         val voices =
             listOf(
+                binding.edtSuaraPartai.text.toString(),
                 binding.suaraRival1.edtSuara.text.toString(),
                 binding.suaraRival2.edtSuara.text.toString(),
                 binding.suaraRival3.edtSuara.text.toString(),
@@ -173,30 +177,40 @@ class AddRealCountFragment : Fragment(), View.OnClickListener {
             return
         }
 
-        if (binding.edtTps.text.toString().isEmpty()) {
+        if (binding.spinnerTps.selectedItem == "Pilih Tps") {
             Toast.makeText(
                 requireContext(),
-                "Lengkapi TPS terlebih dahulu.",
+                "Pilih TPS terlebih dahulu.",
                 Toast.LENGTH_SHORT
             ).show()
 
             return
         }
 
-        if (binding.edtKecamatan.text.toString().isEmpty()) {
+        if (binding.spinnerKecamatan.selectedItem == "Pilih Kecamatan") {
             Toast.makeText(
                 requireContext(),
-                "Lengkapi Kecamatan terlebih dahulu.",
+                "Pilih Kecamatan terlebih dahulu.",
                 Toast.LENGTH_SHORT
             ).show()
 
             return
         }
 
-        if (binding.edtDesa.text.toString().isEmpty()) {
+        if (binding.spinnerDesa.selectedItem == "Pilih Kelurahan") {
             Toast.makeText(
                 requireContext(),
-                "Lengkapi Kelurahan/Desa terlebih dahulu.",
+                "Pilih Kelurahan/Desa terlebih dahulu.",
+                Toast.LENGTH_SHORT
+            ).show()
+
+            return
+        }
+
+        if (binding.edtSuaraPartai.text.isEmpty()) {
+            Toast.makeText(
+                requireContext(),
+                "Lengkapi perolehan suara partai terlebih dahulu.",
                 Toast.LENGTH_SHORT
             ).show()
 
@@ -236,13 +250,14 @@ class AddRealCountFragment : Fragment(), View.OnClickListener {
             binding.suaraRival5.edtSuara.text.toString().toRequestBody("text/plain".toMediaType())
 
         val tps =
-            binding.edtTps.text.toString().toRequestBody("text/plain".toMediaType())
+            binding.spinnerTps.selectedItem.toString().toRequestBody("text/plain".toMediaType())
 
         val subDistrict =
-            binding.edtKecamatan.text.toString().toRequestBody("text/plain".toMediaType())
+            binding.spinnerKecamatan.selectedItem.toString()
+                .toRequestBody("text/plain".toMediaType())
 
         val village =
-            binding.edtDesa.text.toString().toRequestBody("text/plain".toMediaType())
+            binding.spinnerDesa.selectedItem.toString().toRequestBody("text/plain".toMediaType())
 
         val name = names.joinToString { it }.toRequestBody("text/plain".toMediaType())
         val voice = voices.joinToString { it }.toRequestBody("text/plain".toMediaType())
@@ -260,6 +275,40 @@ class AddRealCountFragment : Fragment(), View.OnClickListener {
 
     private fun setUpLiveDataObserver() {
         viewModel.apply {
+
+            tps.observe(viewLifecycleOwner) {
+                val adapter =
+                    ArrayAdapter(
+                        requireContext(),
+                        android.R.layout.simple_spinner_item,
+                        it
+                    )
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                binding.spinnerTps.adapter = adapter
+            }
+
+            subDistrict.observe(viewLifecycleOwner) {
+                val itemList: List<String> = it.map { subDistrict -> subDistrict.name }
+                val adapter =
+                    ArrayAdapter(
+                        requireContext(),
+                        android.R.layout.simple_spinner_item,
+                        itemList
+                    )
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                binding.spinnerKecamatan.adapter = adapter
+            }
+            village.observe(viewLifecycleOwner) {
+                val itemList: List<String> = it.map { village -> village.name }
+                val adapter =
+                    ArrayAdapter(
+                        requireContext(),
+                        android.R.layout.simple_spinner_item,
+                        itemList
+                    )
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                binding.spinnerDesa.adapter = adapter
+            }
 
             success.observe(viewLifecycleOwner) {
                 if (it) {
@@ -309,4 +358,14 @@ class AddRealCountFragment : Fragment(), View.OnClickListener {
         binding.pairEditTextContainer.addView(pairLayout)
         pairEditTextList.add(pairLayout)
     }
+
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        val selectedSpinnerId = parent?.id
+        val selectedItem = parent?.getItemAtPosition(position).toString()
+        when (selectedSpinnerId) {
+            R.id.spinner_kecamatan -> viewModel.setSelectedSubDistrict(selectedItem)
+        }
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>?) {}
 }

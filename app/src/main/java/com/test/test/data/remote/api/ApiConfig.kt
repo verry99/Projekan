@@ -22,8 +22,8 @@ object ApiConfig {
             .build()
     }
 
-    fun getRegionApiService(): RegionService {
-        return createRetrofit(Constants.REGION_URL).create(RegionService::class.java)
+    fun getRegionApiService(): DivisionService {
+        return createRetrofit(Constants.REGION_URL).create(DivisionService::class.java)
     }
 
     fun getAuthApiService(): AuthService {

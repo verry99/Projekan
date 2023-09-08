@@ -36,7 +36,7 @@ class AreaAdapter(private val data: List<Area?>?) :
         fun bind(area: Area) {
             binding.apply {
                 tvRegion.text =
-                    area.name?.lowercase()!!.split(" ").joinToString(" ") { it.replaceFirstChar {
+                    area.name?: "".lowercase().split(" ").joinToString(" ") { it.replaceFirstChar {
                         if (it.isLowerCase()) it.titlecase(
                             Locale.getDefault()
                         ) else it.toString()

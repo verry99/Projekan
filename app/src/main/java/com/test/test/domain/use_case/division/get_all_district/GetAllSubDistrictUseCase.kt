@@ -5,7 +5,7 @@ import com.test.test.domain.models.Division.SubDistrict
 import com.test.test.domain.repository.DivisionRepository
 import javax.inject.Inject
 
-class GetAllDistrictUseCase @Inject constructor(
+class GetAllSubDistrictUseCase @Inject constructor(
     private val divisionRepository: DivisionRepository
 ) {
     //    operator fun invoke(regencyId: String): Flow<Result<List<SubDistrict>>> = flow {
@@ -20,6 +20,6 @@ class GetAllDistrictUseCase @Inject constructor(
 //        }
 //    }
     suspend operator fun invoke(regencyId: String): List<SubDistrict> {
-        return divisionRepository.getAllDistrict(regencyId).map { it.toModel() }
+        return divisionRepository.getAllSubDistrict(regencyId).map { it.toModel() }
     }
 }

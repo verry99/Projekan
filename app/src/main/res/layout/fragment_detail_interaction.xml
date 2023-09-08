@@ -78,7 +78,8 @@
                     android:layout_marginStart="4dp"
                     android:ellipsize="end"
                     android:fontFamily="@font/inter_semibold"
-                    android:maxWidth="200dp"
+                    android:maxLines="1"
+                    android:maxWidth="150dp"
                     android:textColor="@color/dark_gray"
                     tools:text="Nama Lengkap" />
 

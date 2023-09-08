@@ -40,7 +40,9 @@ class AnalysisAreaSupporterAdapter :
         @SuppressLint("SetTextI18n")
         fun bind(data: AnalysisDataByAreaResponseItem) {
             binding.apply {
-                tvNama.text = data.name
+                data.name?.let {
+                    tvNama.text = it
+                }
                 data.let {
                     tvLocation.text =
                         "${data.village?.uppercase()}, ${data.subdistrict?.uppercase()}, ${data.regency?.uppercase()}"

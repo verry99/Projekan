@@ -3,7 +3,7 @@ package com.test.test.di
 import android.content.Context
 import com.test.test.data.remote.api.AuthService
 import com.test.test.data.remote.api.DashboardService
-import com.test.test.data.remote.api.RegionService
+import com.test.test.data.remote.api.DivisionService
 import com.test.test.data.repository.AnalysisRepositoryImpl
 import com.test.test.data.repository.AuthRepositoryImpl
 import com.test.test.data.repository.DashboardRepositoryImpl
@@ -42,8 +42,8 @@ import javax.inject.Singleton
 object AppModule {
     @Provides
     @Singleton
-    fun provideRegionRepository(regionService: RegionService): DivisionRepository {
-        return DivisionRepositoryImpl(regionService)
+    fun provideRegionRepository(divisionService: DivisionService): DivisionRepository {
+        return DivisionRepositoryImpl(divisionService)
     }
 
     @Provides

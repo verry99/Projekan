@@ -5,15 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.ProcessLifecycleOwner
 import com.bumptech.glide.Glide
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.test.test.R
 import com.test.test.databinding.FragmentPopupProofImageBinding
+import com.test.test.presentation.dashboard.gallery.AppLifecycleObserver
 
 class PopUpProofImageFragment : DialogFragment() {
 
     private lateinit var binding: FragmentPopupProofImageBinding
+    private var player: SimpleExoPlayer? = null
 
     override fun getTheme(): Int = R.style.NoMarginsDialog
 
@@ -52,16 +55,24 @@ class PopUpProofImageFragment : DialogFragment() {
     }
 
     private fun setUpExoPlayer(videoUri: String) {
-        val player = SimpleExoPlayer.Builder(requireContext()).build()
+        player = SimpleExoPlayer.Builder(requireContext()).build()
+
+        val appLifecycleObserver = AppLifecycleObserver(player!!)
+        ProcessLifecycleOwner.get().lifecycle.addObserver(appLifecycleObserver)
 
         val playerView = binding.playerView
         playerView.player = player
 
         val mediaItem = MediaItem.fromUri(videoUri)
-        player.setMediaItem(mediaItem)
+        player?.setMediaItem(mediaItem)
 
-        player.prepare()
-        player.play()
+        player?.prepare()
+        player?.play()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        player?.release()
     }
 
     companion object {

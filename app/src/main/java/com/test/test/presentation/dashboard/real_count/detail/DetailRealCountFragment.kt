@@ -66,13 +66,24 @@ class DetailRealCountFragment : Fragment(), View.OnClickListener {
                     tvTps.text = it.data.tps
                     tvKecamatan.text = it.data.subdistrict
                     tvDesa.text = it.data.vilage
+
+                    val pdip = it.data.rivals.filter { it.name == "PDI PERJUANGAN" }
+                    val rivals = it.data.rivals.filter { it.name != "PDI PERJUANGAN" }
+
+                    try {
+                        binding.edtSuaraPartai.setText(pdip[0].suara.toString())
+                    } catch (e: Exception) {
+                    }
+
                     val susanto = Rival(
                         "SUSANTO BUDI RAHARJO, S.H., M.HM",
                         it.data.count!!.toInt()
                     )
-                    val rivals: List<Rival> =
-                        listOf(susanto) + it.data.rivals
-                    binding.rvSuaraRival.adapter = RivalAdapter(rivals)
+
+                    val sortedRivals =
+                        (listOf(susanto) + rivals).sortedByDescending { it.suara }
+
+                    binding.rvSuaraRival.adapter = RivalAdapter(sortedRivals)
                 }
             }
 

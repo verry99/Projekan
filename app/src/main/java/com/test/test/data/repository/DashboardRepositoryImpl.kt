@@ -10,6 +10,7 @@ import com.test.test.data.remote.dto.dashboard.DashboardResponse
 import com.test.test.data.remote.dto.gallery.GalleryResponseItem
 import com.test.test.data.remote.dto.notification.NotificationResponseItem
 import com.test.test.data.remote.dto.notification.detail.DetailNotificationResponse
+import com.test.test.data.remote.dto.region.TpsResponse
 import com.test.test.data.remote.paging_source.GalleryPagingSource
 import com.test.test.data.remote.paging_source.NotificationPagingSource
 import com.test.test.domain.repository.DashboardRepository
@@ -47,5 +48,9 @@ class DashboardRepositoryImpl @Inject constructor(
                 GalleryPagingSource(dashboardService, token)
             }
         ).liveData
+    }
+
+    override suspend fun getAllTps(token: String): TpsResponse {
+        return dashboardService.getAllTps(token)
     }
 }

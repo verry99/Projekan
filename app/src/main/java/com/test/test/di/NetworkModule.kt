@@ -3,7 +3,7 @@ package com.test.test.di
 import com.test.test.data.remote.api.ApiConfig
 import com.test.test.data.remote.api.AuthService
 import com.test.test.data.remote.api.DashboardService
-import com.test.test.data.remote.api.RegionService
+import com.test.test.data.remote.api.DivisionService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,7 +16,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRegionService(): RegionService {
+    fun provideRegionService(): DivisionService {
         return ApiConfig.getRegionApiService()
     }
 

@@ -6,6 +6,7 @@ import com.test.test.data.remote.dto.dashboard.DashboardResponse
 import com.test.test.data.remote.dto.gallery.GalleryResponseItem
 import com.test.test.data.remote.dto.notification.NotificationResponseItem
 import com.test.test.data.remote.dto.notification.detail.DetailNotificationResponse
+import com.test.test.data.remote.dto.region.TpsResponse
 
 interface DashboardRepository {
     suspend fun getDashboard(token: String): DashboardResponse
@@ -15,4 +16,6 @@ interface DashboardRepository {
     suspend fun getDetailNotification(token: String, id: Int): DetailNotificationResponse
 
     fun getAllGallery(token: String): LiveData<PagingData<GalleryResponseItem>>
+
+    suspend fun getAllTps(token: String): TpsResponse
 }

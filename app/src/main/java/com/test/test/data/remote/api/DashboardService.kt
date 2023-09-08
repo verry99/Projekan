@@ -21,6 +21,7 @@ import com.test.test.data.remote.dto.profile.update_phone.UpdatePhoneResponse
 import com.test.test.data.remote.dto.real_counts.RealCountsResponse
 import com.test.test.data.remote.dto.real_counts.add.AddRealCountResponse
 import com.test.test.data.remote.dto.real_counts.detail.DetailRealCountResponse
+import com.test.test.data.remote.dto.region.TpsResponse
 import com.test.test.data.remote.dto.schedule.ScheduleResponse
 import com.test.test.data.remote.dto.schedule.detail.DetailScheduleResponse
 import com.test.test.data.remote.dto.supporter.SupporterResponse
@@ -386,4 +387,9 @@ interface DashboardService {
         @Field("password") password: String,
         @Field("email") email: String,
     ): UpdateEmailResponse
+
+    @GET("tps")
+    suspend fun getAllTps(
+        @Header("Authorization") token: String,
+    ): TpsResponse
 }

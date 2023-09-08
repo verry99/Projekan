@@ -46,7 +46,10 @@ class RealCountResultFragment : Fragment() {
         val type: Type = object : TypeToken<List<Rival>>() {}.type
         val data: MutableList<Rival> = Gson().fromJson(rivals, type)
 
-        binding.rvRealCount.adapter = RealCountResultAdapter(data)
+        val pdip = data.filter { it.name == "PDI PERJUANGAN" }
+        val sortedData = data.filter { it.name != "PDI PERJUANGAN" }.sortedByDescending { it.voice }
+
+        binding.rvRealCount.adapter = RealCountResultAdapter(pdip + sortedData)
     }
 
     private fun setUpActionListener() {

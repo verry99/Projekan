@@ -13,7 +13,7 @@ import com.test.test.domain.models.Division.Regency
 import com.test.test.domain.models.Division.SubDistrict
 import com.test.test.domain.models.Division.Village
 import com.test.test.domain.models.UserPref
-import com.test.test.domain.use_case.division.get_all_district.GetAllDistrictUseCase
+import com.test.test.domain.use_case.division.get_all_district.GetAllSubDistrictUseCase
 import com.test.test.domain.use_case.division.get_all_province.GetAllProvinceUseCase
 import com.test.test.domain.use_case.division.get_all_regency.GetAllRegencyUseCase
 import com.test.test.domain.use_case.division.get_all_village.GetAllVillageUseCase
@@ -37,7 +37,7 @@ class AddSupporterViewModel @Inject constructor(
     private val addSupporterUseCase: AddSupporterUseCase,
     private val getAllProvinceUseCase: GetAllProvinceUseCase,
     private val getAllRegencyUseCase: GetAllRegencyUseCase,
-    private val getAllDistrictUseCase: GetAllDistrictUseCase,
+    private val getAllSubDistrictUseCase: GetAllSubDistrictUseCase,
     private val getAllVillageUseCase: GetAllVillageUseCase
 ) : ViewModel() {
 
@@ -88,7 +88,7 @@ class AddSupporterViewModel @Inject constructor(
         liveData {
             var subDistrict: List<SubDistrict> = listOf()
             if (it != "Pilih Kabupaten") subDistrict =
-                getAllDistrictUseCase(regency.value?.find { regency -> regency.name == it }?.id.toString())
+                getAllSubDistrictUseCase(regency.value?.find { regency -> regency.name == it }?.id.toString())
             subDistrict = listOf(SubDistrict(id = "0", name = "Pilih Kecamatan")) + subDistrict
             emit(subDistrict)
         }

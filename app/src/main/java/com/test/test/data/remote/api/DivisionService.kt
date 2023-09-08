@@ -1,13 +1,13 @@
 package com.test.test.data.remote.api
 
-import com.test.test.data.remote.dto.region.DistrictDTO
+import com.test.test.data.remote.dto.region.SubDistrictDTO
 import com.test.test.data.remote.dto.region.ProvinceDTO
 import com.test.test.data.remote.dto.region.RegencyDTO
 import com.test.test.data.remote.dto.region.VillageDTO
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-interface RegionService {
+interface DivisionService {
     @GET("provinces.json")
     suspend fun getAllProvince(): List<ProvinceDTO>
 
@@ -19,7 +19,7 @@ interface RegionService {
     @GET("districts/{regencyId}.json")
     suspend fun getAllDistrict(
         @Path("regencyId") regencyId: String
-    ): List<DistrictDTO>
+    ): List<SubDistrictDTO>
 
     @GET("villages/{districtId}.json")
     suspend fun getAllSubDistrict(

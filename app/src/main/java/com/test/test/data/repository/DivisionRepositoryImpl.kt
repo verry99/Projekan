@@ -1,7 +1,7 @@
 package com.test.test.data.repository
 
-import com.test.test.data.remote.api.RegionService
-import com.test.test.data.remote.dto.region.DistrictDTO
+import com.test.test.data.remote.api.DivisionService
+import com.test.test.data.remote.dto.region.SubDistrictDTO
 import com.test.test.data.remote.dto.region.ProvinceDTO
 import com.test.test.data.remote.dto.region.RegencyDTO
 import com.test.test.data.remote.dto.region.VillageDTO
@@ -9,21 +9,21 @@ import com.test.test.domain.repository.DivisionRepository
 import javax.inject.Inject
 
 class DivisionRepositoryImpl @Inject constructor(
-    private val regionService: RegionService
+    private val divisionService: DivisionService,
 ) : DivisionRepository {
     override suspend fun getAllProvince(): List<ProvinceDTO> {
-        return regionService.getAllProvince()
+        return divisionService.getAllProvince()
     }
 
     override suspend fun getAllRegency(provinceId: String): List<RegencyDTO> {
-        return regionService.getAllRegency(provinceId)
+        return divisionService.getAllRegency(provinceId)
     }
 
-    override suspend fun getAllDistrict(regencyId: String): List<DistrictDTO> {
-        return regionService.getAllDistrict(regencyId)
+    override suspend fun getAllSubDistrict(regencyId: String): List<SubDistrictDTO> {
+        return divisionService.getAllDistrict(regencyId)
     }
 
     override suspend fun getAllVillage(districtId: String): List<VillageDTO> {
-        return regionService.getAllSubDistrict(districtId)
+        return divisionService.getAllSubDistrict(districtId)
     }
 }

@@ -79,15 +79,12 @@
                 android:layout_height="wrap_content"
                 android:text="@string/tps_required" />
 
-            <EditText
-                android:id="@+id/edt_tps"
+            <Spinner
+                android:id="@+id/spinner_tps"
                 style="@style/PurpleEditTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/tps"
-                android:importantForAutofill="no"
-                android:inputType="number"
-                android:textSize="14sp" />
+                android:paddingHorizontal="12dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -108,15 +105,12 @@
                         android:layout_height="wrap_content"
                         android:text="@string/kecamatan_required" />
 
-                    <EditText
-                        android:id="@+id/edt_kecamatan"
+                    <Spinner
+                        android:id="@+id/spinner_kecamatan"
                         style="@style/PurpleEditTextStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/kecamatan"
-                        android:importantForAutofill="no"
-                        android:inputType="text"
-                        android:textSize="14sp" />
+                        android:paddingHorizontal="12dp" />
 
                 </LinearLayout>
 
@@ -133,15 +127,12 @@
                         android:layout_height="wrap_content"
                         android:text="@string/kelurahan_required" />
 
-                    <EditText
-                        android:id="@+id/edt_desa"
+                    <Spinner
+                        android:id="@+id/spinner_desa"
                         style="@style/PurpleEditTextStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/kelurahan_required"
-                        android:importantForAutofill="no"
-                        android:inputType="text"
-                        android:textSize="14sp" />
+                        android:paddingHorizontal="12dp" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -153,6 +144,39 @@
                 android:fontFamily="@font/inter_bold"
                 android:text="@string/perolehan_suara"
                 android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/img_pdip_logo" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="8dp"
+                    android:text="PDI PERJUANGAN" />
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/edt_suara_partai"
+                style="@style/PurpleEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:layout_weight="1"
+                android:hint="Suara Partai"
+                android:inputType="textPersonName"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
 
             <LinearLayout
                 android:id="@+id/pair_edit_text_container"
@@ -232,7 +256,7 @@
                 android:id="@+id/btn_kirim"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="64dp"
+                android:layout_marginTop="16dp"
                 android:background="@drawable/button_red_background"
                 android:fontFamily="@font/inter_medium"
                 android:text="@string/kirim"

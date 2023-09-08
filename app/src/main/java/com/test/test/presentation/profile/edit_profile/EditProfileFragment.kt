@@ -41,7 +41,8 @@ import java.util.Date
 import java.util.Locale
 
 @AndroidEntryPoint
-class EditProfileFragment : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedListener {
+class EditProfileFragment : Fragment(), View.OnClickListener,
+    AdapterView.OnItemSelectedListener {
 
     private lateinit var binding: FragmentEditProfileBinding
     private val viewModel: EditProfileViewModel by viewModels()
@@ -261,6 +262,7 @@ class EditProfileFragment : Fragment(), View.OnClickListener, AdapterView.OnItem
                     }
                 }
             }
+
             village.observe(viewLifecycleOwner) {
                 val itemList: List<String> = it.map { village -> village.name }
                 val adapter =
