@@ -106,7 +106,7 @@
             <TextView
                 android:id="@+id/tv_no_hp"
                 style="@style/MyEditTextLabelStyle"
-                android:text="@string/no_hp_required" />
+                android:text="@string/no_hp" />
 
             <EditText
                 android:id="@+id/edt_no_hp"
@@ -119,7 +119,7 @@
             <TextView
                 android:id="@+id/tv_tempat_lahir"
                 style="@style/MyEditTextLabelStyle"
-                android:text="@string/tempat_lahir_required" />
+                android:text="@string/tempat_lahir" />
 
             <EditText
                 android:id="@+id/edt_tempat_lahir"
@@ -131,7 +131,7 @@
 
             <TextView
                 style="@style/MyEditTextLabelStyle"
-                android:text="@string/tanggal_lahir_required" />
+                android:text="@string/tanggal_lahir" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -161,7 +161,7 @@
             <TextView
                 android:id="@+id/tv_jenis_kelamin"
                 style="@style/MyEditTextLabelStyle"
-                android:text="@string/jenis_kelamin_required" />
+                android:text="@string/jenis_kelamin" />
 
             <Spinner
                 android:id="@+id/spinner_jenis_kelamin"
@@ -173,7 +173,7 @@
             <TextView
                 android:id="@+id/tv_alamat"
                 style="@style/MyEditTextLabelStyle"
-                android:text="@string/alamat_required" />
+                android:text="@string/alamat" />
 
             <EditText
                 android:id="@+id/edt_alamat"
@@ -255,7 +255,7 @@
                         style="@style/MyEditTextLabelStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/agama_required" />
+                        android:text="@string/agama" />
 
                     <Spinner
                         android:id="@+id/spinner_agama"
@@ -307,7 +307,7 @@
                         style="@style/MyEditTextLabelStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/rt_required" />
+                        android:text="@string/rt" />
 
                     <EditText
                         android:id="@+id/edt_rt"
@@ -331,7 +331,7 @@
                         style="@style/MyEditTextLabelStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/rw_required" />
+                        android:text="@string/rw" />
 
                     <EditText
                         android:id="@+id/edt_rw"

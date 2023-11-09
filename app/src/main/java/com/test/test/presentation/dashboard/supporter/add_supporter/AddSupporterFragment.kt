@@ -277,6 +277,12 @@ class AddSupporterFragment : Fragment(), View.OnClickListener, AdapterView.OnIte
 
     private fun addSupporter() {
 
+        if (binding.edtNama.text.isNullOrEmpty()) {
+            Toast.makeText(requireContext(), "Lengkapi nama terlebih dahulu.", Toast.LENGTH_SHORT)
+                .show()
+            return
+        }
+
         if (binding.spinnerKabupaten.selectedItem == "Pilih Kabupaten") {
             Toast.makeText(requireContext(), "Pilih kabupaten terlebih dahulu.", Toast.LENGTH_SHORT)
                 .show()
@@ -291,6 +297,12 @@ class AddSupporterFragment : Fragment(), View.OnClickListener, AdapterView.OnIte
 
         if (binding.spinnerDesa.selectedItem == "Pilih Kelurahan") {
             Toast.makeText(requireContext(), "Pilih kelurahan terlebih dahulu.", Toast.LENGTH_SHORT)
+                .show()
+            return
+        }
+
+        if (binding.edtTps.text.isNullOrEmpty()) {
+            Toast.makeText(requireContext(), "Lengkapi TPS terlebih dahulu.", Toast.LENGTH_SHORT)
                 .show()
             return
         }
